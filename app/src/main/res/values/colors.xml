@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <color name="navi_color">#ecae4a</color>
+    <color name="search_bar_color">#e9c282</color>
+    <color name="search_bar_text_color">#525252</color>
+    <color name="bottom_navi_textColor">#dddddd</color>
+    <color name="bottom_navi_state_checked">#a07a3d</color>
+    <color name="bottom_navi_state_pressed">#5f4925</color>
 </resources>

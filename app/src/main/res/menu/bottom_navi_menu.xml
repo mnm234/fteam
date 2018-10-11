@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:title="@string/naviMenu_home"
+        android:icon="@drawable/ic_home_24dp"/>
+
+    <item
+        android:id="@+id/navigation_hot"
+        android:title="@string/naviMenu_rank"
+        android:icon="@drawable/ic_ranking_24dp"
+        />
+
+    <item
+        android:id="@+id/navigation_community"
+        android:title="@string/naviMenu_playlist"
+        android:icon="@drawable/ic_playlist_24dp"
+        />
+
+    <item
+        android:id="@+id/navigation_playlist"
+        android:title="@string/naviMenu_history"
+        android:icon="@drawable/ic_history_24dp"
+        />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:title="@string/naviMenu_upload"
+        android:icon="@drawable/ic_upload_24dp"
+        />
+
+
+</menu>
