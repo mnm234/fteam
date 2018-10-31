@@ -12,6 +12,7 @@ import android.view.ViewGroup
 
 class UploadFragment : Fragment() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
