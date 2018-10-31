@@ -8,25 +8,25 @@
         android:icon="@drawable/ic_home_24dp"/>
 
     <item
-        android:id="@+id/navigation_hot"
+        android:id="@+id/navigation_ranking"
         android:title="@string/naviMenu_rank"
         android:icon="@drawable/ic_ranking_24dp"
         />
 
     <item
-        android:id="@+id/navigation_community"
+        android:id="@+id/navigation_playlist"
         android:title="@string/naviMenu_playlist"
         android:icon="@drawable/ic_playlist_24dp"
         />
 
     <item
-        android:id="@+id/navigation_playlist"
+        android:id="@+id/navigation_history"
         android:title="@string/naviMenu_history"
         android:icon="@drawable/ic_history_24dp"
         />
 
     <item
-        android:id="@+id/navigation_history"
+        android:id="@+id/navigation_upload"
         android:title="@string/naviMenu_upload"
         android:icon="@drawable/ic_upload_24dp"
         />

@@ -18,17 +18,14 @@
         android:elevation="5dp"
         xmlns:tools="http://schemas.android.com/tools" />
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/searchtoolbar"
+    <LinearLayout
+        android:tag="tag"
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentTop="true"
-        android:elevation="5dp"
-        android:visibility="gone"
-        android:background="@color/search_bar_color"
-        app:collapseIcon="@drawable/ic_arrow_back_24dp"
-        app:titleTextColor="@color/search_bar_text_color" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginTop="?attr/actionBarSize"/>
 
 
     <android.support.design.widget.BottomNavigationView
