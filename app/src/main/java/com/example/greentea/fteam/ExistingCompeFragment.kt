@@ -1,17 +1,14 @@
 package com.example.greentea.fteam
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-
-class HomeFragment : Fragment() {
-
-    private lateinit var parent:MainActivity
-
+class ExistingCompeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -19,18 +16,20 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+
+        return inflater.inflate(R.layout.fragment_new_compe, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    fun onButtonPressed(uri: Uri) {
 
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-    }
-    companion object {
 
+    }
+
+    override fun onDetach() {
+        super.onDetach()
     }
 }

@@ -6,4 +6,6 @@
     <string name="naviMenu_playlist">PLAYLIST</string>
     <string name="naviMenu_history">HISTORY</string>
     <string name="naviMenu_upload">UPLOAD</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

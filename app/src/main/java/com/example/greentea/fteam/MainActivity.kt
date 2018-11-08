@@ -1,11 +1,17 @@
 package com.example.greentea.fteam
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+
+    companion object {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,5 +66,10 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
+    }
+
+    fun toCamera(){
+        val intent = Intent(this,CameraActivity::class.java)
+        startActivity(intent)
     }
 }
