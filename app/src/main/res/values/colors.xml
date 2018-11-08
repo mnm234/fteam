@@ -12,4 +12,7 @@
     <color name="bottom_navi_textColor">#dddddd</color>
     <color name="bottom_navi_state_checked">#a07a3d</color>
     <color name="bottom_navi_state_pressed">#5f4925</color>
+
+    <color name="activity_background">#000</color>
+    <color name="fragment_background">#4285f4</color>
 </resources>

@@ -22,14 +22,19 @@ import kotlinx.android.synthetic.main.activity_camera.*
 import java.util.*
 
 class CameraActivity : AppCompatActivity() {
+    private lateinit var textureView: TextureView
     private var captureSession: CameraCaptureSession? = null
     private var cameraDevice: CameraDevice? = null
-    private var previewSize: Size = Size(300,300)
+    private var previewSize: Size = Size(1080,1920)
     private lateinit var previewRequestBuilder: CaptureRequest.Builder
     private var imageReader: ImageReader? = null
     private lateinit var previewRequest: CaptureRequest
     private var backgroundThread:HandlerThread? = null
     private var backgroundHandler:Handler? = null
+
+    companion object {
+        const val CAMERA_PERMISION = 200
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +45,7 @@ class CameraActivity : AppCompatActivity() {
 
     private val surfaceTextureListener = object : TextureView.SurfaceTextureListener {
         override fun onSurfaceTextureAvailable(surface: SurfaceTexture?, width: Int, height: Int) {
-            val imageReader = ImageReader.newInstance(width,height,ImageFormat.JPEG,2)
+            imageReader = ImageReader.newInstance(width,height,ImageFormat.JPEG,2)
             openCamera()
         }
 
@@ -58,9 +63,10 @@ class CameraActivity : AppCompatActivity() {
     }
 
     fun openCamera() {
-        var manager: CameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val manager: CameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+
         try {
-            var cameraId: String = manager.cameraIdList[0]
+            val cameraId: String = manager.cameraIdList[0]
             val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
 
             if(permission != PackageManager.PERMISSION_GRANTED) {
@@ -130,14 +136,14 @@ class CameraActivity : AppCompatActivity() {
             AlertDialog.Builder(baseContext)
                     .setMessage("Permission Here")
                     .setPositiveButton(android.R.string.ok) {_,_ ->
-                        requestPermissions(arrayOf(android.Manifest.permission.CAMERA),200)
+                        requestPermissions(arrayOf(android.Manifest.permission.CAMERA),CAMERA_PERMISION)
                     }
                     .setNegativeButton(android.R.string.cancel) { _, _ ->
                         finish()
                     }
                     .create()
         } else {
-            requestPermissions(arrayOf(android.Manifest.permission.CAMERA), 200)
+            requestPermissions(arrayOf(android.Manifest.permission.CAMERA), CAMERA_PERMISION)
         }
     }
 

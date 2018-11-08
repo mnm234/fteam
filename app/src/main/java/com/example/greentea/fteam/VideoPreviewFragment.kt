@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_new_compe.*
 
-class NewCompeFragment : Fragment() {
+class VideoPreviewFragment : Fragment() {
 
-//    lateinit var parent:MainActivity
+    //    lateinit var parent:MainActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,16 +21,11 @@ class NewCompeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(R.layout.fragment_new_compe, container, false)
-    }
-
-    fun onButtonPressed(uri: Uri) {
-
+        return inflater.inflate(R.layout.fragment_video_preview, container, false)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-//        parent = Activity() as MainActivity
     }
 
     override fun onDetach() {
@@ -39,11 +34,5 @@ class NewCompeFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        camStartButton.setOnClickListener {
-//            val intent = Intent(this@NewCompeFragment.context,CameraActivity::class.java)
-            val intent = Intent(this@NewCompeFragment.context,VideoActivity::class.java)
-            startActivity(intent)
-        }
     }
 }
