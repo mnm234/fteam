@@ -57,6 +57,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import kotlinx.android.synthetic.main.fragment_video.*
 import java.io.IOException
 import java.util.Collections
 import java.util.concurrent.Semaphore
