@@ -6,6 +6,12 @@
     tools:context=".VideoPreviewFragment">
 
 
+    <!--<TextView-->
+        <!--android:id="@+id/textView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="TextView" />-->
+
     <VideoView
         android:id="@+id/videoPreviewView"
         android:layout_width="wrap_content"
@@ -23,7 +29,7 @@
         android:layout_below="@+id/videoPreviewView">
 
         <Button
-            android:id="@+id/back"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

@@ -23,6 +23,7 @@ package com.example.greentea.fteam
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.content.res.Configuration
 import android.graphics.Matrix
@@ -42,6 +43,7 @@ import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -197,7 +199,11 @@ class VideoFragment : Fragment(), View.OnClickListener,
      */
     private var nextVideoAbsolutePath: String? = null
 
+    private var tempVideoPath: String? = null
+
     private var mediaRecorder: MediaRecorder? = null
+
+    private lateinit var parent:VideoActivity
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -209,6 +215,20 @@ class VideoFragment : Fragment(), View.OnClickListener,
         videoButton = view.findViewById(R.id.video).also {
             it.setOnClickListener(this)
         } as Button
+        goPreview.setOnClickListener {
+//            stateCallback.onDisconnected(cameraDevice!!)
+            if(tempVideoPath != null){
+                closeCamera()
+                stopBackgroundThread()
+                parent.goPreview(tempVideoPath!!)
+            }
+
+        }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        parent = activity as VideoActivity
     }
 
     override fun onResume() {
@@ -576,6 +596,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
         }
 
         if (activity != null) showToast("Video saved: $nextVideoAbsolutePath")
+        tempVideoPath = nextVideoAbsolutePath
         nextVideoAbsolutePath = null
         startPreview()
     }

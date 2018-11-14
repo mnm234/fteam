@@ -13,4 +13,16 @@ class VideoActivity : AppCompatActivity() {
                 .commit()
     }
 
+    fun goCamera(){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, VideoFragment.newInstance())
+                .commit()
+    }
+
+    fun goPreview(path:String){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, VideoPreviewFragment.newInstance(path))
+                .commit()
+    }
+
 }
