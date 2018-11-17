@@ -1,23 +1,20 @@
 package com.example.greentea.fteam
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_new_compe.*
-import kotlinx.android.synthetic.main.fragment_video.*
+import android.view.*
 import kotlinx.android.synthetic.main.fragment_video_preview.*
 
 class VideoPreviewFragment : Fragment() {
 
-    lateinit var filepath: String
-    lateinit var parent: VideoActivity
+    private lateinit var filepath: String
+    private lateinit var parent: VideoActivity
+    private lateinit var mMediaPlayer:MediaPlayer
+    private lateinit var mSurfaceHolder: SurfaceHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,15 +44,64 @@ class VideoPreviewFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        videoPreviewView.setOnClickListener {
-            videoPreviewView.start()
-        }
+
+        prepareSurfaceView()
+//        videoPreviewView.setOnClickListener {
+//            videoPreviewView.start()
+//        }
         backButton.setOnClickListener {
             parent.goCamera()
         }
-        videoPreviewView.setVideoPath(filepath)
-        videoPreviewView.start()
+//        videoPreviewView.setVideoPath(filepath)
+//        videoPreviewView.start()
         Log.d("unchi", filepath)
+    }
+
+    internal var mSurfaceCallback: SurfaceHolder.Callback = object : SurfaceHolder.Callback {
+        override fun surfaceCreated(holder: SurfaceHolder) {
+            videoPreviewView.setOnClickListener {
+//                playVideoSource(filepath)
+                mMediaPlayer.start()
+            }
+            playVideoSource(filepath)
+        }
+
+        override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+
+        }
+
+        override fun surfaceDestroyed(holder: SurfaceHolder) {
+
+        }
+    }
+
+    fun prepareSurfaceView(){
+        mSurfaceHolder = videoPreviewView.holder
+        mSurfaceHolder.addCallback(mSurfaceCallback)
+        mMediaPlayer = MediaPlayer()
+        mMediaPlayer.setOnVideoSizeChangedListener { mediaPlayer, w, h ->
+            val winWidth = getView()!!.width
+            val winHeight = getView()!!.height
+            if (w > h || w == h && winWidth < winHeight) {
+                val width = winWidth
+                val p = h.toFloat() / w.toFloat()
+                val height = (width.toFloat() * p).toInt()
+                mSurfaceHolder.setFixedSize(width, height)
+            } else {
+                val height = winHeight
+                val p =  w.toFloat() / h.toFloat()
+                val width = (height.toFloat() * p).toInt()
+                mSurfaceHolder.setFixedSize(width, height)
+            }
+        }
+        
+    }
+
+    fun playVideoSource(path:String) {
+        mMediaPlayer.setDataSource(path)
+        mMediaPlayer.setDisplay(mSurfaceHolder)
+        mMediaPlayer.prepare()
+        mMediaPlayer.start()
     }
 
     companion object {
