@@ -22,7 +22,7 @@ class UploadFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_upload, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 

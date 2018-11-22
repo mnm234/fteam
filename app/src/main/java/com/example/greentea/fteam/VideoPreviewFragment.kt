@@ -19,8 +19,8 @@ class VideoPreviewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val args:Bundle = arguments
-        filepath = args.getString("KEY_PATH")
+        val args:Bundle? = arguments
+        filepath = args!!.getString("KEY_PATH")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +42,7 @@ class VideoPreviewFragment : Fragment() {
         super.onDestroy()
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         prepareSurfaceView()

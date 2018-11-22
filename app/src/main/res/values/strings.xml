@@ -11,11 +11,13 @@
     <string name="naviMenu_playlist">PLAYLIST</string>
     <string name="naviMenu_history">HISTORY</string>
     <string name="naviMenu_upload">UPLOAD</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="record">Record</string>
     <string name="stop">Stop</string>
     <string name="description_info">Info</string>
     <string name="permission_request">This sample needs permission for camera and audio recording.</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+
+    <string name="action_search">Search</string>
 </resources>

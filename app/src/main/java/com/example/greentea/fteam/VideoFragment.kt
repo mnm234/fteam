@@ -212,9 +212,13 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         textureView = view.findViewById(R.id.texture) as AutoFitTextureView
-        videoButton = view.findViewById(R.id.video).also {
-            it.setOnClickListener(this)
-        } as Button
+
+        videoButton = view.findViewById(R.id.video)
+        videoButton.setOnClickListener(this)
+
+//        videoButton = view.findViewById(R.id.video).also {
+//            it.setOnClickListener(this)
+//        } as Button
         goPreview.setOnClickListener {
 //            stateCallback.onDisconnected(cameraDevice!!)
             if(tempVideoPath != null){
