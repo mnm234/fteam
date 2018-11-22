@@ -6,4 +6,6 @@
     <string name="naviMenu_playlist">PLAYLIST</string>
     <string name="naviMenu_history">HISTORY</string>
     <string name="naviMenu_upload">UPLOAD</string>
+
+    <string name="action_search">Search</string>
 </resources>

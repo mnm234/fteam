@@ -1,6 +1,6 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Home
 
-data class HomeRecyclerItem(
+data class HomeTop3RecyclerItem(
         val compeName:String,
         val compeTime:String,
         val compeUserName:String

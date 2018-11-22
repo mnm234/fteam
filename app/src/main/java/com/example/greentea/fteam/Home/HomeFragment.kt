@@ -1,4 +1,4 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Home
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.support.v7.widget.OrientationHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.greentea.fteam.MainActivity
+import com.example.greentea.fteam.R
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -24,16 +26,18 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    private lateinit var adapter: HomeRecyclerAdapter
+    private lateinit var adapter: HomeTop3RecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         top3Item.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
-        adapter = HomeRecyclerAdapter(context, mutableListOf(), parent)
+        adapter = HomeTop3RecyclerAdapter(context, mutableListOf(), parent)
         top3Item.adapter = adapter
         text1.setOnClickListener {
             expandable_layout.isExpanded = !expandable_layout.isExpanded
-
         }
     }
 

@@ -3,13 +3,30 @@ package com.example.greentea.fteam
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v7.widget.Toolbar
+import android.view.Menu
+import android.view.MenuItem
+import com.example.greentea.fteam.Home.HomeFragment
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    internal var toolbar: Toolbar? = null
+    internal var searchtollbar: Toolbar? = null
+    //        internal var bottom_navi:BottomNavigationView? = null
+    var dialogBundle = Bundle()
+
+    internal var search_menu: Menu? = null
+    internal var item_search: MenuItem? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var mStorageRef: StorageReference?=null
+        mStorageRef = FirebaseStorage.getInstance().reference
 
 
         val homeFragment = HomeFragment()

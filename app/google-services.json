@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "145684373036",
+    "firebase_url": "https://engord-63491.firebaseio.com",
+    "project_id": "engord-63491",
+    "storage_bucket": "engord-63491.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145684373036:android:55c5ff8acf4ddaf6",
+        "android_client_info": {
+          "package_name": "com.example.greentea.fteam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145684373036-4v55p3muu3v7iujv81pl69g743b7dgj3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.greentea.fteam",
+            "certificate_hash": "bacbb28565e587cea23ec0c326e4ebf907e275b7"
+          }
+        },
+        {
+          "client_id": "145684373036-a524jk0ch8fvlu2bjl9roumlucp9caqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9FNR7HTnNJ10ryydbQceQTCuIjQbGpao"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145684373036-a524jk0ch8fvlu2bjl9roumlucp9caqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
