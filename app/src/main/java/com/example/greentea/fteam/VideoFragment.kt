@@ -598,7 +598,16 @@ class VideoFragment : Fragment(), View.OnClickListener,
         if (activity != null) showToast("Video saved: $nextVideoAbsolutePath")
         tempVideoPath = nextVideoAbsolutePath
         nextVideoAbsolutePath = null
-        startPreview()
+//        startPreview()
+        DestroyRecordVideo()
+    }
+
+    private fun DestroyRecordVideo() {
+        if(tempVideoPath != null){
+            closeCamera()
+            stopBackgroundThread()
+            parent.goPreview(tempVideoPath!!)
+        }
     }
 
     private fun showToast(message : String) = Toast.makeText(activity, message, LENGTH_SHORT).show()

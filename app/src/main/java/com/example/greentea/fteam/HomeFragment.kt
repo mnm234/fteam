@@ -31,8 +31,8 @@ class HomeFragment : Fragment() {
         // Viewをドラッグで動かす処理
         // LongClickはドラッグアンドドロップの処理
         // 動画投稿の際に使えるかも
-        val listener = DragViewListener(dragsuruView)
-        dragsuruView.setOnTouchListener(listener)
+//        val listener = DragViewListener(dragsuruView)
+//        dragsuruView.setOnTouchListener(listener)
 
     }
 
