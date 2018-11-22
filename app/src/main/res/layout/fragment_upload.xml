@@ -37,3 +37,10 @@
     </LinearLayout>
 
 </LinearLayout>
+=======
+        android:text="uploadFragment"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+0</FrameLayout>
+>>>>>>> origin/minami/dev3

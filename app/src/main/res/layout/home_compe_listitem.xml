@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-<<<<<<< HEAD
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
-
-    <View
-        android:id="@+id/dragsuruView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/colorBlack"/>
-
-    <TextView
-=======
     android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
->>>>>>> origin/minami/dev3
         android:layout_width="match_parent"
         app:cardCornerRadius="8dp"
         android:layout_height="wrap_content">

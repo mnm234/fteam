@@ -6,17 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        app:titleTextColor="@color/bottom_navi_textColor"
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/navi_color"
-        tools:menu="@menu/menu_home"
-        android:elevation="5dp"
-        xmlns:tools="http://schemas.android.com/tools" />
+    <!--<android.support.v7.widget.Toolbar android:id="@+id/toolbar"-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--app:titleTextColor="@color/bottom_navi_textColor"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?android:attr/actionBarSize"-->
+        <!--android:background="@color/navi_color"-->
+        <!--android:elevation="5dp"-->
+        <!--xmlns:tools="http://schemas.android.com/tools" />-->
+
+    <include layout="@layout/toolbar" />
+
+    <include
+        layout="@layout/search_toolbar"
+        android:visibility="gone" />
+
 
     <LinearLayout
         android:tag="tag"
