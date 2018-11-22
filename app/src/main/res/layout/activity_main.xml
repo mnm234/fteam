@@ -6,13 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--<android.support.v7.widget.Toolbar android:id="@+id/toolbar"-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--app:titleTextColor="@color/bottom_navi_textColor"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?android:attr/actionBarSize"-->
+        <!--android:background="@color/navi_color"-->
+        <!--android:elevation="5dp"-->
+        <!--xmlns:tools="http://schemas.android.com/tools" />-->
+
+    <include layout="@layout/toolbar" />
+
+    <include
+        layout="@layout/search_toolbar"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        android:tag="tag"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginTop="?attr/actionBarSize"/>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:elevation="8dp"
+        android:id="@+id/navigation_bottom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:background="@color/navi_color"
+        app:itemTextColor="@drawable/bottom_navi_color"
+        app:itemIconTint="@drawable/bottom_navi_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="1"
+        app:elevation="5dp"
+        app:menu="@menu/bottom_navi_menu"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    </android.support.design.widget.BottomNavigationView>
 
 </android.support.constraint.ConstraintLayout>
