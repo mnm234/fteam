@@ -41,7 +41,6 @@ class NewCompeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         camStartButton.setOnClickListener {
-//            val intent = Intent(this@NewCompeFragment.context,CameraActivity::class.java)
             val intent = Intent(this@NewCompeFragment.context,VideoActivity::class.java)
             startActivity(intent)
         }

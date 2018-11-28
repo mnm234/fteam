@@ -25,4 +25,10 @@ class VideoActivity : AppCompatActivity() {
                 .commit()
     }
 
+    fun goUpload(path:String, name:String){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, VideoUploadFragment.newInstance(path, name))
+                .commit()
+    }
+
 }

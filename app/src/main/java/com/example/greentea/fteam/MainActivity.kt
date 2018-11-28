@@ -83,9 +83,4 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-
-    fun toCamera(){
-        val intent = Intent(this,CameraActivity::class.java)
-        startActivity(intent)
-    }
 }

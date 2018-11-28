@@ -60,6 +60,7 @@ import android.widget.Button
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import kotlinx.android.synthetic.main.fragment_video.*
+import java.io.File
 import java.io.IOException
 import java.util.Collections
 import java.util.concurrent.Semaphore
@@ -216,9 +217,6 @@ class VideoFragment : Fragment(), View.OnClickListener,
         videoButton = view.findViewById(R.id.video)
         videoButton.setOnClickListener(this)
 
-//        videoButton = view.findViewById(R.id.video).also {
-//            it.setOnClickListener(this)
-//        } as Button
         goPreview.setOnClickListener {
 //            stateCallback.onDisconnected(cameraDevice!!)
             if(tempVideoPath != null){
@@ -526,9 +524,12 @@ class VideoFragment : Fragment(), View.OnClickListener,
         }
     }
 
+
+    private var filename = ""
     private fun getVideoFilePath(context: Context?): String {
-        val filename = "${System.currentTimeMillis()}.mp4"
+        filename = "${System.currentTimeMillis()}.mp4"
         val dir = context?.getExternalFilesDir(null)
+
 
         return if (dir == null) {
             filename
@@ -603,6 +604,9 @@ class VideoFragment : Fragment(), View.OnClickListener,
         tempVideoPath = nextVideoAbsolutePath
         nextVideoAbsolutePath = null
         startPreview()
+        if(tempVideoPath != null){
+            parent.goUpload(tempVideoPath!!, filename)
+        }
     }
 
     private fun showToast(message : String) = Toast.makeText(activity, message, LENGTH_SHORT).show()

@@ -20,7 +20,7 @@ class VideoPreviewFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         val args:Bundle? = arguments
-        filepath = args!!.getString("KEY_PATH")
+        filepath = args!!.getString("KEY_PATH", "")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
