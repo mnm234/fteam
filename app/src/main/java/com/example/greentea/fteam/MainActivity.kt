@@ -88,4 +88,5 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this,CameraActivity::class.java)
         startActivity(intent)
     }
+
 }
