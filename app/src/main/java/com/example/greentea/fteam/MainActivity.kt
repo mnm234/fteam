@@ -11,6 +11,10 @@ import com.example.greentea.fteam.Home.HomeFragment
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_main.*
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -81,7 +85,9 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
-
+        menubutton.setOnClickListener {
+            val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+            drawer.openDrawer(GravityCompat.START) }
     }
 
     fun toCamera(){
