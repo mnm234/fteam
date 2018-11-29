@@ -70,22 +70,22 @@ class VideoUploadFragment : Fragment() {
             uploadVideoFile()
         }
         catchButton.setOnClickListener {
-            if(tempID != ""){
-//                var temp : VideoObject?
+            if(tempID != "") {
                 mFirebaseFirestore.collection("videoData").document(tempID)
-                        .get().addOnCompleteListener {doc ->
-                            tempPath = doc.result!!.toObject(VideoObject::class.java)!!.path
+                        .get().addOnCompleteListener { doc ->
+                            uploadVideoPreviewView.setVideoURI(doc.result!!.toObject(VideoObject::class.java)!!.path)
+                            uploadVideoPreviewView.start()
                         }
-                mFirebaseStorage.getReferenceFromUrl(tempPath).downloadUrl.addOnCompleteListener {
-                    lastPath = it.result!!
-                    uploadVideoPreviewView.setVideoURI(lastPath)
-                    uploadVideoPreviewView.start()
-                }
-            } else if (lastPath != null) {
-                uploadVideoPreviewView.setVideoURI(lastPath)
-                uploadVideoPreviewView.start()
-
+//                mFirebaseStorage.getReferenceFromUrl(tempPath).downloadUrl.addOnCompleteListener {
+//                    lastPath = it.result!!
+//                    uploadVideoPreviewView.setVideoURI(lastPath)
+//                    uploadVideoPreviewView.start()
+//                }
             }
+//            else if (lastPath != null) {
+//                uploadVideoPreviewView.setVideoURI(lastPath)
+//                uploadVideoPreviewView.start()
+//            }
         }
         uploadVideoPreviewView.start()
     }
@@ -94,7 +94,7 @@ class VideoUploadFragment : Fragment() {
         val targetRef = mFirebaseStorageRef.child("videos").child(filename)
         targetRef
                 .putFile(Uri.fromFile(File(filepath)))
-                .addOnSuccessListener { uploadSnap ->
+                .addOnSuccessListener { _ ->
 //                    Toast.makeText(context, "アップロード成功", Toast.LENGTH_LONG).show()
                     setFileData(targetRef)
                 }
@@ -104,22 +104,30 @@ class VideoUploadFragment : Fragment() {
     }
 
     private fun setFileData(tar: StorageReference) {
-//        val data = HashMap<String, Any>()
-//        data["title"] = "test1"
-//        data["path"] = tar.toString()
-//        Log.d("testaa", tar.toString())
-        tempPath = tar.toString()
-        val tempData = VideoObject("test1", tar.toString())
 
-        mFirebaseFirestore.collection("videoData")
-                .add(tempData)
-                .addOnSuccessListener {
-                    tempID = it.id
-                    Toast.makeText(context, "アップロード成功", Toast.LENGTH_LONG).show()
-                }
-                .addOnFailureListener{
-                    Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
-                }
+        tar.downloadUrl.addOnCompleteListener {
+            val tempData = VideoObject("test1", it.result!!)
+            lastPath = it.result!!
+            mFirebaseFirestore.collection("videoData")
+                    .add(tempData)
+                    .addOnSuccessListener {doc ->
+                        tempID = doc.id
+                        Toast.makeText(context, "アップロード成功", Toast.LENGTH_LONG).show()
+                    }
+                    .addOnFailureListener{e ->
+                        Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
+                    }
+        }
+
+//        mFirebaseFirestore.collection("videoData")
+//                .add(tempData)
+//                .addOnSuccessListener {
+//                    tempID = it.id
+//                    Toast.makeText(context, "アップロード成功", Toast.LENGTH_LONG).show()
+//                }
+//                .addOnFailureListener{
+//                    Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
+//                }
     }
 
     override fun onDetach() {
