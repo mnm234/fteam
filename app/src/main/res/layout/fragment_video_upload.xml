@@ -23,10 +23,10 @@
             android:text="Upload" />
 
         <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/catchButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"/>
+            android:text="Catch"/>
     </LinearLayout>
 
 </LinearLayout>
