@@ -10,13 +10,18 @@ import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.fragment_video_upload.*
 import java.io.File
+import com.google.firebase.firestore.QueryDocumentSnapshot
+
 
 class VideoUploadFragment : Fragment() {
 
@@ -32,9 +37,7 @@ class VideoUploadFragment : Fragment() {
     private lateinit var mFirebaseFirestore: FirebaseFirestore
     private lateinit var mFirebaseStorage: FirebaseStorage
     private lateinit var mFirebaseStorageRef: StorageReference
-
-    private var tempPath = ""
-    private var tempID = ""
+    private var mUploadTask: UploadTask? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,33 +72,43 @@ class VideoUploadFragment : Fragment() {
         uploadButton.setOnClickListener {
             uploadVideoFile()
         }
+        /**
+         * 動画をFirebaseから引っ張る処理
+         */
         catchButton.setOnClickListener {
-            if(tempID != "") {
-                mFirebaseFirestore.collection("videoData").document(tempID)
-                        .get().addOnCompleteListener { doc ->
-                            uploadVideoPreviewView.setVideoURI(doc.result!!.toObject(VideoObject::class.java)!!.path)
-                            uploadVideoPreviewView.start()
+            if (uploadEditText.text.toString() != "") {
+                mFirebaseFirestore.collection("videoData")
+                        .whereEqualTo("title", uploadEditText.text.toString())
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                for (doc in task.result!!) {
+                                    // 取得した分をforEachで回す
+                                    Toast.makeText(context, "動画URL取得完了 読込開始", Toast.LENGTH_LONG).show()
+                                    uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(VideoObject::class.java).path))
+                                    uploadVideoPreviewView.start()
+                                }
+                            }
                         }
-//                mFirebaseStorage.getReferenceFromUrl(tempPath).downloadUrl.addOnCompleteListener {
-//                    lastPath = it.result!!
-//                    uploadVideoPreviewView.setVideoURI(lastPath)
-//                    uploadVideoPreviewView.start()
-//                }
             }
-//            else if (lastPath != null) {
-//                uploadVideoPreviewView.setVideoURI(lastPath)
-//                uploadVideoPreviewView.start()
-//            }
         }
         uploadVideoPreviewView.start()
     }
 
+    /**
+     * 動画をFirebaseStorageにアップロードする処理
+     * アップロードが完了次第setFileDataへ
+     */
     private fun uploadVideoFile() {
+        if (uploadEditText.text.toString() == "") {
+            Toast.makeText(context, "動画タイトルを入力してください", Toast.LENGTH_LONG).show()
+            return
+        }
         val targetRef = mFirebaseStorageRef.child("videos").child(filename)
-        targetRef
-                .putFile(Uri.fromFile(File(filepath)))
+        mUploadTask = targetRef.putFile(Uri.fromFile(File(filepath)))
+        mUploadTask!!
                 .addOnSuccessListener { _ ->
-//                    Toast.makeText(context, "アップロード成功", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "ファイルのアップロードに成功しました", Toast.LENGTH_LONG).show()
                     setFileData(targetRef)
                 }
                 .addOnFailureListener { e ->
@@ -103,40 +116,51 @@ class VideoUploadFragment : Fragment() {
                 }
     }
 
+    /**
+     * 動画の詳細情報をFirestoreに登録する処理
+     * 現在はタイトル名と動画のDLURLのみ
+     */
     private fun setFileData(tar: StorageReference) {
 
-        tar.downloadUrl.addOnCompleteListener {
-            val tempData = VideoObject("test1", it.result!!)
-            lastPath = it.result!!
+        mFirebaseStorage.getReferenceFromUrl(tar.toString()).downloadUrl.addOnCompleteListener {
+            val tempData = VideoObject(uploadEditText.text.toString(), it.result!!.toString())
             mFirebaseFirestore.collection("videoData")
                     .add(tempData)
-                    .addOnSuccessListener {doc ->
-                        tempID = doc.id
-                        Toast.makeText(context, "アップロード成功", Toast.LENGTH_LONG).show()
+                    .addOnSuccessListener { doc ->
+                        File(filepath).delete()
+                        Log.d("testaa", "ファイルの詳細情報をDBに登録しました !D:" + doc.id)
+//                        Toast.makeText(context, "ファイルの詳細情報をDBに登録しました !D:" + doc.id, Toast.LENGTH_LONG).show()
                     }
-                    .addOnFailureListener{e ->
-                        Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
+                    .addOnFailureListener { e ->
+                        Log.d("testaa", e.toString())
+//                        Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
                     }
+        }.addOnFailureListener {
+//            Toast.makeText(context, "動画DL用URLの作成に失敗しました", Toast.LENGTH_LONG).show()
         }
-
-//        mFirebaseFirestore.collection("videoData")
-//                .add(tempData)
-//                .addOnSuccessListener {
-//                    tempID = it.id
-//                    Toast.makeText(context, "アップロード成功", Toast.LENGTH_LONG).show()
-//                }
-//                .addOnFailureListener{
-//                    Toast.makeText(context, it.toString(), Toast.LENGTH_LONG).show()
-//                }
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    /**
+     * アップロード中にアプリを落としたりしたらキャンセルさせる
+     * キャンセル無しでも問題ない(アプリを落とした場合でもきちんとアップロードが完了する)
+     */
+    override fun onPause() {
+        if(mUploadTask != null && mUploadTask!!.isInProgress) {
+            mUploadTask!!.cancel()
+            Log.d("testaa", "アップロードをキャンセルしました")
+        }
+        super.onPause()
+    }
+
+    /**
+     * VideoUploadFragmentから出るときに端末にビデオが残っていれば削除
+     */
+    override fun onDestroy() {
+        File(filepath).delete()
+        super.onDestroy()
     }
 
     companion object {
-
-        lateinit var lastPath: Uri
 
         fun newInstance(path: String, name: String): VideoUploadFragment {
             val videoUploadFragment = VideoUploadFragment()
