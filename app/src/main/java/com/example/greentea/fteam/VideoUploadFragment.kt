@@ -69,37 +69,44 @@ class VideoUploadFragment : Fragment() {
         uploadVideoPreviewView.setOnClickListener {
             uploadVideoPreviewView.start()
         }
-        uploadButton.setOnClickListener {
-            uploadVideoFile()
-        }
-        /**
-         * 動画をFirebaseから引っ張る処理
-         */
-        catchButton.setOnClickListener {
-            if (uploadEditText.text.toString() != "") {
-                mFirebaseFirestore.collection("videoData")
-                        .whereEqualTo("title", uploadEditText.text.toString())
-                        .get()
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                for (doc in task.result!!) {
-                                    // 取得した分をforEachで回す
-                                    Toast.makeText(context, "動画URL取得完了 読込開始", Toast.LENGTH_LONG).show()
-                                    uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(VideoObject::class.java).path))
-                                    uploadVideoPreviewView.start()
+        uploadVideoPreviewView.setOnPreparedListener {mp ->
+            uploadButton.setOnClickListener {
+                uploadVideoFile(mp.duration)
+            }
+            /**
+             * 動画をFirebaseから引っ張る処理
+             */
+            catchButton.setOnClickListener {
+                if (uploadEditText.text.toString() != "") {
+                    mFirebaseFirestore.collection("videoData")
+                            .whereEqualTo("title", uploadEditText.text.toString())
+                            .get()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    for (doc in task.result!!) {
+                                        // 取得した分をforEachで回す
+                                        Toast.makeText(context, "動画URL取得完了 読込開始", Toast.LENGTH_LONG).show()
+                                        uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(VideoObject::class.java).path))
+                                        uploadVideoPreviewView.start()
+                                    }
                                 }
                             }
-                        }
+                }
             }
         }
+
         uploadVideoPreviewView.start()
+    }
+
+    private fun ms2second(duration: Int) : Int{
+        return duration / 1000
     }
 
     /**
      * 動画をFirebaseStorageにアップロードする処理
      * アップロードが完了次第setFileDataへ
      */
-    private fun uploadVideoFile() {
+    private fun uploadVideoFile(duration: Int) {
         if (uploadEditText.text.toString() == "") {
             Toast.makeText(context, "動画タイトルを入力してください", Toast.LENGTH_LONG).show()
             return
@@ -109,7 +116,7 @@ class VideoUploadFragment : Fragment() {
         mUploadTask!!
                 .addOnSuccessListener { _ ->
                     Toast.makeText(context, "ファイルのアップロードに成功しました", Toast.LENGTH_LONG).show()
-                    setFileData(targetRef)
+                    setFileData(targetRef, duration)
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
@@ -120,10 +127,10 @@ class VideoUploadFragment : Fragment() {
      * 動画の詳細情報をFirestoreに登録する処理
      * 現在はタイトル名と動画のDLURLのみ
      */
-    private fun setFileData(tar: StorageReference) {
+    private fun setFileData(tar: StorageReference, duration: Int) {
 
         mFirebaseStorage.getReferenceFromUrl(tar.toString()).downloadUrl.addOnCompleteListener {
-            val tempData = VideoObject(uploadEditText.text.toString(), it.result!!.toString())
+            val tempData = VideoObject(uploadEditText.text.toString(), it.result!!.toString(), ms2second(duration))
             mFirebaseFirestore.collection("videoData")
                     .add(tempData)
                     .addOnSuccessListener { doc ->

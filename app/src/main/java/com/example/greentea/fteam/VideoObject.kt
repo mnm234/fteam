@@ -4,5 +4,6 @@ import android.net.Uri
 
 data class VideoObject(
         val title: String = "",
-        val path: String = ""
+        val path: String = "",
+        val time: Int = 0
 )
