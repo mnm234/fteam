@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.greentea.fteam.Record.VideoActivity
 import kotlinx.android.synthetic.main.fragment_new_compe.*
 
 class NewCompeFragment : Fragment() {
@@ -41,7 +42,7 @@ class NewCompeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         camStartButton.setOnClickListener {
-            val intent = Intent(this@NewCompeFragment.context,VideoActivity::class.java)
+            val intent = Intent(this@NewCompeFragment.context, VideoActivity::class.java)
             startActivity(intent)
         }
     }

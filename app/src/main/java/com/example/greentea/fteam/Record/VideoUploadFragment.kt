@@ -1,4 +1,4 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Record
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -10,17 +10,14 @@ import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.DocumentReference
+import com.example.greentea.fteam.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.fragment_video_upload.*
 import java.io.File
-import com.google.firebase.firestore.QueryDocumentSnapshot
 
 
 class VideoUploadFragment : Fragment() {

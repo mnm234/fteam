@@ -1,6 +1,6 @@
 @file:JvmName("Constants")
 
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Record
 
 import android.Manifest
 

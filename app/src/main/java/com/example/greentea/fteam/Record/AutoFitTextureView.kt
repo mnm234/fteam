@@ -1,4 +1,4 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Record
 
 import android.content.Context
 import android.util.AttributeSet

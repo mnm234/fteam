@@ -18,12 +18,11 @@
 * ほぼGoogle提供のCamera2VideoApiのサンプルコードです
 * */
 
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Record
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.content.res.Configuration
 import android.graphics.Matrix
@@ -41,9 +40,9 @@ import android.hardware.camera2.CameraMetadata
 import android.hardware.camera2.CaptureRequest
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.HandlerThread
-import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -59,10 +58,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import com.example.greentea.fteam.*
 import kotlinx.android.synthetic.main.fragment_video.*
-import java.io.File
 import java.io.IOException
 import java.util.Collections
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -204,7 +204,13 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
     private var mediaRecorder: MediaRecorder? = null
 
-    private lateinit var parent:VideoActivity
+    private lateinit var parent: VideoActivity
+
+    /**
+     * countDownObjectを格納する変数
+     * onPauseでカウントダウンをcancelするのに使用
+     */
+    private var countDownTimer: CountDownTimer? = null
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -216,16 +222,6 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
         videoButton = view.findViewById(R.id.video)
         videoButton.setOnClickListener(this)
-
-        goPreview.setOnClickListener {
-//            stateCallback.onDisconnected(cameraDevice!!)
-            if(tempVideoPath != null){
-                closeCamera()
-                stopBackgroundThread()
-                parent.goPreview(tempVideoPath!!)
-            }
-
-        }
     }
 
     override fun onAttach(context: Context?) {
@@ -249,14 +245,28 @@ class VideoFragment : Fragment(), View.OnClickListener,
     }
 
     override fun onPause() {
+        // カウントダウン中止処理
+        if(countDownTimer != null){
+            countDownTimer!!.cancel()
+            countDownTimer = null
+            countDownTextView.text = "カウントダウン中止しました"
+        }
         closeCamera()
         stopBackgroundThread()
         super.onPause()
     }
 
+    /**
+     * onClickのListenerはここに記載
+     */
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.video -> if (isRecordingVideo) stopRecordingVideo() else startRecordingVideo()
+            R.id.video -> if (isRecordingVideo) stopRecordingVideo() else {
+                // カウントダウン 単位はms 非同期で云々が少々面倒だったのでcountDownの関数内で呼ぶ仕様にした
+                // 可読性のためにstartRecordingVideo()はコメントで残しておく
+                countDown(3000, 1000, "startRecordingVideo")
+//                startRecordingVideo()
+            }
             R.id.info -> {
                 if (activity != null) {
                     AlertDialog.Builder(activity)
@@ -363,8 +373,8 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
             // Choose the sizes for camera preview and video recording
             val characteristics = manager.getCameraCharacteristics(cameraId)
-            val map = characteristics.get(SCALER_STREAM_CONFIGURATION_MAP) ?:
-            throw RuntimeException("Cannot get available preview/video sizes")
+            val map = characteristics.get(SCALER_STREAM_CONFIGURATION_MAP)
+                    ?: throw RuntimeException("Cannot get available preview/video sizes")
             sensorOrientation = characteristics.get(SENSOR_ORIENTATION)
             videoSize = chooseVideoSize(map.getOutputSizes(MediaRecorder::class.java))
             previewSize = chooseOptimalSize(map.getOutputSizes(SurfaceTexture::class.java),
@@ -524,8 +534,9 @@ class VideoFragment : Fragment(), View.OnClickListener,
         }
     }
 
-
+    // Upload画面にファイル名を投げる為に変数に格納する
     private var filename = ""
+
     private fun getVideoFilePath(context: Context?): String {
         filename = "${System.currentTimeMillis()}.mp4"
         val dir = context?.getExternalFilesDir(null)
@@ -604,12 +615,12 @@ class VideoFragment : Fragment(), View.OnClickListener,
         tempVideoPath = nextVideoAbsolutePath
         nextVideoAbsolutePath = null
         startPreview()
-        if(tempVideoPath != null){
+        if (tempVideoPath != null) {
             parent.goUpload(tempVideoPath!!, filename)
         }
     }
 
-    private fun showToast(message : String) = Toast.makeText(activity, message, LENGTH_SHORT).show()
+    private fun showToast(message: String) = Toast.makeText(activity, message, LENGTH_SHORT).show()
 
     /**
      * In this sample, we choose a video size with 3x4 aspect ratio. Also, we don't use sizes
@@ -619,7 +630,8 @@ class VideoFragment : Fragment(), View.OnClickListener,
      * @return The video size
      */
     private fun chooseVideoSize(choices: Array<Size>) = choices.firstOrNull {
-        it.width == it.height * 4 / 3 && it.width <= 1080 } ?: choices[choices.size - 1]
+        it.width == it.height * 4 / 3 && it.width <= 1080
+    } ?: choices[choices.size - 1]
 
     /**
      * Given [choices] of [Size]s supported by a camera, chooses the smallest one whose
@@ -643,7 +655,8 @@ class VideoFragment : Fragment(), View.OnClickListener,
         val w = aspectRatio.width
         val h = aspectRatio.height
         val bigEnough = choices.filter {
-            it.height == it.width * h / w && it.width >= width && it.height >= height }
+            it.height == it.width * h / w && it.width >= width && it.height >= height
+        }
 
         // Pick the smallest of those, assuming we found any
         return if (bigEnough.isNotEmpty()) {
@@ -651,6 +664,33 @@ class VideoFragment : Fragment(), View.OnClickListener,
         } else {
             choices[0]
         }
+    }
+
+    /**
+     * カウントダウンする関数
+     * onTickで一定時間毎の処理、onFinishで終了時の処理
+     * onPauseが呼ばれたらcancelで止めます
+     * @param sec カウントダウン開始時間(ms)
+     * @param interval onTickを実行する間隔(ms)
+     * @param func onFinishで呼ぶ関数をifで選ぶのに使用 ゴリ押しです
+     */
+    private fun countDown(sec: Long, interval: Long, func: String) {
+        countDownTimer = object : CountDownTimer(sec, interval) {
+            override fun onFinish() {
+                // 終了時の処理
+                showToast("カウントダウン終了")
+                countDownTextView.text = "残り0秒"
+                if(func === "startRecordingVideo") startRecordingVideo()
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun onTick(millisUntilFinished: Long) {
+                // interval毎に実行
+//                showToast("残り${millisUntilFinished / 1000}秒")
+                countDownTextView.text = "残り${((millisUntilFinished / 1000) + 1)}秒"
+            }
+        }.start()
+
     }
 
     companion object {

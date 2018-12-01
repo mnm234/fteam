@@ -1,6 +1,4 @@
-package com.example.greentea.fteam
-
-import android.net.Uri
+package com.example.greentea.fteam.Record
 
 data class VideoObject(
         val title: String = "",

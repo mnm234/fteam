@@ -1,7 +1,8 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Record
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.greentea.fteam.R
 
 class VideoActivity : AppCompatActivity() {
 

@@ -1,8 +1,9 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.Record
 
 import android.app.AlertDialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import com.example.greentea.fteam.R
 
 /**
  * Shows OK/Cancel confirmation dialog about camera permission.
