@@ -9,14 +9,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.race_item.*
 
 
 class HomeFragment : Fragment() {
     lateinit var parent: MainActivity
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,19 +28,22 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    private lateinit var adapter: HomeTop3RecyclerAdapter
+    private lateinit var adapter: HomeRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
 
-        top3Item.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false) as RecyclerView.LayoutManager?
-        adapter = HomeTop3RecyclerAdapter(context, mutableListOf(), parent)
+        top3Item.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
+        adapter = HomeRecyclerAdapter(context, mutableListOf(), parent)
         top3Item.adapter = adapter
-        text1.setOnClickListener {
+//        var textView = view.findViewById(R.id.textView) as TextView
+        /*
+        textView.setOnClickListener {
             expandable_layout.isExpanded = !expandable_layout.isExpanded
         }
+        */
     }
 
     override fun onAttach(context: Context?) {
