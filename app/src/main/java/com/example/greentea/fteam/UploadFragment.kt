@@ -29,7 +29,7 @@ class UploadFragment : Fragment() {
 //        parent = Activity() as MainActivity
 
 
-        val adapter = CompeViewPagerAdapter(childFragmentManager)
+        val adapter = CompViewPagerAdapter(childFragmentManager)
         compeViewPager.offscreenPageLimit = 2
         compeViewPager.adapter = adapter
 

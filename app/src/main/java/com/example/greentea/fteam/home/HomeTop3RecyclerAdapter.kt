@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.Home
+package com.example.greentea.fteam.home
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

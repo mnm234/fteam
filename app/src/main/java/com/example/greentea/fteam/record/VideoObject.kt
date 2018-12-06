@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.Record
+package com.example.greentea.fteam.record
 
 data class VideoObject(
         val title: String = "",

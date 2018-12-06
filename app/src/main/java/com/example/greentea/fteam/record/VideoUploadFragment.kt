@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.Record
+package com.example.greentea.fteam.record
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -34,7 +34,19 @@ class VideoUploadFragment : Fragment() {
     private lateinit var mFirebaseFirestore: FirebaseFirestore
     private lateinit var mFirebaseStorage: FirebaseStorage
     private lateinit var mFirebaseStorageRef: StorageReference
+    private lateinit var mCompetitionID: String
     private var mUploadTask: UploadTask? = null
+
+    companion object {
+        fun newInstance(path: String, name: String): VideoUploadFragment {
+            val videoUploadFragment = VideoUploadFragment()
+            val bundle = Bundle()
+            bundle.putString("KEY_PATH", path)
+            bundle.putString("KEY_FILE_NAME", name)
+            videoUploadFragment.arguments = bundle
+            return videoUploadFragment
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +54,10 @@ class VideoUploadFragment : Fragment() {
         val args: Bundle? = arguments
         filepath = args!!.getString(FILE_PATH_KEY, "")
         filename = args.getString(NAME_PATH_KEY, "")
+        /**
+         * この競技ID宣言をargsから取るように変更すること
+         */
+        mCompetitionID = "DFOlCX3iSqyBOmfvGxKL"
 
         mFirebaseFirestore = FirebaseFirestore.getInstance()
         mFirebaseStorage = FirebaseStorage.getInstance()
@@ -66,7 +82,10 @@ class VideoUploadFragment : Fragment() {
         uploadVideoPreviewView.setOnClickListener {
             uploadVideoPreviewView.start()
         }
-        uploadVideoPreviewView.setOnPreparedListener {mp ->
+        /**
+         * 動画の時間を取得するためにuploadVideoPreviewViewの準備が完了するまで待たせる
+         */
+        uploadVideoPreviewView.setOnPreparedListener { mp ->
             uploadButton.setOnClickListener {
                 uploadVideoFile(mp.duration)
             }
@@ -75,15 +94,17 @@ class VideoUploadFragment : Fragment() {
              */
             catchButton.setOnClickListener {
                 if (uploadEditText.text.toString() != "") {
-                    mFirebaseFirestore.collection("videoData")
-                            .whereEqualTo("title", uploadEditText.text.toString())
+                    mFirebaseFirestore.collection("competition")
+                            .document(mCompetitionID)
+                            .collection("user")
+                            .whereEqualTo("userID", uploadEditText.text.toString())
                             .get()
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     for (doc in task.result!!) {
                                         // 取得した分をforEachで回す
                                         Toast.makeText(context, "動画URL取得完了 読込開始", Toast.LENGTH_LONG).show()
-                                        uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(VideoObject::class.java).path))
+                                        uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(VideoUploadObject::class.java).videoURL))
                                         uploadVideoPreviewView.start()
                                     }
                                 }
@@ -95,7 +116,12 @@ class VideoUploadFragment : Fragment() {
         uploadVideoPreviewView.start()
     }
 
-    private fun ms2second(duration: Int) : Int{
+    /**
+     * ms -> second
+     * @param duration 変換対象の値(ms)
+     * @return secondに変換して返す
+     */
+    private fun ms2second(duration: Int): Int {
         return duration / 1000
     }
 
@@ -122,25 +148,26 @@ class VideoUploadFragment : Fragment() {
 
     /**
      * 動画の詳細情報をFirestoreに登録する処理
-     * 現在はタイトル名と動画のDLURLのみ
+     * 現在はユーザIDと動画のDLURLとTimeのみ
      */
     private fun setFileData(tar: StorageReference, duration: Int) {
-
         mFirebaseStorage.getReferenceFromUrl(tar.toString()).downloadUrl.addOnCompleteListener {
-            val tempData = VideoObject(uploadEditText.text.toString(), it.result!!.toString(), ms2second(duration))
-            mFirebaseFirestore.collection("videoData")
+            val tempData = VideoUploadObject(uploadEditText.text.toString(), ms2second(duration), it.result!!.toString())
+            mFirebaseFirestore.collection("competition")
+                    .document(mCompetitionID)
+                    .collection("user")
                     .add(tempData)
                     .addOnSuccessListener { doc ->
                         File(filepath).delete()
-                        Log.d("testaa", "ファイルの詳細情報をDBに登録しました !D:" + doc.id)
-//                        Toast.makeText(context, "ファイルの詳細情報をDBに登録しました !D:" + doc.id, Toast.LENGTH_LONG).show()
+//                        Log.d("testaa", "ファイルの詳細情報をDBに登録しました !D:" + doc.id)
+                        Toast.makeText(context, "ファイルの詳細情報をDBに登録しました !D:" + doc.id, Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener { e ->
                         Log.d("testaa", e.toString())
-//                        Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "ファイルの詳細情報登録に失敗しました", Toast.LENGTH_SHORT).show()
                     }
         }.addOnFailureListener {
-//            Toast.makeText(context, "動画DL用URLの作成に失敗しました", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "動画DL用URLの作成に失敗しました", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -149,9 +176,8 @@ class VideoUploadFragment : Fragment() {
      * キャンセル無しでも問題ない(アプリを落とした場合でもきちんとアップロードが完了する)
      */
     override fun onPause() {
-        if(mUploadTask != null && mUploadTask!!.isInProgress) {
+        if (mUploadTask != null && mUploadTask!!.isInProgress) {
             mUploadTask!!.cancel()
-            Log.d("testaa", "アップロードをキャンセルしました")
         }
         super.onPause()
     }
@@ -162,17 +188,5 @@ class VideoUploadFragment : Fragment() {
     override fun onDestroy() {
         File(filepath).delete()
         super.onDestroy()
-    }
-
-    companion object {
-
-        fun newInstance(path: String, name: String): VideoUploadFragment {
-            val videoUploadFragment = VideoUploadFragment()
-            val bundle = Bundle()
-            bundle.putString("KEY_PATH", path)
-            bundle.putString("KEY_FILE_NAME", name)
-            videoUploadFragment.arguments = bundle
-            return videoUploadFragment
-        }
     }
 }

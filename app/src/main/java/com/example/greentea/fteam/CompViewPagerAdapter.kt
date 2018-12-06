@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 
 
-class CompeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class CompViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     private val tabTitles = arrayOf<CharSequence>("タブ1", "タブ2")
 
@@ -15,8 +15,8 @@ class CompeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         return when (position) {
-            0 -> NewCompeFragment()
-            1 -> ExistingCompeFragment()
+            0 -> NewCompFragment()
+            1 -> ExistingCompFragment()
             else -> null
         }
     }

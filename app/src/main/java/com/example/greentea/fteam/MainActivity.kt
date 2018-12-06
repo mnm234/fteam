@@ -1,16 +1,19 @@
 package com.example.greentea.fteam
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import com.example.greentea.fteam.Home.HomeFragment
+import com.example.greentea.fteam.home.HomeFragment
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_main.*
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -81,6 +84,8 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
-
+        menubutton.setOnClickListener {
+            val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+            drawer.openDrawer(GravityCompat.START) }
     }
 }

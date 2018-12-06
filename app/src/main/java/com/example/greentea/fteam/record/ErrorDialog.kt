@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.Record
+package com.example.greentea.fteam.record
 
 import android.app.AlertDialog
 import android.os.Bundle

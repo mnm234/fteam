@@ -18,7 +18,7 @@
 * ほぼGoogle提供のCamera2VideoApiのサンプルコードです
 * */
 
-package com.example.greentea.fteam.Record
+package com.example.greentea.fteam.record
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -62,7 +62,6 @@ import com.example.greentea.fteam.*
 import kotlinx.android.synthetic.main.fragment_video.*
 import java.io.IOException
 import java.util.Collections
-import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList

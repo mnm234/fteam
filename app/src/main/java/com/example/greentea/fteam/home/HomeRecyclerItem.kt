@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.Home
+package com.example.greentea.fteam.home
 
 data class HomeTop3RecyclerItem(
         val compeName:String,

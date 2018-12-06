@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="compCardName">20sp</dimen>
+    <dimen name="homeCompTime">30sp</dimen>
+    <dimen name="homeCompUserName">16sp</dimen>
+</resources>

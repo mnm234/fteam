@@ -20,4 +20,12 @@
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
 
     <string name="action_search">Search</string>
+
+    <string name="dynamic_rank">%1$d位</string>
+    <string name="rank1">1位</string>
+    <string name="rank2">2位</string>
+    <string name="rank3">3位</string>
+    <string name="blank_user_name">ユーザ名</string>
+    <string name="blank_comp_time">--:--:--</string>
+    <string name="blank_comp_name">競技名</string>
 </resources>
