@@ -1,26 +1,24 @@
 package com.example.greentea.fteam
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
-import com.example.greentea.fteam.home.HomeFragment
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import kotlinx.android.synthetic.main.activity_main.*
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import com.example.greentea.fteam.contribution.UploadFragment
+import com.example.greentea.fteam.home.CompDetailFragment
+import com.example.greentea.fteam.home.HomeFragment
+import com.example.greentea.fteam.contribution.record.VideoActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
+class MainActivity : AppCompatActivity(){
 
-class MainActivity : AppCompatActivity() {
-
-
-    companion object {
-
-    }
     internal var toolbar: Toolbar? = null
     internal var searchtollbar: Toolbar? = null
     //        internal var bottom_navi:BottomNavigationView? = null
@@ -33,59 +31,61 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var mStorageRef: StorageReference?=null
-        mStorageRef = FirebaseStorage.getInstance().reference
-
-
-        val homeFragment = HomeFragment()
-        val playlistFragment = PlaylistFragment()
-        val rankingFragment = RankingFragment()
-        val historyFragment = HistoryFragment()
-        val uploadFragment = UploadFragment()
-
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, homeFragment)
-        transaction.commit()
-
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment())
+                .commit()
 
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container, homeFragment)
-                    transaction.commit()
-
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, HomeFragment())
+                            .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_ranking -> {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container, rankingFragment)
-                    transaction.commit()
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, RankingFragment())
+                            .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_playlist -> {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container, playlistFragment)
-                    transaction.commit()
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, PlaylistFragment())
+                            .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_history -> {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container, historyFragment)
-                    transaction.commit()
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, HistoryFragment())
+                            .commit()
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_upload -> {
-                    val transaction = supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.container, uploadFragment)
-                    transaction.commit()
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.container, UploadFragment())
+                            .commit()
                     return@OnNavigationItemSelectedListener true
                 }
             }
             false
         })
         menubutton.setOnClickListener {
-            val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
-            drawer.openDrawer(GravityCompat.START) }
+            val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+            drawer.openDrawer(GravityCompat.START)
+        }
+    }
+
+    fun goCompDetail(mCompID:String){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, CompDetailFragment.newInstance(mCompID))
+                .commit()
+    }
+
+    fun goVideo(mCompID: String){
+        Log.d("unchi","Mainだよ")
+        val intent = Intent(this, VideoActivity::class.java)
+        intent.putExtra(COMP_ID_KEY, mCompID)
+        startActivity(intent)
     }
 }

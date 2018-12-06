@@ -9,20 +9,26 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
+import com.example.greentea.fteam.`object`.CompetitionObject
+import com.example.greentea.fteam.`object`.CompetitionDetailObject
+import com.google.firebase.firestore.FirebaseFirestore
 import net.cachapa.expandablelayout.ExpandableLayout
 
-class HomeRecyclerAdapter(val context: Context?, objects: MutableList<HomeRecyclerAdapter>, val parent: MainActivity) : RecyclerView.Adapter<HomeRecyclerViewHolder>(), View.OnClickListener {
+class HomeRecyclerAdapter(val context: Context?, objects: MutableList<CompetitionObject>, mCompID:MutableList<String>, val parent: MainActivity) : RecyclerView.Adapter<HomeRecyclerViewHolder>(), View.OnClickListener {
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
+    private lateinit var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {
             inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         }
+        mFirebaseFirestore = FirebaseFirestore.getInstance()
     }
 
-    var listItems: MutableList<HomeRecyclerAdapter> = objects
+    var listItems: MutableList<CompetitionObject> = objects
+    var listID = mCompID
 
     override fun onClick(v: View) {
         val position = mRecycler!!.getChildAdapterPosition(v)
@@ -35,28 +41,43 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<HomeRecycl
 
     override fun onBindViewHolder(holder: HomeRecyclerViewHolder, position: Int) {
         holder.let {
-            it.homeCompTextView.text = "競技名"
-            it.compTime1.text = "11:11:11"
-            it.compUserName1.text = "ユーザー1"
+            it.homeCompTextView.text = listItems[position].name
+            mFirebaseFirestore.collection("competition")
+                    .document(listID[position])
+                    .collection("user")
+                    .orderBy("time")
+                    .limit(3)
+                    .get()
+                    .addOnCompleteListener {task ->
+                        if(task.isSuccessful){
+                            val tempObj = task.result!!.toObjects(CompetitionDetailObject::class.java)
+                            var count = tempObj.size
+                            if(count > 0){
+                                it.compTime1.text = tempObj[0].time.toString()
+                                it.compUserName1.text = tempObj[0].username
+                                if(--count > 0) {
+                                    it.compTime2.text = tempObj[1].time.toString()
+                                    it.compUserName2.text = tempObj[1].username
+                                    if(--count > 0){
+                                        it.compTime3.text = tempObj[2].time.toString()
+                                        it.compUserName3.text = tempObj[2].username
+                                    }
+                                }
+                            }
+                            it.compCardView.setOnClickListener { _ ->
+                                it.top3Expand.isExpanded = !it.top3Expand.isExpanded
+                            }
 
-            it.compTime2.text = "22:22:22"
-            it.compUserName2.text = "ユーザー2"
-
-            it.compTime3.text = "33:33:33"
-            it.compUserName3.text = "ユーザー3"
-
-            it.compCardView.setOnClickListener { _ ->
-                it.top3Expand.isExpanded = !it.top3Expand.isExpanded
-            }
+                            it.top3Expand.setOnClickListener {
+                                parent.goCompDetail(listID[position])
+                            }
+                        }
+                    }
         }
     }
 
     override fun getItemCount(): Int {
-        /**
-         * 何も取ってきていないので
-         * ひとまず10件表示
-         * */
-        return 10
+        return listItems.size
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -87,17 +108,16 @@ class HomeRecyclerViewHolder(view: View, HomeRecyclerAdapter: HomeRecyclerAdapte
 //        }
 //    }
 
-    val compCardView:CardView = view.findViewById(R.id.compCardView)
+    val compCardView: CardView = view.findViewById(R.id.compCardView)
     val homeCompTextView: TextView = view.findViewById(R.id.homeCompTextView)
     val compTime1: TextView = view.findViewById(R.id.homeCompTime1)
-    val compUserName1:TextView = view.findViewById(R.id.homeCompUserName1)
+    val compUserName1: TextView = view.findViewById(R.id.homeCompUserName1)
     val compTime2: TextView = view.findViewById(R.id.homeCompTime2)
-    val compUserName2:TextView = view.findViewById(R.id.homeCompUserName2)
+    val compUserName2: TextView = view.findViewById(R.id.homeCompUserName2)
     val compTime3: TextView = view.findViewById(R.id.homeCompTime3)
-    val compUserName3:TextView = view.findViewById(R.id.homeCompUserName3)
+    val compUserName3: TextView = view.findViewById(R.id.homeCompUserName3)
     val top3Expand: ExpandableLayout = view.findViewById(R.id.top3Expand)
 
     init {
-
     }
 }

@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.record
+package com.example.greentea.fteam.contribution.record
 
 import android.util.Size
 import java.lang.Long.signum

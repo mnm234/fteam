@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.record
+package com.example.greentea.fteam.contribution.record
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -11,7 +11,11 @@ import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.greentea.fteam.FILE_PATH_KEY
+import com.example.greentea.fteam.COMP_ID_KEY
+import com.example.greentea.fteam.NAME_PATH_KEY
 import com.example.greentea.fteam.R
+import com.example.greentea.fteam.`object`.CompetitionDetailObject
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -22,11 +26,10 @@ import java.io.File
 
 class VideoUploadFragment : Fragment() {
 
-    private val FILE_PATH_KEY = "KEY_PATH"
-    private val NAME_PATH_KEY = "KEY_FILE_NAME"
-
     private lateinit var filepath: String
     private lateinit var filename: String
+    private lateinit var mCompetitionID: String
+
     private lateinit var parent: VideoActivity
     private lateinit var mMediaPlayer: MediaPlayer
     private lateinit var mSurfaceHolder: SurfaceHolder
@@ -34,15 +37,16 @@ class VideoUploadFragment : Fragment() {
     private lateinit var mFirebaseFirestore: FirebaseFirestore
     private lateinit var mFirebaseStorage: FirebaseStorage
     private lateinit var mFirebaseStorageRef: StorageReference
-    private lateinit var mCompetitionID: String
+
     private var mUploadTask: UploadTask? = null
 
     companion object {
-        fun newInstance(path: String, name: String): VideoUploadFragment {
+        fun newInstance(path: String, name: String, mCompID:String): VideoUploadFragment {
             val videoUploadFragment = VideoUploadFragment()
             val bundle = Bundle()
-            bundle.putString("KEY_PATH", path)
-            bundle.putString("KEY_FILE_NAME", name)
+            bundle.putString(FILE_PATH_KEY, path)
+            bundle.putString(NAME_PATH_KEY, name)
+            bundle.putString(COMP_ID_KEY, mCompID)
             videoUploadFragment.arguments = bundle
             return videoUploadFragment
         }
@@ -54,10 +58,7 @@ class VideoUploadFragment : Fragment() {
         val args: Bundle? = arguments
         filepath = args!!.getString(FILE_PATH_KEY, "")
         filename = args.getString(NAME_PATH_KEY, "")
-        /**
-         * この競技ID宣言をargsから取るように変更すること
-         */
-        mCompetitionID = "DFOlCX3iSqyBOmfvGxKL"
+        mCompetitionID = args.getString(COMP_ID_KEY, "")
 
         mFirebaseFirestore = FirebaseFirestore.getInstance()
         mFirebaseStorage = FirebaseStorage.getInstance()
@@ -104,7 +105,7 @@ class VideoUploadFragment : Fragment() {
                                     for (doc in task.result!!) {
                                         // 取得した分をforEachで回す
                                         Toast.makeText(context, "動画URL取得完了 読込開始", Toast.LENGTH_LONG).show()
-                                        uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(VideoUploadObject::class.java).videoURL))
+                                        uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(CompetitionDetailObject::class.java).videoURL))
                                         uploadVideoPreviewView.start()
                                     }
                                 }
@@ -152,7 +153,7 @@ class VideoUploadFragment : Fragment() {
      */
     private fun setFileData(tar: StorageReference, duration: Int) {
         mFirebaseStorage.getReferenceFromUrl(tar.toString()).downloadUrl.addOnCompleteListener {
-            val tempData = VideoUploadObject(uploadEditText.text.toString(), ms2second(duration), it.result!!.toString())
+            val tempData = CompetitionDetailObject("ID予定地", uploadEditText.text.toString(), ms2second(duration), it.result!!.toString())
             mFirebaseFirestore.collection("competition")
                     .document(mCompetitionID)
                     .collection("user")

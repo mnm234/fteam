@@ -1,4 +1,4 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.contribution
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
