@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
@@ -65,6 +66,8 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
                                 }
                             }
                             it.compCardView.setOnClickListener { _ ->
+                                Toast.makeText(this@HomeRecyclerAdapter.context, "クリック", Toast.LENGTH_SHORT)
+                                        .show()
                                 it.top3Expand.isExpanded = !it.top3Expand.isExpanded
                             }
 

@@ -16,6 +16,7 @@ import com.example.greentea.fteam.COMP_ID_KEY
 import com.example.greentea.fteam.NAME_PATH_KEY
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
+import com.example.greentea.fteam.home.HomeFragment
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -89,6 +90,7 @@ class VideoUploadFragment : Fragment() {
         uploadVideoPreviewView.setOnPreparedListener { mp ->
             uploadButton.setOnClickListener {
                 uploadVideoFile(mp.duration)
+                uploadButton.isEnabled = false
             }
             /**
              * 動画をFirebaseから引っ張る処理
@@ -141,6 +143,7 @@ class VideoUploadFragment : Fragment() {
                 .addOnSuccessListener { _ ->
                     Toast.makeText(context, "ファイルのアップロードに成功しました", Toast.LENGTH_LONG).show()
                     setFileData(targetRef, duration)
+
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()

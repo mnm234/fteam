@@ -6,13 +6,13 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
 
-    <color name="navi_color">#ecae4a</color>
-    <color name="search_bar_color">#e9c282</color>
-    <color name="search_bar_text_color">#525252</color>
+    <color name="navi_color">#313131</color>
+    <color name="search_bar_color">#979797</color>
+    <color name="search_bar_text_color">#383838</color>
     <color name="bottom_navi_textColor">#dddddd</color>
-    <color name="bottom_navi_state_checked">#a07a3d</color>
-    <color name="bottom_navi_state_pressed">#5f4925</color>
+    <color name="bottom_navi_state_checked">#565656</color>
+    <color name="bottom_navi_state_pressed">#e1e1e1</color>
 
-    <color name="activity_background">#000</color>
+    <color name="activity_background">#1e1e1e</color>
     <color name="fragment_background">#4285f4</color>
 </resources>

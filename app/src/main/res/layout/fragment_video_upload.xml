@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:hint="ユーザー名(暫定)" />
+            android:hint="ユーザー名(暫定)を入力してください" />
 
         <Button
             android:id="@+id/uploadButton"

@@ -67,6 +67,7 @@ class NewCompFragment : Fragment() {
             dialog = ProgressDialog(context)
             dialog.setTitle("登録処理中")
             dialog.show()
+            makeCompButton.isEnabled = false
             createComp()
         }
 
