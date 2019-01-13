@@ -2,6 +2,7 @@ package com.example.greentea.fteam
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.firebase.auth.EmailAuthCredential
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.android.synthetic.main.fragment_playlist.*
 
 /**
@@ -33,11 +37,11 @@ class PlaylistFragment : Fragment() {
         }
     }
 
-    fun signIn(){
-        // Choose authentication providers
+    /** ログイン画面呼び出し */
+    private fun signIn() {
+        // どの認証方式を使わせるか選択
         val providers = arrayListOf(
                 AuthUI.IdpConfig.EmailBuilder().build(),
-                AuthUI.IdpConfig.PhoneBuilder().build(),
                 AuthUI.IdpConfig.GoogleBuilder().build())
 
         // Create and launch sign-in intent
@@ -49,10 +53,63 @@ class PlaylistFragment : Fragment() {
                 RC_SIGN_IN)
     }
 
-    fun signOut(){
+    /** ログアウト */
+    private fun signOut() {
         AuthUI.getInstance().signOut(context!!).addOnCompleteListener {
             username_textView.text = "ログインしてません"
         }
+    }
+
+    /** ユーザー情報取得の例 */
+    private fun getUserInfo() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            // ログイン中
+            val username = user.displayName
+            val userID = user.uid
+            val userIcon = user.photoUrl
+            val userEmail = user.email
+            // プロバイダ(GoogleとかTwitterとか)別にその元となるところからユーザー情報を引っ張る
+            for (profile in user.providerData) {
+                // Id of the provider (ex: google.com)
+                val providerID = profile.providerId
+                val pUserID = profile.uid
+                val pUsername = profile.displayName
+                val pUserEmail = profile.email
+                val pUserIcon = profile.photoUrl
+            }
+        } else {
+            // ログインしていない時
+        }
+    }
+
+    /** ユーザーのプロフィールを更新、削除、再ログイン */
+    private fun updateUserInfo() {
+        val auth = FirebaseAuth.getInstance()
+        val user = auth.currentUser
+        // ユーザ名とアイコン
+        val profileUpdates = UserProfileChangeRequest.Builder()
+                .setDisplayName("名前")
+                .setPhotoUri(Uri.parse("アイコンのURI"))
+                .build()
+        user!!.updateProfile(profileUpdates).addOnCompleteListener {
+            if (it.isSuccessful) {
+                // 変更成功 以下の例もisSuccessfulは一緒なので省略
+            }
+        }
+        // メールアドレス変更
+        user.updateEmail("新しいメールアドレス").addOnCompleteListener {}
+        // 確認メール送信 内容はFireBaseのAuthentication -> メールテンプレートから弄る
+        user.sendEmailVerification().addOnCompleteListener {}
+        // パスワード変更
+        user.updatePassword("新しいパスワード").addOnCompleteListener {}
+        // パスワード再設定メール送信 内容は上記のと一緒
+        auth.sendPasswordResetEmail("ユーザのメールアドレス").addOnCompleteListener {}
+        // ユーザ削除
+        user.delete().addOnCompleteListener {}
+        // 再ログイン(セキュリティレベルが高いものにアクセスさせる際に推奨)
+        val credential = EmailAuthProvider.getCredential("ユーザのメールアドレス", "ユーザのパスワード")
+        user.reauthenticate(credential).addOnCompleteListener {}
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
