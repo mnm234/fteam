@@ -525,7 +525,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             setOutputFile(nextVideoAbsolutePath)
             setVideoEncodingBitRate(10000000)
-            setVideoFrameRate(30)
+            setVideoFrameRate(3)
             setVideoSize(videoSize.width, videoSize.height)
             setVideoEncoder(MediaRecorder.VideoEncoder.H264)
             setAudioEncoder(MediaRecorder.AudioEncoder.AAC)

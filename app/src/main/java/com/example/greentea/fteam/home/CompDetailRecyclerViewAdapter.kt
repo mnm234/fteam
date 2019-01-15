@@ -3,11 +3,12 @@ package com.example.greentea.fteam.home
 import android.content.Context
 import android.net.Uri
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import android.widget.VideoView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
@@ -35,6 +36,7 @@ class CompDetailRecyclerViewAdapter(val context: Context?, objects: MutableList<
     override fun onBindViewHolder(holder: CompDetailRecyclerViewHolder, position: Int) {
         holder.let {
             it.compDetailVideoView.setOnClickListener { _ ->
+                Toast.makeText(this.context, "クリック", Toast.LENGTH_SHORT)
                 if(it.compDetailVideoView.isPlaying){
                     // 再生中であればPause
                     it.compDetailVideoView.pause()
@@ -47,7 +49,16 @@ class CompDetailRecyclerViewAdapter(val context: Context?, objects: MutableList<
                     }
                 }
             }
-            it.compDetailRankTextView.text = "${position + 1}位"
+            when(position){
+                0 -> it.compDetailRankImageView.setImageResource(R.mipmap.no1)
+                1 -> it.compDetailRankImageView.setImageResource(R.mipmap.no2)
+                2 -> it.compDetailRankImageView.setImageResource(R.mipmap.no3)
+                else -> {
+                    it.compDetailRankTextView.visibility = View.VISIBLE
+                    it.compDetailRankTextView.text = "${position + 1}位"
+                }
+
+            }
             it.compDetailTimeTextView.text = listItems!![position].time.toString()
             it.compDetailUserTextView.text = listItems!![position].username
         }
@@ -69,6 +80,7 @@ class CompDetailRecyclerViewHolder(view: View, CompDetailRecyclerViewAdapter: Co
     }
     val compDetailVideoView:VideoView = view.findViewById(R.id.compDetailVideoView)
     val compDetailRankTextView:TextView = view.findViewById(R.id.compDetailRankTextView)
+    val compDetailRankImageView: ImageView = view.findViewById(R.id.compDetailRankImageView)
     val compDetailTimeTextView:TextView = view.findViewById(R.id.compDetailTimeTextView)
     val compDetailUserTextView:TextView = view.findViewById(R.id.compDetailUserTextView)
 }

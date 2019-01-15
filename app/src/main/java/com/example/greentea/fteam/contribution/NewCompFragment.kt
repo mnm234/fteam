@@ -16,6 +16,7 @@ import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.contribution.record.VideoActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_new_comp.*
+import java.sql.Timestamp
 
 
 class NewCompFragment : Fragment() {
@@ -74,7 +75,7 @@ class NewCompFragment : Fragment() {
         /**
          * カメラボタンをタップしたときの処理
          **/
-        camStartButton.setOnClickListener {
+        camera_cardView.setOnClickListener {
             val intent = Intent(this@NewCompFragment.context, VideoActivity::class.java)
             intent.putExtra(COMP_ID_KEY, mCompID)
             startActivity(intent)
@@ -84,14 +85,17 @@ class NewCompFragment : Fragment() {
 
     private fun createComp(){
         mFirebaseFirestore = FirebaseFirestore.getInstance()
-        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString())
+
+        val timestamp = Timestamp(System.currentTimeMillis())
+
+        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString(), timestamp)
         mFirebaseFirestore.collection("competition")
                 .add(tempData)
                 .addOnSuccessListener {
                     dialog.dismiss()
                     mCompID = it.id
                     submitMessage.text = "競技が作成されました。\n 早速撮影しますか？"
-                    camStartButton.visibility = View.VISIBLE
+                    camera_cardView.visibility = View.VISIBLE
                     newCompName.isEnabled = false
                     newCompRule.isEnabled = false
                 }

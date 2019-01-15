@@ -31,7 +31,13 @@
                     android:textAlignment="center"
                     android:textSize="@dimen/homeCompRank"
                     android:textStyle="bold"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:id="@+id/compDetailRankImageView"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"/>
 
                 <TextView
                     android:id="@+id/compDetailTimeTextView"

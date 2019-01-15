@@ -18,49 +18,14 @@
     <!--xmlns:tools="http://schemas.android.com/tools" />-->
 
     <include
-        android:id="@+id/include"
-        layout="@layout/toolbar" />
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:visibility="visible"/>
 
     <include
         layout="@layout/search_toolbar"
         android:visibility="gone" />
 
-
-    <ImageView
-        android:id="@+id/menubutton"
-        android:layout_width="27dp"
-        android:layout_height="26dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:elevation="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/container"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_dehaze_black_24dp" />
-
-    <android.support.v4.widget.DrawerLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:elevation="1dp"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer" />
-    </android.support.v4.widget.DrawerLayout>
 
     <LinearLayout
         android:id="@+id/container"
@@ -88,17 +53,17 @@
 
     </android.support.design.widget.BottomNavigationView>
 
-    <ImageView
-        android:id="@+id/optionbutton"
-        android:layout_width="27dp"
-        android:layout_height="26dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:elevation="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/drawer_layout"
-        app:srcCompat="@drawable/ic_more_vert_black_24dp" />
+    <!--<ImageView-->
+        <!--android:id="@+id/optionbutton"-->
+        <!--android:layout_width="27dp"-->
+        <!--android:layout_height="26dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginEnd="16dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:elevation="50dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/container"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/drawer_layout"-->
+        <!--app:srcCompat="@drawable/ic_more_vert_black_24dp" />-->
 
 </android.support.constraint.ConstraintLayout>

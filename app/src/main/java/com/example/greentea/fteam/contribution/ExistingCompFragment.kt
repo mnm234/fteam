@@ -12,12 +12,15 @@ import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_existing_comp.*
+import java.sql.Timestamp
+import java.util.*
 
 class ExistingCompFragment : Fragment() {
 
     private lateinit var mFirebaseFirestore: FirebaseFirestore
     private val existCompList: MutableList<String> = mutableListOf()
     private val existCompIDList: MutableList<String> = mutableListOf()
+    private val existCompTimestampList:MutableList<Date> = mutableListOf()
     private lateinit var parent: MainActivity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +54,7 @@ class ExistingCompFragment : Fragment() {
                             // 取得した分をforEachで回す
                             existCompList.add(doc.toObject(CompetitionObject::class.java).name)
                             existCompIDList.add(doc.id)
+                            existCompTimestampList.add(doc.toObject(CompetitionObject::class.java).timestamp!!)
                         }
                         existCompRecyclerView.adapter = ExistingCompRecyclerAdapter(context, existCompList, existCompIDList, parent)
                     }

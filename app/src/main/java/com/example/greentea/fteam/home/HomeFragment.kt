@@ -1,28 +1,25 @@
 package com.example.greentea.fteam.home
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.OrientationHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.greentea.fteam.MainActivity
+
 import com.example.greentea.fteam.R
-import com.example.greentea.fteam.`object`.CompetitionObject
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.lang.Exception
-import java.util.*
+import android.R.attr.fragment
+
 
 
 class HomeFragment : Fragment() {
-    private lateinit var parent: MainActivity
-    private lateinit var mFirebaseFirestore: FirebaseFirestore
-    private val compList:MutableList<CompetitionObject> = mutableListOf()
-    private val compIDList:MutableList<String> = mutableListOf()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -31,36 +28,29 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        newcomp_sort_cardView.setOnClickListener {
+            fragmentManager!!.beginTransaction()
+                    .replace(R.id.container, HomeNewCompListFragment.newInstance(0))
+                    .commit()
 
-        homeRecyclerView.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
-        mFirebaseFirestore = FirebaseFirestore.getInstance()
-        onSetupRecyclerView()
-//        homeRecyclerView.adapter = HomeRecyclerAdapter(context, mutableListOf(), parent)
+        }
+
+        hotcomp_sort_cardView.setOnClickListener {
+            //HomeNewCompListFragment.newInstance(1)
+            fragmentManager!!.beginTransaction()
+                    .replace(R.id.container, HomeNewCompListFragment.newInstance(1))
+                    .commit()
+        }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        parent = activity as MainActivity
     }
 
-    private fun onSetupRecyclerView(){
+    override fun onDetach() {
+        super.onDetach()
+    }
 
-        mFirebaseFirestore.collection("competition")
-                .get()
-                .addOnCompleteListener { task ->
-                    try {
-                        if (task.isSuccessful) {
-                            for (doc in task.result!!) {
-                                // 取得した分をforEachで回す
-                                compIDList.add(doc.id)
-                                compList.add(doc.toObject(CompetitionObject::class.java))
-                            }
-                            homeRecyclerView.adapter = HomeRecyclerAdapter(context, compList,compIDList,  parent)
-                        }
-                    }catch (e:Exception){
-
-                    }
-
-                }
+    companion object {
     }
 }

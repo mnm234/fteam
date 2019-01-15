@@ -16,7 +16,6 @@ import com.example.greentea.fteam.COMP_ID_KEY
 import com.example.greentea.fteam.NAME_PATH_KEY
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
-import com.example.greentea.fteam.home.HomeFragment
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference

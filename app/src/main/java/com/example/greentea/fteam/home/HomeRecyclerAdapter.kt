@@ -49,7 +49,8 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
                     .orderBy("time")
                     .limit(3)
                     .get()
-                    .addOnCompleteListener {task ->
+                    .addOnCompleteListener {task
+                        ->
                         if(task.isSuccessful){
                             val tempObj = task.result!!.toObjects(CompetitionDetailObject::class.java)
                             var count = tempObj.size

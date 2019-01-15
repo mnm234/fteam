@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <android.support.v7.widget.CardView
+        android:layout_marginTop="20dp"
         android:id="@+id/compCardView"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/activity_background">
+        app:cardBackgroundColor="#fff">
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/compTitleLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/comp_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@mipmap/comp_icon"/>
             <TextView
                 android:id="@+id/homeCompTextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingTop="8dp"
                 android:layout_marginHorizontal="8dp"
                 android:text="@string/blank_comp_name"
-                android:textColor="@color/colorWhite"
+                android:textColor="#222"
                 android:textSize="24dp"
                 android:textStyle="bold" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/thumbnail_image"
-                app:layout_constraintTop_toBottomOf="@id/homeCompTextView"
-                android:layout_width="320dp"
+                app:layout_constraintTop_toBottomOf="@id/compTitleLine"
+                android:layout_width="match_parent"
                 android:layout_height="180dp"
-
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:background="@drawable/thumbnail_sample"/>
+                android:background="#444"/>
 
             <TextView
                 app:layout_constraintBottom_toTopOf="@id/homeCompBestTime"
@@ -168,4 +179,4 @@
         </LinearLayout>
     </net.cachapa.expandablelayout.ExpandableLayout>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

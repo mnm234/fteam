@@ -12,14 +12,15 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.CompDetailFragment
-import com.example.greentea.fteam.home.HomeFragment
+import com.example.greentea.fteam.home.HomeNewCompListFragment
 import com.example.greentea.fteam.contribution.record.VideoActivity
+import com.example.greentea.fteam.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(){
 
-    internal var toolbar: Toolbar? = null
+//    internal var toolbar: Toolbar? = null
     internal var searchtollbar: Toolbar? = null
     //        internal var bottom_navi:BottomNavigationView? = null
     var dialogBundle = Bundle()
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, HomeFragment())
@@ -70,11 +76,17 @@ class MainActivity : AppCompatActivity(){
             }
             false
         })
-        menubutton.setOnClickListener {
-            val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-            drawer.openDrawer(GravityCompat.START)
-        }
+//        menubutton.setOnClickListener {
+//            val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+//            drawer.openDrawer(GravityCompat.START)
+//        }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
 
     fun goCompDetail(mCompID:String){
         supportFragmentManager.beginTransaction()
