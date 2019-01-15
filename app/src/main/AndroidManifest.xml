@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- インターネット通信を行うため必要 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- アカウント情報を取得するため必要 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:name=".EngordApp"
@@ -25,8 +29,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Google Play Serviceを利用するため必要 -->
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
         </activity>
-        <activity android:name=".contribution.record.VideoActivity"/>
+        <activity android:name=".contribution.record.VideoActivity">
+            <!-- Google Play Serviceを利用するため必要 -->
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+        </activity>
     </application>
 
 </manifest>
