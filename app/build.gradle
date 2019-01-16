@@ -62,8 +62,10 @@ dependencies {
 
     // 非同期用
     def coroutines_version = '1.0.1' //Kotlin coroutines用ライブラリ(async, await)のバージョン
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version" //Kotlin coroutines用ライブラリ(async, await)
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version" //Kotlin coroutines用ライブラリ(async, await)
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    //Kotlin coroutines用ライブラリ(async, await)
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    //Kotlin coroutines用ライブラリ(async, await)
 }
 
 apply plugin: 'com.google.gms.google-services'

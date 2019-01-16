@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import com.example.greentea.fteam.R
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.R.attr.fragment
-
+import com.example.greentea.fteam.MyPage.mypageFragment
 
 
 class HomeFragment : Fragment() {
@@ -41,6 +41,13 @@ class HomeFragment : Fragment() {
                     .replace(R.id.container, HomeNewCompListFragment.newInstance(1))
                     .commit()
         }
+
+        myAccount_cardView.setOnClickListener {
+            fragmentManager!!.beginTransaction()
+                    .replace(R.id.container, mypageFragment())
+                    .commit()
+        }
+
     }
 
     override fun onAttach(context: Context) {
