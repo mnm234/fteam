@@ -14,6 +14,8 @@ import com.example.greentea.fteam.`object`.CompetitionObject
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_home_newcomplist.*
 import java.lang.Exception
+import android.support.v7.widget.RecyclerView
+import java.util.*
 
 
 class HomeNewCompListFragment : Fragment() {
@@ -51,7 +53,8 @@ class HomeNewCompListFragment : Fragment() {
 
         homeRecyclerView.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
         mFirebaseFirestore = FirebaseFirestore.getInstance()
-        onSetupRecyclerView()
+        //onSetupRecyclerView()
+        initRecyclerView()
 //        homeRecyclerView.adapter = HomeRecyclerAdapter(context, mutableListOf(), parent)
     }
 
@@ -107,5 +110,25 @@ class HomeNewCompListFragment : Fragment() {
 
             }
         }
+    }
+
+    private fun initRecyclerView() {
+        // Setting recycler view+
+        val recyclerView = view!!.findViewById<RecyclerView>(R.id.homeRecyclerView)
+        recyclerView.setLayoutManager(LinearLayoutManager(this.context))
+        // Generate demo data
+        val demoList:ArrayList<Objects?> = ArrayList()
+        demoList.add(null)
+        demoList.add(null)
+        demoList.add(null)
+        demoList.add(null)
+        demoList.add(null)
+        // Setting adapter
+//        val adapter = context?.let {
+//            VerticalAdapter(it, listOf(demoList))
+//        }
+//        val adapter = this.context?.let { VerticalAdapter(it, demoList) }
+//        val adapter = VerticalAdapter(context, demoList)
+        recyclerView.swapAdapter(adapter, false)
     }
 }
