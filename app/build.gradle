@@ -60,6 +60,9 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
     }
 
+    //youtube android player
+    implementation 'com.github.davidmigloz:youtube-android-player-api-gradle:1.2.2.1'
+
     // 非同期用
     def coroutines_version = '1.0.1' //Kotlin coroutines用ライブラリ(async, await)のバージョン
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"

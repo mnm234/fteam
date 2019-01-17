@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(){
 
 //    internal var toolbar: Toolbar? = null
     internal var searchtollbar: Toolbar? = null
-    //        internal var bottom_navi:BottomNavigationView? = null
     var dialogBundle = Bundle()
 
     internal var search_menu: Menu? = null
@@ -99,5 +98,12 @@ class MainActivity : AppCompatActivity(){
         val intent = Intent(this, VideoActivity::class.java)
         intent.putExtra(COMP_ID_KEY, mCompID)
         startActivity(intent)
+    }
+
+    fun CameraIconPressed(){
+        navigation_bottom.selectedItemId = R.id.navigation_upload
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, UploadFragment())
+                .commit()
     }
 }

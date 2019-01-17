@@ -1,4 +1,4 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.contribution.record
 
 import android.content.Context
 import android.net.Uri
@@ -8,25 +8,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+import com.example.greentea.fteam.R
 
-
-class RankingFragment : Fragment() {
+class YoutubeVideoViewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_ranking, container, false)
+        return inflater.inflate(R.layout.fragment_youtube_video_view, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 
-    companion object {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
 
+    override fun onDetach() {
+        super.onDetach()
+    }
+
+
+
+    companion object {
     }
 }

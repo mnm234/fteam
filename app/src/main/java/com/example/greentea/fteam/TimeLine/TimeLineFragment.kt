@@ -1,4 +1,4 @@
-package com.example.greentea.fteam
+package com.example.greentea.fteam.TimeLine
 
 import android.content.Context
 import android.net.Uri
@@ -8,23 +8,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+import com.example.greentea.fteam.R
 
 
-class RankingFragment : Fragment() {
+class TimeLineFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_ranking, container, false)
+        return inflater.inflate(R.layout.fragment_time_line, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+    }
+
 
     companion object {
 

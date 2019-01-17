@@ -12,14 +12,16 @@ import android.view.ViewGroup
 import com.example.greentea.fteam.R
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.R.attr.fragment
+import android.support.design.widget.BottomNavigationView
+import com.example.greentea.fteam.COMP_ID_KEY
+import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.MyPage.mypageFragment
+import com.example.greentea.fteam.contribution.UploadFragment
+import com.example.greentea.fteam.contribution.record.VideoActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class HomeFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,16 +50,15 @@ class HomeFragment : Fragment() {
                     .commit()
         }
 
+        camera_cardView.setOnClickListener {
+            fragmentManager!!.beginTransaction()
+                    .replace(R.id.container, UploadFragment())
+                    .commit()
+            MainActivity().CameraIconPressed()
+        }
+
+
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-    companion object {
-    }
+    companion object
 }
