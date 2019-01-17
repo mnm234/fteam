@@ -124,9 +124,9 @@ class HomeNewCompListFragment : Fragment() {
         demoList.add(null)
         demoList.add(null)
         // Setting adapter
-//        val adapter = context?.let {
-//            VerticalAdapter(it, listOf(demoList))
-//        }
+        val adapter = context?.let {
+            VerticalAdapter(it, demoList)
+        }
 //        val adapter = this.context?.let { VerticalAdapter(it, demoList) }
 //        val adapter = VerticalAdapter(context, demoList)
         recyclerView.swapAdapter(adapter, false)
