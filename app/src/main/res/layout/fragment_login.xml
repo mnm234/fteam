@@ -8,6 +8,7 @@
     android:padding="40dp">
 
     <ImageView
+        android:id="@+id/modeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/login" />
@@ -19,6 +20,7 @@
         android:textColorHint="#cccccc">
 
         <EditText
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffff"
@@ -37,6 +39,7 @@
         android:textColorHint="#cccccc">
 
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffff"
@@ -48,6 +51,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
+        android:id="@+id/forgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -57,14 +61,16 @@
         android:textSize="16sp" />
 
     <Button
+        android:id="@+id/submitButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="#b9658cff"
         android:text="Log In"
-        android:textColor="#cccccc" />
+        android:textColor="#fff" />
 
     <TextView
+        android:id="@+id/typeChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
