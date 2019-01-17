@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import android.R.attr.fragment
 import android.support.design.widget.BottomNavigationView
 import com.example.greentea.fteam.COMP_ID_KEY
+import com.example.greentea.fteam.Login.LoginActivity
 import com.example.greentea.fteam.Login.LoginFragment
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.MyPage.mypageFragment
@@ -58,9 +59,8 @@ class HomeFragment : Fragment() {
         }
 
         setting_cardView.setOnClickListener {
-            fragmentManager!!.beginTransaction()
-                    .replace(R.id.container, LoginFragment())
-                    .commit()
+            val intent = Intent(this.context, LoginActivity::class.java)
+            startActivity(intent)
         }
 
 
