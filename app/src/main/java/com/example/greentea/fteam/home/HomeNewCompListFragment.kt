@@ -16,6 +16,14 @@ import kotlinx.android.synthetic.main.fragment_home_newcomplist.*
 import java.lang.Exception
 import android.support.v7.widget.RecyclerView
 import java.util.*
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+
+
+
+
 
 
 class HomeNewCompListFragment : Fragment() {
@@ -130,5 +138,26 @@ class HomeNewCompListFragment : Fragment() {
 //        val adapter = this.context?.let { VerticalAdapter(it, demoList) }
 //        val adapter = VerticalAdapter(context, demoList)
         recyclerView.swapAdapter(adapter, false)
+
+        mFirebaseFirestore.collection("competition")
+                .get()
+                .addOnCompleteListener { task ->
+                    try {
+                        if (task.isSuccessful) {
+//                                    task.result!!.count()
+                            for (doc in task.result!!) {
+                                // 取得した分をforEachで回す
+                                compIDList.add(doc.id)
+                                compList.add(doc.toObject(CompetitionObject::class.java))
+                            }
+                            homeRecyclerView.adapter = HomeRecyclerAdapter(context, compList, compIDList, parent)
+                        }
+                    } catch (e: Exception) {
+
+                    }
+
+                }
     }
+
+
 }
