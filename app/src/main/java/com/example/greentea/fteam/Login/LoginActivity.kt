@@ -1,11 +1,15 @@
 package com.example.greentea.fteam.Login
 
+import android.graphics.Paint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.example.greentea.fteam.R
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_new_comp.*
+import android.graphics.Paint.UNDERLINE_TEXT_FLAG
+
+
 
 class LoginActivity : AppCompatActivity() {
     private var modeId:Int = 0 //0:Login 1:SignUp
@@ -13,6 +17,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        typeChange.paintFlags = typeChange.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         forgotPass.setOnClickListener {
             //forgot Passwordをクリックしたとき
         }
