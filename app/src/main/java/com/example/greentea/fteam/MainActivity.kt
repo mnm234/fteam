@@ -3,18 +3,18 @@ package com.example.greentea.fteam
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import com.example.greentea.fteam.TimeLine.TimeLineFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.CompDetailFragment
-import com.example.greentea.fteam.home.HomeNewCompListFragment
 import com.example.greentea.fteam.contribution.record.VideoActivity
 import com.example.greentea.fteam.home.HomeFragment
+import com.example.greentea.fteam.home.HomeNewCompListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -35,34 +35,57 @@ class MainActivity : AppCompatActivity(){
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
+        val bottomNaviId = intent.getIntExtra("BottomMenuId", 0)
+        Toast.makeText(this, bottomNaviId.toString(), Toast.LENGTH_SHORT)
 
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.container, HomeFragment())
-                .commit()
+        when(bottomNaviId){
+            0->{
+                navigation_bottom.selectedItemId = R.id.navigation_home
+                supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.container, HomeFragment())
+                        .commit()
+            }
+            1->{
+                navigation_bottom.selectedItemId = R.id.navigation_new
+                supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.container, NewFragment())
+                        .commit()
+            }
+            2->{
+                navigation_bottom.selectedItemId = R.id.navigation_hot
+                supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.container, HotFragment())
+                        .commit()
+            }
+            3->{
+                navigation_bottom.selectedItemId = R.id.navigation_upload
+                supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.container, UploadFragment())
+                        .commit()
+            }
+        }
+
+//        supportFragmentManager.beginTransaction()
+//                .replace(R.id.container, TimeLineFragment())
+//                .commit()
 
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, HomeFragment())
+                            .replace(R.id.container, TimeLineFragment())
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_ranking -> {
+                R.id.navigation_new -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, RankingFragment())
+                            .replace(R.id.container, NewFragment())
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_playlist -> {
+                R.id.navigation_hot -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, PlaylistFragment())
-                            .commit()
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_history -> {
-                    supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, HistoryFragment())
+                            .replace(R.id.container, HotFragment())
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }

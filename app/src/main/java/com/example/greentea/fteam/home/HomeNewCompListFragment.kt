@@ -21,25 +21,14 @@ class HomeNewCompListFragment : Fragment() {
     private lateinit var mFirebaseFirestore: FirebaseFirestore
     private val compList: MutableList<CompetitionObject> = mutableListOf()
     private val compIDList: MutableList<String> = mutableListOf()
-    private var sortid: Int = 0
 
     companion object {
 
-        fun newInstance(value: Int): HomeNewCompListFragment {
-            val fragment = HomeNewCompListFragment()
-            val bundle = Bundle()
-            bundle.putInt("SortId", value)
-            fragment.arguments = bundle
-            return fragment
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-//        return inflater.inflate(R.layout.fragment_home_newcomplist, container, false)
         val view = inflater.inflate(R.layout.fragment_home_newcomplist, container, false)
-
-        sortid = arguments!!.getInt("SortId", 0)
 
         return view
 
@@ -61,51 +50,24 @@ class HomeNewCompListFragment : Fragment() {
     }
 
     private fun onSetupRecyclerView() {
-        when (sortid) {
-            0 -> {
+        mFirebaseFirestore.collection("competition")
+                .get()
+                .addOnCompleteListener { task ->
+                    try {
+                        if (task.isSuccessful) {
+                            for (doc in task.result!!) {
+                                // 取得した分をforEachで回す
+                                compIDList.add(doc.id)
+                                compList.add(doc.toObject(CompetitionObject::class.java))
 
-                mFirebaseFirestore.collection("competition")
-                        .get()
-                        .addOnCompleteListener { task ->
-                            try {
-                                if (task.isSuccessful) {
-                                    for (doc in task.result!!) {
-                                        // 取得した分をforEachで回す
-                                        compIDList.add(doc.id)
-                                        compList.add(doc.toObject(CompetitionObject::class.java))
-
-
-                                    }
-                                    homeRecyclerView.adapter = HomeRecyclerAdapter(context, compList, compIDList, parent)
-                                }
-                            } catch (e: Exception) {
 
                             }
-
+                            homeRecyclerView.adapter = HomeRecyclerAdapter(context, compList, compIDList, parent)
                         }
+                    } catch (e: Exception) {
 
-            }
-            1 -> {
-                mFirebaseFirestore.collection("competition")
-                        .get()
-                        .addOnCompleteListener { task ->
-                            try {
-                                if (task.isSuccessful) {
-//                                    task.result!!.count()
-                                    for (doc in task.result!!) {
-                                        // 取得した分をforEachで回す
-                                        compIDList.add(doc.id)
-                                        compList.add(doc.toObject(CompetitionObject::class.java))
-                                    }
-                                    homeRecyclerView.adapter = HomeRecyclerAdapter(context, compList, compIDList, parent)
-                                }
-                            } catch (e: Exception) {
+                    }
 
-                            }
-
-                        }
-
-            }
-        }
+                }
     }
 }

@@ -7,8 +7,8 @@
     </string>
 
     <string name="naviMenu_home">HOME</string>
-    <string name="naviMenu_rank">RANKING</string>
-    <string name="naviMenu_playlist">PLAYLIST</string>
+    <string name="naviMenu_new">NEW</string>
+    <string name="naviMenu_hot">HOT</string>
     <string name="naviMenu_history">HISTORY</string>
     <string name="naviMenu_upload">UPLOAD</string>
 

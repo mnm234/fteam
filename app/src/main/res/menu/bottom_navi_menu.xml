@@ -8,21 +8,15 @@
         android:icon="@drawable/ic_home_24dp"/>
 
     <item
-        android:id="@+id/navigation_ranking"
-        android:title="@string/naviMenu_rank"
+        android:id="@+id/navigation_new"
+        android:title="@string/naviMenu_new"
+        android:icon="@mipmap/trophy"
+        />
+
+    <item
+        android:id="@+id/navigation_hot"
+        android:title="@string/naviMenu_hot"
         android:icon="@drawable/ic_ranking_24dp"
-        />
-
-    <item
-        android:id="@+id/navigation_playlist"
-        android:title="@string/naviMenu_playlist"
-        android:icon="@drawable/ic_playlist_24dp"
-        />
-
-    <item
-        android:id="@+id/navigation_history"
-        android:title="@string/naviMenu_history"
-        android:icon="@drawable/ic_history_24dp"
         />
 
     <item

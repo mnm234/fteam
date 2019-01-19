@@ -25,6 +25,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
+
             <!-- Google Play Serviceを利用するため必要 -->
             <meta-data
                 android:name="com.google.android.gms.version"
@@ -45,6 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".contribution.record.YoutubeActivity"></activity>
     </application>
 
 </manifest>
