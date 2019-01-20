@@ -7,16 +7,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import com.example.greentea.fteam.signIn.PleaseSignInActivity
-import com.example.greentea.fteam.signIn.SignInStatus
-import com.example.greentea.fteam.myPage.mypageFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.contribution.record.VideoActivity
 import com.example.greentea.fteam.home.CompDetailFragment
 import com.example.greentea.fteam.home.HomeFragment
 import com.example.greentea.fteam.newComp.NewFragment
+import com.example.greentea.fteam.signIn.PleaseSignInActivity
 import com.example.greentea.fteam.signIn.SignInStatus.Companion.isSignIn
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,59 +20,48 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     //    internal var toolbar: Toolbar? = null
-    internal var searchtollbar: Toolbar? = null
-    var dialogBundle = Bundle()
+//    internal var searchtollbar: Toolbar? = null
+//    var dialogBundle = Bundle()
 
-    internal var search_menu: Menu? = null
-    internal var item_search: MenuItem? = null
+//    internal var search_menu: Menu? = null
+//    internal var item_search: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val viewPage = intent.getIntExtra("Page", 0)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-        val bottomNaviId = intent.getIntExtra("BottomMenuId", 0)
-        Toast.makeText(this, bottomNaviId.toString(), Toast.LENGTH_SHORT)
+        val bottomNaviId = intent.getIntExtra(MAIN_BOTTOM_NAV_KEY, 0)
 
         when (bottomNaviId) {
-            0 -> {
+            MAIN_HOME_BOTTOM_NAV_ID -> {
                 navigation_bottom.selectedItemId = R.id.navigation_home
                 supportFragmentManager!!.beginTransaction()
-                        .replace(R.id.container, HomeFragment())
+                        .replace(R.id.container, HomeFragment.newInstance(0))
                         .commit()
             }
-            1 -> {
+            MAIN_MYPAGE_BOTTOM_NAV_ID -> {
+                if (isSignIn) {
+                    navigation_bottom.selectedItemId = R.id.navigation_home
+                    supportFragmentManager!!.beginTransaction()
+                            .replace(R.id.container, HomeFragment.newInstance(1))
+                            .commit()
+                } else {
+                    val intent = Intent(this, PleaseSignInActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            MAIN_NEW_BOTTOM_NAV_ID -> {
                 navigation_bottom.selectedItemId = R.id.navigation_new
                 supportFragmentManager!!.beginTransaction()
                         .replace(R.id.container, NewFragment())
                         .commit()
             }
-            2->{
-                if(isSignIn){
-                    navigation_bottom.selectedItemId = R.id.navigation_home
-                    val bundle = Bundle()
-                    bundle.putInt("viewPage", 2)
-                    val homeFragment = HomeFragment()
-                    homeFragment.arguments = bundle
-                    supportFragmentManager!!.beginTransaction()
-                            .replace(R.id.container, homeFragment)
-                            .commit()
-                }else{
-                    val intent = Intent(this, PleaseSignInActivity::class.java)
-                    startActivity(intent)
-                }
-
-            }
-            3 -> {
-//                Toast.makeText(this, viewPage.toString(), Toast.LENGTH_SHORT).show()
+            MAIN_UPLOAD_BOTTOM_NAV_ID -> {
                 navigation_bottom.selectedItemId = R.id.navigation_upload
-//                val bundle = Bundle()
-//                UploadFragment().arguments = bundle　　　　<- 値渡しテスト
-//                bundle.putInt("viewPage", viewPage)
                 supportFragmentManager!!.beginTransaction()
                         .replace(R.id.container, UploadFragment())
                         .commit()
@@ -87,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, HomeFragment())
+                            .replace(R.id.container, HomeFragment.newInstance(0))
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }
@@ -112,10 +97,6 @@ class MainActivity : AppCompatActivity() {
             }
             false
         })
-//        menubutton.setOnClickListener {
-//            val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-//            drawer.openDrawer(GravityCompat.START)
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

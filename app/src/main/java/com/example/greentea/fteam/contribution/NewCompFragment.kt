@@ -1,26 +1,26 @@
-//package com.example.greentea.fteam.contribution
-//
-//import android.app.ProgressDialog
-//import android.content.Intent
-//import android.os.Bundle
-//import android.support.v4.app.Fragment
-//import android.text.Editable
-//import android.text.TextWatcher
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.Toast
-//import com.example.greentea.fteam.COMP_ID_KEY
-//import com.example.greentea.fteam.R
-//import com.example.greentea.fteam.`object`.CompetitionObject
-//import com.example.greentea.fteam.contribution.record.VideoActivity
-//import com.google.firebase.firestore.FirebaseFirestore
-//import com.google.firebase.firestore.FirebaseFirestoreSettings
-//import kotlinx.android.synthetic.main.fragment_new_comp.*
-//import java.util.*
-//
-//
-//class NewCompFragment : Fragment() {
+package com.example.greentea.fteam.contribution
+
+import android.app.ProgressDialog
+import android.content.Intent
+import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import com.example.greentea.fteam.COMP_ID_KEY
+import com.example.greentea.fteam.R
+import com.example.greentea.fteam.`object`.CompetitionObject
+import com.example.greentea.fteam.contribution.record.VideoActivity
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
+import kotlinx.android.synthetic.main.fragment_new_comp.*
+import java.util.*
+
+
+class NewCompFragment : Fragment() {
 //
 //    private lateinit var mFirebaseFirestore: FirebaseFirestore
 //    private lateinit var dialog:ProgressDialog
@@ -105,4 +105,4 @@
 //                    Toast.makeText(context, "競技作成に失敗しました。時間を空けてもう一度試してください", Toast.LENGTH_SHORT).show()
 //                }
 //    }
-//}
+}
