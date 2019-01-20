@@ -59,15 +59,10 @@ class HomeNewCompListFragment : Fragment() {
                                 // 取得した分をforEachで回す
                                 compIDList.add(doc.id)
                                 compList.add(doc.toObject(CompetitionObject::class.java))
-
-
                             }
                             homeRecyclerView.adapter = HomeRecyclerAdapter(context, compList, compIDList, parent)
                         }
-                    } catch (e: Exception) {
-
-                    }
-
+                    } catch (e: Exception) {}
                 }
     }
 }

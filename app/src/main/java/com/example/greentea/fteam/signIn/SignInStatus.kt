@@ -1,6 +1,7 @@
 package com.example.greentea.fteam.signIn
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 
@@ -11,9 +12,10 @@ open class SignInStatus {
         /** どのユーザーでSignInしているか */
         var mUser: FirebaseUser? = null
 
-        fun isSignIn(flg: Boolean, user: FirebaseUser? = null) {
+        /** SignIn Status Check */
+        fun isSignIn(user: FirebaseUser?) {
             Log.d("unchi", "isSignIn")
-            if (flg) {
+            if (user != null) {
                 Log.d("unchi", "isSignIn True")
                 isSignIn = true
                 mUser = user
@@ -22,6 +24,13 @@ open class SignInStatus {
                 isSignIn = false
                 mUser = null
             }
+        }
+
+        /** Sign Out */
+        fun signOut(){
+            FirebaseAuth.getInstance().signOut()
+            isSignIn = false
+            mUser = null
         }
     }
 

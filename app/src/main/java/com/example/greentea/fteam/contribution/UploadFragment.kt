@@ -16,7 +16,6 @@ import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.contribution.record.VideoActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_upload.*
-import java.sql.Timestamp
 import java.util.*
 
 

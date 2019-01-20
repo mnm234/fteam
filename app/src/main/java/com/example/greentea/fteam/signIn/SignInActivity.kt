@@ -105,11 +105,7 @@ class SignInActivity : AppCompatActivity() {
         super.onStart()
         // 既にログインしているかどうか LoginActivityには恐らく不要
         val user = mAuth.currentUser
-        if (user != null){
-            isSignIn(true, user)
-        } else {
-            isSignIn(false)
-        }
+        isSignIn(user)
     }
 
 //    private fun isSignIn(flg: Boolean, user: FirebaseUser? = null){
@@ -129,11 +125,7 @@ class SignInActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         Log.d("unchi", "signInWithEmail:success")
                         val user = mAuth.currentUser
-                        if (user != null){
-                            isSignIn(true, user)
-                        } else {
-                            isSignIn(false)
-                        }
+                        isSignIn(user)
                     } else {
                         Log.w("unchi", "signInWithEmail:failure", it.exception)
                         Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
@@ -149,11 +141,7 @@ class SignInActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         Log.d("unchi", "createUserWithEmail:success")
                         val user = mAuth.currentUser
-                        if (user != null){
-                            isSignIn(true, user)
-                        } else {
-                            isSignIn(false)
-                        }
+                        isSignIn(user)
                     } else {
                         Log.w("unchi", "createUserWithEmail:failure", it.exception)
                         Toast.makeText(this, "createUserWithEmail Failed.", Toast.LENGTH_SHORT).show()
@@ -174,11 +162,7 @@ class SignInActivity : AppCompatActivity() {
                     if (it.isSuccessful) {
                         Log.d("unchi", "signInWithCredential:success")
                         val user = mAuth.currentUser
-                        if (user != null){
-                            isSignIn(true, user)
-                        } else {
-                            isSignIn(false)
-                        }
+                        isSignIn(user)
                     } else {
                         Log.d("unchi", "signInWithCredential:failure", it.exception)
                         Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
@@ -201,13 +185,6 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-//    /** ログアウト */
-//    private fun signOut() {
-//        AuthUI.getInstance().signOut(context!!).addOnCompleteListener {
-//            username_textView.text = "ログインしてません"
-//        }
-//    }
-//
     /** ユーザー情報取得の例 */
 //    private fun getUserInfo() {
 //        val user = FirebaseAuth.getInstance().currentUser

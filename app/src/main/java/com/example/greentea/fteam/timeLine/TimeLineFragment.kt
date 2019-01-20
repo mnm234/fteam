@@ -1,20 +1,16 @@
 package com.example.greentea.fteam.timeLine
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import com.example.greentea.fteam.R
+import com.example.greentea.fteam.signIn.SignInStatus
+import kotlinx.android.synthetic.main.fragment_time_line.*
 
 
 class TimeLineFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -23,19 +19,11 @@ class TimeLineFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
 
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-    }
-
-
-    companion object {
-
+        timeline_sign_out_button.setOnClickListener {
+            SignInStatus.signOut()
+            timeline_sign_out_button.isEnabled = false
+            timeline_sign_out_button.text = "サインインしろ"
+        }
     }
 }

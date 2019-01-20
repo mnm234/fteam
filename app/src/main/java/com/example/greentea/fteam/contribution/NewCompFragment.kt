@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_new_comp.*
 import java.util.*
 
 
-class NewCompFragment : Fragment() {
+//class NewCompFragment : Fragment() {
 //
 //    private lateinit var mFirebaseFirestore: FirebaseFirestore
 //    private lateinit var dialog:ProgressDialog
@@ -105,4 +105,4 @@ class NewCompFragment : Fragment() {
 //                    Toast.makeText(context, "競技作成に失敗しました。時間を空けてもう一度試してください", Toast.LENGTH_SHORT).show()
 //                }
 //    }
-}
+//}
