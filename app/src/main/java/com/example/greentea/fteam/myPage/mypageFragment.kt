@@ -1,7 +1,6 @@
-package com.example.greentea.fteam.MyPage
+package com.example.greentea.fteam.myPage
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
-import com.example.greentea.fteam.home.HomeRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
 class mypageFragment : Fragment() {

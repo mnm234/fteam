@@ -28,4 +28,5 @@
     <string name="blank_user_name">ユーザ名</string>
     <string name="blank_comp_time">--:--:--</string>
     <string name="blank_comp_name">競技名</string>
+
 </resources>

@@ -12,5 +12,7 @@ const val NAME_PATH_KEY = "KEY_FILE_NAME"
 const val REQUEST_ACCOUNT_CHOOSER = 0
 const val REQUEST_AUTHORIZATION_YOUTUBE = 1
 const val PREF_ACCOUNT_NAME = "ACCOUNT_NAME"
+const val LOGIN_MODE = "LOGIN_MODE"
 const val LOGIN = 0
 const val CREATE_ACCOUNT = 1
+const val RC_SIGN_IN = 123

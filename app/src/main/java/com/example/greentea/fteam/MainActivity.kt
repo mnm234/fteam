@@ -9,16 +9,13 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.example.greentea.fteam.Login.LoginActivity
-import com.example.greentea.fteam.Login.LoginInfo
-import com.example.greentea.fteam.Login.PleaseLoginActivity
-import com.example.greentea.fteam.MyPage.mypageFragment
-import com.example.greentea.fteam.TimeLine.TimeLineFragment
+import com.example.greentea.fteam.signIn.PleaseSignInActivity
+import com.example.greentea.fteam.signIn.SignInStatus
+import com.example.greentea.fteam.myPage.mypageFragment
 import com.example.greentea.fteam.contribution.UploadFragment
-import com.example.greentea.fteam.home.CompDetailFragment
 import com.example.greentea.fteam.contribution.record.VideoActivity
+import com.example.greentea.fteam.home.CompDetailFragment
 import com.example.greentea.fteam.home.HomeFragment
-import com.example.greentea.fteam.home.HomeNewCompListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -30,8 +27,6 @@ class MainActivity : AppCompatActivity(){
 
     internal var search_menu: Menu? = null
     internal var item_search: MenuItem? = null
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,13 +53,13 @@ class MainActivity : AppCompatActivity(){
                         .commit()
             }
             2->{
-                if(LoginInfo().LoginFlag){
+                if(SignInStatus().isSignIn){
                     navigation_bottom.selectedItemId = R.id.navigation_home
                     supportFragmentManager!!.beginTransaction()
                             .replace(R.id.container, mypageFragment())
                             .commit()
                 }else{
-                    val intent = Intent(this, PleaseLoginActivity::class.java)
+                    val intent = Intent(this, PleaseSignInActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -77,15 +72,11 @@ class MainActivity : AppCompatActivity(){
             }
         }
 
-//        supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, TimeLineFragment())
-//                .commit()
-
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, TimeLineFragment())
+                            .replace(R.id.container, HomeFragment())
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }

@@ -38,8 +38,8 @@
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" />
         </activity>
-        <activity android:name=".Login.LoginActivity" />
-        <activity android:name=".home.HomeActivity">
+        <activity android:name=".signIn.SignInActivity" />
+        <activity android:name=".PanelActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".contribution.record.YoutubeActivity" />
-        <activity android:name=".Login.PleaseLoginActivity"></activity>
+        <activity android:name=".signIn.PleaseSignInActivity"></activity>
     </application>
 
 </manifest>

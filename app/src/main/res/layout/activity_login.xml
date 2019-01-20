@@ -72,13 +72,13 @@
         android:textColorHint="#cccccc">
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffff"
-            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
-            android:hint="   Username"
-            android:inputType="textPersonName"
+            android:drawableStart="@drawable/ic_account_circle_black_24dp"
+            android:hint="   Email"
+            android:inputType="textEmailAddress"
             android:textColor="#cccccc"
             android:textSize="20sp" />
 
@@ -91,12 +91,12 @@
         android:textColorHint="#cccccc">
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffff"
-            android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
-            android:hint="   Passwoard"
+            android:drawableStart="@drawable/ic_lock_outline_black_24dp"
+            android:hint="   Password"
             android:inputType="textPassword"
             android:textColor="#cccccc"
             android:textSize="20sp" />
@@ -106,7 +106,7 @@
         android:id="@+id/forgotPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:text="Forgot Password?"
         android:textColor="#ffffff"
         android:textSize="16sp" />
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/gradientbackground1"
-        android:text="Log In"
+        android:text="SIGN In"
         android:textColor="#fff" />
 
     <Button
