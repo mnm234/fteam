@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.home
+package com.example.greentea.fteam.comp
 
 import android.content.Context
 import android.net.Uri

@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.myPage
+package com.example.greentea.fteam.home.myPage
 
 import android.content.Context
 import android.os.Bundle

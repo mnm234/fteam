@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.newComp
+package com.example.greentea.fteam.newArrivalsComp
 
 import android.content.Context
 import android.os.Bundle
@@ -15,7 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_new.*
 
 
-class NewFragment : Fragment() {
+class NewArrivalsFragment : Fragment() {
 
     private lateinit var parent: MainActivity
     private lateinit var mFirebaseFirestore: FirebaseFirestore
@@ -50,7 +50,7 @@ class NewFragment : Fragment() {
                                 compIDList.add(doc.id)
                                 compList.add(doc.toObject(CompetitionObject::class.java))
                             }
-                            newCompRecyclerView.adapter = NewRecyclerAdapter(context, compList, compIDList, parent)
+                            newCompRecyclerView.adapter = NewArrivalsRecyclerAdapter(context, compList, compIDList, parent)
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

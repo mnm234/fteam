@@ -3,8 +3,8 @@ package com.example.greentea.fteam.home
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.greentea.fteam.myPage.mypageFragment
-import com.example.greentea.fteam.timeLine.TimeLineFragment
+import com.example.greentea.fteam.home.myPage.mypageFragment
+import com.example.greentea.fteam.home.timeLine.TimeLineFragment
 
 class HomeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 

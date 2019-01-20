@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.timeLine
+package com.example.greentea.fteam.home.myPage
 
 
 import android.content.Context
@@ -12,11 +12,11 @@ import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.google.firebase.firestore.FirebaseFirestore
 
-class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) : RecyclerView.Adapter<TimeLineRecyclerViewHolder>(), View.OnClickListener {
+class mypageRecyclerAdapter(val context: Context?, val parent: MainActivity) : RecyclerView.Adapter<mypageRecyclerViewHolder>(), View.OnClickListener {
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
-    private var mFirebaseFirestore: FirebaseFirestore
+    private lateinit var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {
@@ -48,7 +48,7 @@ class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) :
         super.onAttachedToRecyclerView(recyclerView)
         mRecycler = recyclerView
     }
-    override fun onBindViewHolder(holder: TimeLineRecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: mypageRecyclerViewHolder, position: Int) {
         holder.let{
             it.timelineIcon.setImageResource(R.drawable.ic_account_circle_black_24dp)
             it.timelineText.text = "○○さんが競技を作成しました。"
@@ -57,7 +57,7 @@ class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineRecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mypageRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val mView = layoutInflater.inflate(R.layout.recycler_item_mypage, parent, false)
         mView.setOnClickListener { view ->
@@ -65,12 +65,12 @@ class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) :
             }
         }
         mView.setOnClickListener(this)
-        return TimeLineRecyclerViewHolder(mView, this)
+        return mypageRecyclerViewHolder(mView, this)
     }
 
 }
 
-class TimeLineRecyclerViewHolder(view: View, timelineRecyclerAdapter: TimeLineRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class mypageRecyclerViewHolder(view: View, mypageRecyclerAdapter: mypageRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
     override fun onClick(v: View?) {
     }
 

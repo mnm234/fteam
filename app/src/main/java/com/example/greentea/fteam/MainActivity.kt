@@ -6,11 +6,10 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import android.view.View
 import com.example.greentea.fteam.contribution.UploadFragment
-import com.example.greentea.fteam.home.CompDetailFragment
+import com.example.greentea.fteam.comp.CompDetailFragment
 import com.example.greentea.fteam.home.HomeFragment
-import com.example.greentea.fteam.newComp.NewFragment
+import com.example.greentea.fteam.newArrivalsComp.NewArrivalsFragment
 import com.example.greentea.fteam.signIn.PleaseSignInActivity
 import com.example.greentea.fteam.signIn.SignInStatus
 import kotlinx.android.synthetic.main.activity_main.*
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            MAIN_MYPAGE_BOTTOM_NAV_ID -> {
+            MAIN_MY_PAGE_BOTTOM_NAV_ID -> {
                 if (SignInStatus.isSignIn) {
                     navigation_bottom.selectedItemId = R.id.navigation_home
                     supportFragmentManager!!.beginTransaction()
@@ -61,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             MAIN_NEW_BOTTOM_NAV_ID -> {
                 navigation_bottom.selectedItemId = R.id.navigation_new
                 supportFragmentManager!!.beginTransaction()
-                        .replace(R.id.container, NewFragment())
+                        .replace(R.id.container, NewArrivalsFragment())
                         .commit()
             }
             MAIN_UPLOAD_BOTTOM_NAV_ID -> {
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_new -> {
                     supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, NewFragment())
+                            .replace(R.id.container, NewArrivalsFragment())
                             .commit()
                     return@OnNavigationItemSelectedListener true
                 }

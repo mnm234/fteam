@@ -48,7 +48,7 @@ class PanelActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 R.id.myAccount_cardView -> {
                     if(SignInStatus.isSignIn){
-                        intent.putExtra(MAIN_BOTTOM_NAV_KEY, MAIN_MYPAGE_BOTTOM_NAV_ID)
+                        intent.putExtra(MAIN_BOTTOM_NAV_KEY, MAIN_MY_PAGE_BOTTOM_NAV_ID)
                     } else {
                         intent = Intent(this, PleaseSignInActivity::class.java)
                     }

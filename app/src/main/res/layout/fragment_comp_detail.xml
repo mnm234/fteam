@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".home.CompDetailFragment">
+    tools:context=".comp.CompDetailFragment">
 
     <Button
         android:id="@+id/comp_detail_challenge_button"

@@ -20,11 +20,11 @@ const val CREATE_ACCOUNT = 1
 const val RC_SIGN_IN = 123
 
 /** MainActivity */
-const val MAIN_BOTTOM_NAV_KEY = "BottomMenuId"
+const val MAIN_BOTTOM_NAV_KEY = "BOTTOM_MENU_ID"
 const val MAIN_HOME_BOTTOM_NAV_ID = 0
-const val MAIN_MYPAGE_BOTTOM_NAV_ID = 1
+const val MAIN_MY_PAGE_BOTTOM_NAV_ID = 1
 const val MAIN_NEW_BOTTOM_NAV_ID = 2
 const val MAIN_UPLOAD_BOTTOM_NAV_ID = 3
 
 /** HomeFragment */
-const val VIEW_PAGER_KEY = "viewPage"
+const val VIEW_PAGER_KEY = "VIEW_PAGER"

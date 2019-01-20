@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.newComp
+package com.example.greentea.fteam.newArrivalsComp
 
 import android.content.Context
 import android.support.v7.widget.CardView
@@ -13,7 +13,7 @@ import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.google.firebase.firestore.FirebaseFirestore
 
-class NewRecyclerAdapter(val context: Context?, objects: MutableList<CompetitionObject>, mCompID:MutableList<String>, val parent: MainActivity) : RecyclerView.Adapter<NewRecyclerViewHolder>(), View.OnClickListener {
+class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<CompetitionObject>, mCompID:MutableList<String>, val parent: MainActivity) : RecyclerView.Adapter<NewArrivalsRecyclerViewHolder>(), View.OnClickListener {
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
@@ -38,7 +38,7 @@ class NewRecyclerAdapter(val context: Context?, objects: MutableList<Competition
         mRecycler = null
     }
 
-    override fun onBindViewHolder(holder: NewRecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewArrivalsRecyclerViewHolder, position: Int) {
         holder.let {
             it.compCardTextView.text = listItems[position].name
             it.compCardView.setOnClickListener {
@@ -57,7 +57,7 @@ class NewRecyclerAdapter(val context: Context?, objects: MutableList<Competition
         mRecycler = recyclerView
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewRecyclerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewArrivalsRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val mView = layoutInflater.inflate(R.layout.recycler_item_new, parent, false)
         mView.setOnClickListener { view ->
@@ -65,12 +65,12 @@ class NewRecyclerAdapter(val context: Context?, objects: MutableList<Competition
             }
         }
         mView.setOnClickListener(this)
-        return NewRecyclerViewHolder(mView, this)
+        return NewArrivalsRecyclerViewHolder(mView, this)
     }
 
 }
 
-class NewRecyclerViewHolder(view: View, NewRecyclerAdapter: NewRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class NewArrivalsRecyclerViewHolder(view: View, NewRecyclerAdapter: NewArrivalsRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
     override fun onClick(v: View?) {
     }
 

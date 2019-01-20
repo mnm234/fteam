@@ -1,4 +1,4 @@
-package com.example.greentea.fteam.timeLine
+package com.example.greentea.fteam.home.timeLine
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

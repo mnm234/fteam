@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".timeLine.TimeLineFragment">
+    tools:context=".home.timeLine.TimeLineFragment">
 
     <Button
         android:id="@+id/timeline_sign_out_button"
