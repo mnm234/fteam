@@ -33,7 +33,7 @@ class ExistingCompFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mFirebaseFirestore = FirebaseFirestore.getInstance()
-        existCompRecyclerView.layoutManager = GridLayoutManager(context,3)
+        existCompRecyclerView.layoutManager = GridLayoutManager(context,1)
         onSetupExistCompList()
     }
 

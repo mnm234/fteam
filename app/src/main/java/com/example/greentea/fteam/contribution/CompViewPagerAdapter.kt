@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter
 
 class CompViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-    private val tabTitles = arrayOf<CharSequence>("新しい競技", "既存の競技")
+    private val tabTitles = arrayOf<CharSequence>("既存の競技", "競技を作成")
 
     override fun getPageTitle(position: Int): CharSequence {
         return tabTitles[position]
@@ -15,8 +15,8 @@ class CompViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         return when (position) {
-            0 -> NewCompFragment()
-            1 -> ExistingCompFragment()
+            0 -> ExistingCompFragment()
+            1 -> NewCompFragment()
             else -> null
         }
     }

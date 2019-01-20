@@ -50,9 +50,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
-        google_signin_button.setOnContextClickListener {
-            signIn()
-        }
+//        google_signin_button.setOnContextClickListener {
+//            signIn()
+//        }
 
         submitButton.setOnClickListener {
             if(modeId == 0){

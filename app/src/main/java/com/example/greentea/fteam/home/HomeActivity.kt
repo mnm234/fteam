@@ -50,6 +50,7 @@ class HomeActivity : AppCompatActivity() {
         camera_cardView.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("BottomMenuId", 3)
+            intent.putExtra("Page", 2)
             startActivity(intent)
 //            supportFragmentManager!!.beginTransaction()
 //                    .replace(R.id.container, UploadFragment())

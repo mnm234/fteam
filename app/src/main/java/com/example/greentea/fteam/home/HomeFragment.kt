@@ -7,14 +7,27 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.greentea.fteam.MyPage.mypageFragment
 
 import com.example.greentea.fteam.R
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
+    private var page:Int = 1
+
+    companion object {
+        fun newInstance(viewpage:Int): HomeFragment {
+            val bundle = Bundle()
+            bundle.putInt("viewPage", viewpage)
+            HomeFragment().arguments = bundle
+            return HomeFragment()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        page = arguments!!.getInt("viewPage", 1)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +43,10 @@ class HomeFragment : Fragment() {
 //        tab2.text = "既存の競技"
         homeViewPager.offscreenPageLimit = 2
         homeViewPager.adapter = adapter
+        if(page == 2){
+            homeViewPager.currentItem = 2
+        }
+        homeViewPager.currentItem = 2
         homeTabLayout.setupWithViewPager(homeViewPager)
     }
 
@@ -40,9 +57,5 @@ class HomeFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-    }
-
-
-    companion object {
     }
 }
