@@ -17,5 +17,5 @@
     <color name="endColor">#009dff</color>
 
     <color name="activity_background">#1e1e1e</color>
-    <color name="fragment_background">#4285f4</color>
+    <color name="fragment_background">#66FF0000</color>
 </resources>

@@ -14,6 +14,16 @@ import com.example.greentea.fteam.`object`.CompetitionObject
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_home_newcomplist.*
 import java.lang.Exception
+import android.support.v7.widget.RecyclerView
+import java.util.*
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+
+
+
+
 
 
 class HomeNewCompListFragment : Fragment() {
@@ -40,7 +50,8 @@ class HomeNewCompListFragment : Fragment() {
 
         homeRecyclerView.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
         mFirebaseFirestore = FirebaseFirestore.getInstance()
-        onSetupRecyclerView()
+        //onSetupRecyclerView()
+        initRecyclerView()
 //        homeRecyclerView.adapter = HomeRecyclerAdapter(context, mutableListOf(), parent)
     }
 
@@ -65,4 +76,45 @@ class HomeNewCompListFragment : Fragment() {
                     } catch (e: Exception) {}
                 }
     }
+
+    private fun initRecyclerView() {
+        // Setting recycler view+
+        val recyclerView = view!!.findViewById<RecyclerView>(R.id.homeRecyclerView)
+        recyclerView.setLayoutManager(LinearLayoutManager(this.context))
+        // Generate demo data
+        val demoList:ArrayList<Objects?> = ArrayList()
+        demoList.add(null)
+        demoList.add(null)
+        demoList.add(null)
+        demoList.add(null)
+        demoList.add(null)
+        // Setting adapter
+        val adapter = context?.let {
+            VerticalAdapter(it, demoList)
+        }
+//        val adapter = this.context?.let { VerticalAdapter(it, demoList) }
+//        val adapter = VerticalAdapter(context, demoList)
+        recyclerView.swapAdapter(adapter, false)
+
+        mFirebaseFirestore.collection("competition")
+                .get()
+                .addOnCompleteListener { task ->
+                    try {
+                        if (task.isSuccessful) {
+//                                    task.result!!.count()
+                            for (doc in task.result!!) {
+                                // 取得した分をforEachで回す
+                                compIDList.add(doc.id)
+                                compList.add(doc.toObject(CompetitionObject::class.java))
+                            }
+                            homeRecyclerView.adapter = HomeRecyclerAdapter(context, compList, compIDList, parent)
+                        }
+                    } catch (e: Exception) {
+
+                    }
+
+                }
+    }
+
+
 }
