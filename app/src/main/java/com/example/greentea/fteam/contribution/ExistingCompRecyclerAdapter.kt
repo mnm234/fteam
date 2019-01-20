@@ -62,7 +62,7 @@ class ExistingCompRecyclerAdapter(val context: Context?, objects: MutableList<St
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExistingCompRecyclerViewHolder {
-        val mView = LayoutInflater.from(context).inflate(R.layout.exist_comp_item, parent, false)
+        val mView = LayoutInflater.from(context).inflate(R.layout.recycler_item_exist_comp, parent, false)
         return ExistingCompRecyclerViewHolder(mView, this)
     }
 }

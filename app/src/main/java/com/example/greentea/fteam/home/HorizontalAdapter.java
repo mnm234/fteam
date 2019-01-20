@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.example.greentea.fteam.R;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class HorizontalAdapter extends RecyclerView.Adapter {
@@ -25,7 +24,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View defaultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_horizontal, parent, false);
+        View defaultView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_list_horizontal, parent, false);
         return new HorizontalAdapter.ContentViewHolder(defaultView);
     }
 

@@ -91,7 +91,7 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        val mView = layoutInflater.inflate(R.layout.comp_item, parent, false)
+        val mView = layoutInflater.inflate(R.layout.recycler_item_comp, parent, false)
         mView.setOnClickListener { view ->
             mRecycler?.let {
             }

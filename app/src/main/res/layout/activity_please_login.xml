@@ -19,7 +19,7 @@
             android:id="@+id/toLoginButton"
             android:layout_marginVertical="20dp"
             android:background="@drawable/gradientbackground1"
-            android:text="login"
+            android:text="Sign In"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button

@@ -69,7 +69,7 @@ class CompDetailRecyclerViewAdapter(val context: Context?, objects: MutableList<
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompDetailRecyclerViewHolder {
-        val mView = LayoutInflater.from(context).inflate(R.layout.comp_detail_item, parent, false)
+        val mView = LayoutInflater.from(context).inflate(R.layout.recycler_item_comp_detail, parent, false)
         return CompDetailRecyclerViewHolder(mView, this)
     }
 }

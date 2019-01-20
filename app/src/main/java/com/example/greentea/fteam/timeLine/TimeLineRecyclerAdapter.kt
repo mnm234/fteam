@@ -59,7 +59,7 @@ class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        val mView = layoutInflater.inflate(R.layout.mypage_recycleritem_layout, parent, false)
+        val mView = layoutInflater.inflate(R.layout.recycler_item_mypage, parent, false)
         mView.setOnClickListener { view ->
             mRecycler?.let {
             }

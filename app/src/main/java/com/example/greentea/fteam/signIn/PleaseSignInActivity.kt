@@ -7,7 +7,7 @@ import com.example.greentea.fteam.CREATE_ACCOUNT
 import com.example.greentea.fteam.LOGIN
 import com.example.greentea.fteam.LOGIN_MODE
 import com.example.greentea.fteam.R
-import kotlinx.android.synthetic.main.please_login_layout.*
+import kotlinx.android.synthetic.main.activity_please_login.*
 
 class PleaseSignInActivity : AppCompatActivity() {
 
