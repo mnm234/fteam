@@ -1,5 +1,6 @@
 package com.example.greentea.fteam
 
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.CompDetailFragment
 import com.example.greentea.fteam.home.HomeNewCompListFragment
@@ -27,6 +29,8 @@ class MainActivity : AppCompatActivity(){
     internal var search_menu: Menu? = null
     internal var item_search: MenuItem? = null
 
+    private var navi:View? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,7 +38,7 @@ class MainActivity : AppCompatActivity(){
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
-
+        navi = findViewById<View>(R.id.navi_menu)
 
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, HomeFragment())
@@ -75,7 +79,7 @@ class MainActivity : AppCompatActivity(){
             }
             false
         })
-//        menubutton.setOnClickListener {
+//        navi!!.setOnClickListener {
 //            val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
 //            drawer.openDrawer(GravityCompat.START)
 //        }
