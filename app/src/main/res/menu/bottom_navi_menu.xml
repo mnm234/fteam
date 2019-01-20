@@ -10,7 +10,7 @@
     <item
         android:id="@+id/navigation_new"
         android:title="@string/naviMenu_new"
-        android:icon="@mipmap/trophy"
+        android:icon="@drawable/ic_fiber_new_black_24dp"
         />
 
     <item

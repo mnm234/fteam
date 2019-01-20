@@ -21,9 +21,9 @@ import com.example.greentea.fteam.signIn.SignInStatus.Companion.isSignIn
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
-//    internal var toolbar: Toolbar? = null
+    //    internal var toolbar: Toolbar? = null
     internal var searchtollbar: Toolbar? = null
     var dialogBundle = Bundle()
 
@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val viewPage = intent.getIntExtra("Page", 0)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -41,14 +42,14 @@ class MainActivity : AppCompatActivity(){
         val bottomNaviId = intent.getIntExtra("BottomMenuId", 0)
         Toast.makeText(this, bottomNaviId.toString(), Toast.LENGTH_SHORT)
 
-        when(bottomNaviId){
-            0->{
+        when (bottomNaviId) {
+            0 -> {
                 navigation_bottom.selectedItemId = R.id.navigation_home
                 supportFragmentManager!!.beginTransaction()
                         .replace(R.id.container, HomeFragment())
                         .commit()
             }
-            1->{
+            1 -> {
                 navigation_bottom.selectedItemId = R.id.navigation_new
                 supportFragmentManager!!.beginTransaction()
                         .replace(R.id.container, NewFragment())
@@ -57,8 +58,12 @@ class MainActivity : AppCompatActivity(){
             2->{
                 if(isSignIn){
                     navigation_bottom.selectedItemId = R.id.navigation_home
+                    val bundle = Bundle()
+                    bundle.putInt("viewPage", 2)
+                    val homeFragment = HomeFragment()
+                    homeFragment.arguments = bundle
                     supportFragmentManager!!.beginTransaction()
-                            .replace(R.id.container, mypageFragment())
+                            .replace(R.id.container, homeFragment)
                             .commit()
                 }else{
                     val intent = Intent(this, PleaseSignInActivity::class.java)
@@ -66,8 +71,12 @@ class MainActivity : AppCompatActivity(){
                 }
 
             }
-            3->{
+            3 -> {
+//                Toast.makeText(this, viewPage.toString(), Toast.LENGTH_SHORT).show()
                 navigation_bottom.selectedItemId = R.id.navigation_upload
+//                val bundle = Bundle()
+//                UploadFragment().arguments = bundle　　　　<- 値渡しテスト
+//                bundle.putInt("viewPage", viewPage)
                 supportFragmentManager!!.beginTransaction()
                         .replace(R.id.container, UploadFragment())
                         .commit()
@@ -115,20 +124,20 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-    fun goCompDetail(mCompID:String){
+    fun goCompDetail(mCompID: String) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, CompDetailFragment.newInstance(mCompID))
                 .commit()
     }
 
-    fun goVideo(mCompID: String){
-        Log.d("unchi","Mainだよ")
+    fun goVideo(mCompID: String) {
+        Log.d("unchi", "Mainだよ")
         val intent = Intent(this, VideoActivity::class.java)
         intent.putExtra(COMP_ID_KEY, mCompID)
         startActivity(intent)
     }
 
-    fun CameraIconPressed(){
+    fun CameraIconPressed() {
         navigation_bottom.selectedItemId = R.id.navigation_upload
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, UploadFragment())

@@ -38,7 +38,7 @@ class ExistingCompFragment : Fragment() {
                 .setTimestampsInSnapshotsEnabled(true)
                 .build()
         mFirebaseFirestore.firestoreSettings = settings
-        existCompRecyclerView.layoutManager = GridLayoutManager(context,3)
+        existCompRecyclerView.layoutManager = GridLayoutManager(context,1)
         onSetupExistCompList()
     }
 
