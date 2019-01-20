@@ -40,9 +40,9 @@ class NewRecyclerAdapter(val context: Context?, objects: MutableList<Competition
 
     override fun onBindViewHolder(holder: NewRecyclerViewHolder, position: Int) {
         holder.let {
-            Log.d("unchi", "onBindViewHolder")
             it.compCardTextView.text = listItems[position].name
             it.compCardView.setOnClickListener {
+                Log.d("unchi", "onBindViewHolder")
                 parent.goCompDetail(listID[position])
             }
         }

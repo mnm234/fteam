@@ -21,7 +21,7 @@ class SplashActivity : Activity() {
     internal inner class splashHandler : Runnable {
         override fun run() {
             // スプラッシュ完了後に実行するActivityを指定します。
-            val intent = Intent(application, MainActivity::class.java)
+            val intent = Intent(application, PanelActivity::class.java)
             startActivity(intent)
             // SplashActivityを終了させます。
             this@SplashActivity.finish()
