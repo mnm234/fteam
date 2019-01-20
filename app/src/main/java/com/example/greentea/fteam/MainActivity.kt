@@ -16,6 +16,8 @@ import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.contribution.record.VideoActivity
 import com.example.greentea.fteam.home.CompDetailFragment
 import com.example.greentea.fteam.home.HomeFragment
+import com.example.greentea.fteam.newComp.NewFragment
+import com.example.greentea.fteam.signIn.SignInStatus.Companion.isSignIn
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity(){
                         .commit()
             }
             2->{
-                if(SignInStatus().isSignIn){
+                if(isSignIn){
                     navigation_bottom.selectedItemId = R.id.navigation_home
                     supportFragmentManager!!.beginTransaction()
                             .replace(R.id.container, mypageFragment())

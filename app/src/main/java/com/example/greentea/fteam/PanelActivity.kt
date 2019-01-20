@@ -16,12 +16,10 @@ class PanelActivity : AppCompatActivity() {
 
         // ログインしているかどうか判定
         val user = FirebaseAuth.getInstance().currentUser
-        if(user != null){
-            SignInStatus().isSignIn = true
-            SignInStatus().mUser = user
+        if (user != null){
+            SignInStatus.isSignIn(true, user)
         } else {
-            SignInStatus().isSignIn = false
-            SignInStatus().mUser = null
+            SignInStatus.isSignIn(false)
         }
 
         newcomp_sort_cardView.setOnClickListener {

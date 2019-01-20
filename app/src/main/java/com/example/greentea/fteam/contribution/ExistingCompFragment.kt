@@ -11,6 +11,7 @@ import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.fragment_existing_comp.*
 import java.sql.Timestamp
 import java.util.*
@@ -33,6 +34,10 @@ class ExistingCompFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mFirebaseFirestore = FirebaseFirestore.getInstance()
+        val settings = FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build()
+        mFirebaseFirestore.firestoreSettings = settings
         existCompRecyclerView.layoutManager = GridLayoutManager(context,3)
         onSetupExistCompList()
     }

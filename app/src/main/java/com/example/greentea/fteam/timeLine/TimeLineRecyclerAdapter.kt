@@ -16,7 +16,7 @@ class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) :
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
-    private lateinit var mFirebaseFirestore: FirebaseFirestore
+    private var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {

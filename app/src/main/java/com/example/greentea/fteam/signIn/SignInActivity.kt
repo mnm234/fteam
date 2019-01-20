@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.example.greentea.fteam.LOGIN_MODE
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.RC_SIGN_IN
+import com.example.greentea.fteam.signIn.SignInStatus.Companion.isSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -111,16 +112,15 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    private fun isSignIn(flg: Boolean, user: FirebaseUser? = null){
-        if(flg){
-            SignInStatus().isSignIn = true
-            SignInStatus().mUser = user
-        } else {
-            SignInStatus().isSignIn = false
-            SignInStatus().mUser = null
-        }
-
-    }
+//    private fun isSignIn(flg: Boolean, user: FirebaseUser? = null){
+//        if(flg){
+//            SignInStatus().isSignIn = true
+//            SignInStatus().mUser = user
+//        } else {
+//            SignInStatus().isSignIn = false
+//            SignInStatus().mUser = null
+//        }
+//    }
 
     /** SignIn */
     private fun signIn(email: String, pass: String) {

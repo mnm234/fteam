@@ -15,8 +15,9 @@ import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.contribution.record.VideoActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import kotlinx.android.synthetic.main.fragment_new_comp.*
-import java.sql.Timestamp
+import java.util.*
 
 
 class NewCompFragment : Fragment() {
@@ -86,9 +87,9 @@ class NewCompFragment : Fragment() {
     private fun createComp(){
         mFirebaseFirestore = FirebaseFirestore.getInstance()
 
-        val timestamp = Timestamp(System.currentTimeMillis())
+//        val timestamp = Timestamp(System.currentTimeMillis())
 
-        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString(), timestamp)
+        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString(), Date())
         mFirebaseFirestore.collection("competition")
                 .add(tempData)
                 .addOnSuccessListener {
