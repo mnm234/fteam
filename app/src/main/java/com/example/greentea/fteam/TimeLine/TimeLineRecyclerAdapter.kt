@@ -1,23 +1,16 @@
-package com.example.greentea.fteam.MyPage
+package com.example.greentea.fteam.TimeLine
 
 
 import android.content.Context
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
-import com.example.greentea.fteam.TimeLineObject
-import com.example.greentea.fteam.`object`.CompetitionObject
-import com.example.greentea.fteam.`object`.CompetitionDetailObject
 import com.google.firebase.firestore.FirebaseFirestore
-import net.cachapa.expandablelayout.ExpandableLayout
-import org.w3c.dom.Text
 
 class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) : RecyclerView.Adapter<TimeLineRecyclerViewHolder>(), View.OnClickListener {
 

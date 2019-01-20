@@ -140,11 +140,10 @@ class VideoUploadFragment : Fragment() {
 
     /**
      * 動画の詳細情報をFirestoreに登録する処理
-     * 現在はユーザIDと動画のDLURLとTimeのみ
      * @param mYouTubeVideoID 動画のID(https://youtu.be/xxxxxx)
      */
     private fun setFileData(mYouTubeVideoID: String) {
-        val tempData = CompetitionDetailObject("userID", uploadEditText.text.toString(), ms2second(mDuration), mYouTubeVideoID)
+        val tempData = CompetitionDetailObject("upload", "userID", uploadEditText.text.toString(), ms2second(mDuration), mYouTubeVideoID, Date())
         mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
                 .collection("user")

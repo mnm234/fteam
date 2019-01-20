@@ -14,7 +14,7 @@ import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.CompDetailFragment
 import com.example.greentea.fteam.contribution.record.VideoActivity
 import com.example.greentea.fteam.home.HomeFragment
-import com.example.greentea.fteam.home.HomeNewCompListFragment
+import com.example.greentea.fteam.newComp.NewFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 

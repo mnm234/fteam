@@ -41,6 +41,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun signIn(){
+
+    }
+
 
 // 以下、ログインログアウトのサンプルコード。
 // 処理は以下から引用する予定です。

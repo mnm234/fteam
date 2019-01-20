@@ -5,10 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.greentea.fteam.Login.LoginActivity
 import com.example.greentea.fteam.MainActivity
-import com.example.greentea.fteam.MyPage.mypageFragment
-import com.example.greentea.fteam.NewFragment
 import com.example.greentea.fteam.R
-import com.example.greentea.fteam.contribution.UploadFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
