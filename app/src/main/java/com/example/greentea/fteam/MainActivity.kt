@@ -9,6 +9,10 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.example.greentea.fteam.Login.LoginActivity
+import com.example.greentea.fteam.Login.LoginInfo
+import com.example.greentea.fteam.Login.PleaseLoginActivity
+import com.example.greentea.fteam.MyPage.mypageFragment
 import com.example.greentea.fteam.TimeLine.TimeLineFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.CompDetailFragment
@@ -26,6 +30,8 @@ class MainActivity : AppCompatActivity(){
 
     internal var search_menu: Menu? = null
     internal var item_search: MenuItem? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +58,16 @@ class MainActivity : AppCompatActivity(){
                         .commit()
             }
             2->{
-                navigation_bottom.selectedItemId = R.id.navigation_hot
-                supportFragmentManager!!.beginTransaction()
-                        .replace(R.id.container, HotFragment())
-                        .commit()
+                if(LoginInfo().LoginFlag){
+                    navigation_bottom.selectedItemId = R.id.navigation_home
+                    supportFragmentManager!!.beginTransaction()
+                            .replace(R.id.container, mypageFragment())
+                            .commit()
+                }else{
+                    val intent = Intent(this, PleaseLoginActivity::class.java)
+                    startActivity(intent)
+                }
+
             }
             3->{
                 navigation_bottom.selectedItemId = R.id.navigation_upload

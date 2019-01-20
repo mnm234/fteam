@@ -46,7 +46,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".contribution.record.YoutubeActivity"></activity>
+        <activity android:name=".contribution.record.YoutubeActivity" />
+        <activity android:name=".Login.PleaseLoginActivity"></activity>
     </application>
 
 </manifest>
