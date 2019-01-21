@@ -55,10 +55,7 @@ import android.view.Surface
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import android.widget.Toast.LENGTH_SHORT
 import com.example.greentea.fteam.*
 import kotlinx.android.synthetic.main.fragment_video.*
@@ -600,7 +597,6 @@ class VideoFragment : Fragment(), View.OnClickListener,
         } catch (e: IOException) {
             Log.e(TAG, e.toString())
         }
-
     }
 
     private fun closePreviewSession() {
@@ -684,8 +680,11 @@ class VideoFragment : Fragment(), View.OnClickListener,
             override fun onFinish() {
                 // 終了時の処理
                 showToast("カウントダウン終了")
+                counT()
                 countDownTextView.text = "残り0秒"
-                if(func === "startRecordingVideo") startRecordingVideo()
+                if(func === "startRecordingVideo"){
+                    startRecordingVideo()
+                }
             }
 
             @SuppressLint("SetTextI18n")
@@ -700,6 +699,12 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
     companion object {
         fun newInstance(): VideoFragment = VideoFragment()
+    }
+
+    private fun counT(){
+        val chronometer: Chronometer = view!!.findViewById(R.id.chrono)
+        // カウントを開始
+        chronometer.start()
     }
 
 }
