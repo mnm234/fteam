@@ -39,10 +39,7 @@ import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CameraMetadata
 import android.hardware.camera2.CaptureRequest
 import android.media.MediaRecorder
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
-import android.os.HandlerThread
+import android.os.*
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -55,10 +52,7 @@ import android.view.Surface
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import android.widget.Toast.LENGTH_SHORT
 import com.example.greentea.fteam.*
 import kotlinx.android.synthetic.main.fragment_video.*
@@ -556,7 +550,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
     private fun startRecordingVideo() {
         if (cameraDevice == null || !textureView.isAvailable) return
-
+        counT()
         try {
             closePreviewSession()
             setUpMediaRecorder()
@@ -600,7 +594,6 @@ class VideoFragment : Fragment(), View.OnClickListener,
         } catch (e: IOException) {
             Log.e(TAG, e.toString())
         }
-
     }
 
     private fun closePreviewSession() {
@@ -685,7 +678,9 @@ class VideoFragment : Fragment(), View.OnClickListener,
                 // 終了時の処理
                 showToast("カウントダウン終了")
                 countDownTextView.text = "残り0秒"
-                if(func === "startRecordingVideo") startRecordingVideo()
+                if(func === "startRecordingVideo"){
+                    startRecordingVideo()
+                }
             }
 
             @SuppressLint("SetTextI18n")
@@ -700,6 +695,13 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
     companion object {
         fun newInstance(): VideoFragment = VideoFragment()
+    }
+
+    private fun counT(){
+        val chronometer: Chronometer = view!!.findViewById(R.id.chrono)
+        chronometer.base = SystemClock.elapsedRealtime()
+        // カウントを開始
+        chronometer.start()
     }
 
 }
