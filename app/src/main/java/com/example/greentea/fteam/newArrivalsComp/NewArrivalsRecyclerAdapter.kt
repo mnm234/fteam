@@ -13,11 +13,11 @@ import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.google.firebase.firestore.FirebaseFirestore
 
-class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<CompetitionObject>, mCompID:MutableList<String>, val parent: MainActivity) : RecyclerView.Adapter<NewArrivalsRecyclerViewHolder>(), View.OnClickListener {
+class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<CompetitionObject>, mCompID: MutableList<String>, val parent: MainActivity) : RecyclerView.Adapter<NewArrivalsRecyclerViewHolder>(), View.OnClickListener {
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
-    private lateinit var mFirebaseFirestore: FirebaseFirestore
+    private var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {
@@ -26,11 +26,11 @@ class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<Com
         mFirebaseFirestore = FirebaseFirestore.getInstance()
     }
 
-    var listItems: MutableList<CompetitionObject> = objects
-    var listID = mCompID
+    private var listItems = objects
+    private var listID = mCompID
 
     override fun onClick(v: View) {
-        val position = mRecycler!!.getChildAdapterPosition(v)
+//        val position = mRecycler!!.getChildAdapterPosition(v)
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
@@ -42,8 +42,7 @@ class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<Com
         holder.let {
             it.compCardTextView.text = listItems[position].name
             it.compCardView.setOnClickListener {
-                Log.d("unchi", "onBindViewHolder")
-                parent.goCompDetail(listID[position])
+                parent.goCompDetail(listID[position], listItems[position].name)
             }
         }
     }
@@ -60,7 +59,7 @@ class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<Com
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewArrivalsRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val mView = layoutInflater.inflate(R.layout.recycler_item_new, parent, false)
-        mView.setOnClickListener { view ->
+        mView.setOnClickListener {
             mRecycler?.let {
             }
         }
@@ -70,7 +69,7 @@ class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<Com
 
 }
 
-class NewArrivalsRecyclerViewHolder(view: View, NewRecyclerAdapter: NewArrivalsRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class NewArrivalsRecyclerViewHolder(view: View, NewArrivalsRecyclerAdapter: NewArrivalsRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
     override fun onClick(v: View?) {
     }
 
@@ -80,6 +79,6 @@ class NewArrivalsRecyclerViewHolder(view: View, NewRecyclerAdapter: NewArrivalsR
 //        }
 //    }
 
-    val compCardView:CardView = view.findViewById(R.id.new_comp_cardView)
-    val compCardTextView:TextView = view.findViewById(R.id.new_comp_cardTextView)
+    val compCardView: CardView = view.findViewById(R.id.new_comp_cardView)
+    val compCardTextView: TextView = view.findViewById(R.id.new_comp_cardTextView)
 }

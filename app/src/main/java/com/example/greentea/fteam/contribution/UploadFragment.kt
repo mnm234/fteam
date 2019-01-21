@@ -1,5 +1,6 @@
 package com.example.greentea.fteam.contribution
 
+import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +15,7 @@ import com.example.greentea.fteam.COMP_ID_KEY
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.contribution.record.VideoActivity
+import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_upload.*
 import java.util.*
@@ -83,10 +85,11 @@ class UploadFragment : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun createComp(){
         mFirebaseFirestore = FirebaseFirestore.getInstance()
 
-        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString(), Date())
+        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString(), SignInStatus.mUserID, Date())
         this.mFirebaseFirestore.collection("competition")
                 .add(tempData)
                 .addOnSuccessListener {
@@ -102,7 +105,6 @@ class UploadFragment : Fragment() {
                     Toast.makeText(context, "競技作成に失敗しました。時間を空けてもう一度試してください", Toast.LENGTH_SHORT).show()
                 }
     }
-
 
 //    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 //                              savedInstanceState: Bundle?): View? {

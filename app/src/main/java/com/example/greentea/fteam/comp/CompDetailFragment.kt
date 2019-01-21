@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.greentea.fteam.COMP_ID_KEY
+import com.example.greentea.fteam.COMP_NAME_KEY
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
@@ -22,14 +23,16 @@ class CompDetailFragment : Fragment() {
 
     private lateinit var mFirebaseFirestore: FirebaseFirestore
     private lateinit var mCompID: String
+    private lateinit var mCompName: String
     private val challengerList: MutableList<CompetitionDetailObject> = mutableListOf()
     private lateinit var parent: MainActivity
 
     companion object {
-        fun newInstance(mCompID: String): CompDetailFragment {
+        fun newInstance(mCompID: String, compName:String): CompDetailFragment {
             val compDetailFragment = CompDetailFragment()
             val bundle = Bundle()
             bundle.putString(COMP_ID_KEY, mCompID)
+            bundle.putString(COMP_NAME_KEY, compName)
             compDetailFragment.arguments = bundle
             return compDetailFragment
         }
@@ -37,8 +40,10 @@ class CompDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val args = arguments
-        mCompID = args!!.getString(COMP_ID_KEY)!!
+        arguments?.let {
+            mCompID = it.getString(COMP_ID_KEY)!!
+            mCompName = it.getString(COMP_NAME_KEY)!!
+        }
         mFirebaseFirestore = FirebaseFirestore.getInstance()
     }
 
@@ -55,6 +60,9 @@ class CompDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        compDetailTitleTextView.text = mCompName
+
         compDetailRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         setupRecyclerView()
 
@@ -69,14 +77,6 @@ class CompDetailFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        mFirebaseFirestore.collection("competition")
-                .document(mCompID)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        compDetailTitleTextView.text = task.result!!.toObject(CompetitionObject::class.java)!!.name
-                    }
-                }
         mFirebaseFirestore.collection("competition")
                 .document(mCompID)
                 .collection("user")

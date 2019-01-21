@@ -73,7 +73,7 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
                             }
 
                             it.top3Expand.setOnClickListener {
-                                parent.goCompDetail(listID[position])
+                                parent.goCompDetail(listID[position], "HomeRecycler")
                             }
                         }
                     }

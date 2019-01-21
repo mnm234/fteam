@@ -10,14 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
+import com.example.greentea.fteam.signIn.SignInStatus
 import kotlinx.android.synthetic.main.fragment_mypage.*
 
 class mypageFragment : Fragment() {
     private lateinit var parent: MainActivity
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -26,6 +23,7 @@ class mypageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myPage_username_textView.text = SignInStatus.mUserName
         mypageRecyclerView.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
         mypageRecyclerView.adapter = mypageRecyclerAdapter(context, parent)
     }
@@ -33,10 +31,6 @@ class mypageFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         parent = activity as MainActivity
-    }
-
-    override fun onDetach() {
-        super.onDetach()
     }
 
 }

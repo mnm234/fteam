@@ -98,7 +98,7 @@ class VideoUploadFragment : Fragment() {
 
         /** ユーザー名を決めるところが現在存在しないので仮でEmailを表示 */
         if(SignInStatus.isSignIn){
-            uploadUserName.text = SignInStatus.mUser!!.email
+            uploadUserName.text = SignInStatus.mUserName
         }
 
         /** 動画の時間を取得するためにuploadVideoPreviewViewの準備が完了するまで待たせる */
@@ -107,19 +107,11 @@ class VideoUploadFragment : Fragment() {
             // 時間表示
             uploadVideoDuration.text = convertTime(mDuration)
             uploadButton.setOnClickListener {
-//                if (uploadUserName.text.toString() == "") {
-//                    Toast.makeText(context, "動画タイトルを入力してください", Toast.LENGTH_SHORT).show()
-//                    return@setOnClickListener
-//                }
                 uploadYoutube()
                 uploadButton.isEnabled = false
             }
             /** 動画をFirebaseから引っ張る処理 機能停止中 */
             catchButton.setOnClickListener {
-//                if (uploadUserName.text.toString() == "") {
-//                    Toast.makeText(context, "動画タイトルを入力してください", Toast.LENGTH_SHORT).show()
-//                    return@setOnClickListener
-//                }
 //                mFirebaseFirestore.collection("competition")
 //                        .document(mCompetitionID)
 //                        .collection("user")
@@ -150,7 +142,7 @@ class VideoUploadFragment : Fragment() {
     }
 
     /**
-     * タイムを表示用に変換する関数
+     * 時間(ms)を表示用に変換する関数
      * @param duration 変換対象の値(ms)
      * @return 00:00:00の表記でstring型で返す
      */
@@ -166,7 +158,7 @@ class VideoUploadFragment : Fragment() {
      * @param mYouTubeVideoID 動画のID(https://youtu.be/xxxxxx)
      */
     private fun setFileData(mYouTubeVideoID: String) {
-        val tempData = CompetitionDetailObject("upload", "userID", uploadUserName.text.toString(), ms2second(mDuration), mYouTubeVideoID, Date())
+        val tempData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), ms2second(mDuration), mYouTubeVideoID, Date())
         mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
                 .collection("user")
@@ -178,7 +170,7 @@ class VideoUploadFragment : Fragment() {
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.d("testaa", e.toString())
+                    Log.d("unchi", e.toString())
                     Toast.makeText(context, "ファイルの詳細情報登録に失敗しました", Toast.LENGTH_SHORT).show()
                 }
     }
@@ -234,11 +226,11 @@ class VideoUploadFragment : Fragment() {
             val snippet = VideoSnippet()
             val cal = Calendar.getInstance()
             // 動画タイトル
-            snippet.title = "Test Upload via Java on " + cal.time
+            snippet.title = "Engord $mCompetitionID " + cal.time
             // 動画詳細
-            snippet.description = "Video uploaded via YouTube Data API V3 using the Java library " + "on " + cal.time
+            snippet.description = "From Engord " + cal.time
             // タグ
-            val tags = Arrays.asList("test", "example", "java", "Youtube Data API v3", "erase me")
+            val tags = Arrays.asList("Engord", mCompetitionID)
             snippet.tags = tags
             videoObjectDefiningMetadata.snippet = snippet
             /** 投稿 */
@@ -363,14 +355,13 @@ class VideoUploadFragment : Fragment() {
                         mChooserFlg = true
                     }
                 } else {
-                    Toast.makeText(context, "ログインしないとアップロードできません", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "サインインしないとアップロードできません", Toast.LENGTH_SHORT).show()
                 }
                 uploadYoutube()
             }
             // Return: Upload時に選択したGoogleAccountにYoutubeのPermissionが無い場合
             REQUEST_AUTHORIZATION_YOUTUBE -> {
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.d("unchi", "REQUEST_AUTHORIZATION_YOUTUBE")
                     mIntent = null
                     uploadYoutube()
                 } else {

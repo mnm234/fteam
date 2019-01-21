@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.signIn.SignInStatus
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_time_line.*
 
 
@@ -25,5 +27,18 @@ class TimeLineFragment : Fragment() {
             timeline_sign_out_button.isEnabled = false
             timeline_sign_out_button.text = "サインインしろ"
         }
+    }
+
+    private fun timelineSetup(){
+        val mFS = FirebaseFirestore.getInstance()
+        // TL表示に使うObjectのArray宣言
+        // TL初期化 Objectに格納していく
+        for(follower in SignInStatus.followerList){
+            mFS.collection("activity")
+                    .whereEqualTo("userID", follower)
+                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                    .addSnapshotListener { querySnapshot, firebaseFirestoreException ->  }
+        }
+        // timestamp順にならべadapterへ
     }
 }

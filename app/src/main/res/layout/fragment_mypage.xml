@@ -23,6 +23,7 @@
                 android:tint="@color/colorWhite"
                 android:src="@drawable/ic_account_circle_black_150dp"/>
             <TextView
+                android:id="@+id/myPage_username_textView"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
