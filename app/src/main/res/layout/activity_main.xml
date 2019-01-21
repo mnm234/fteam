@@ -1,69 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <!--<android.support.v7.widget.Toolbar android:id="@+id/toolbar"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--app:titleTextColor="@color/bottom_navi_textColor"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?android:attr/actionBarSize"-->
-    <!--android:background="@color/navi_color"-->
-    <!--android:elevation="5dp"-->
-    <!--xmlns:tools="http://schemas.android.com/tools" />-->
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        android:visibility="visible"/>
-
-    <include
-        layout="@layout/search_toolbar"
-        android:visibility="gone" />
-
-
-    <LinearLayout
-        android:id="@+id/container"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:tag="tag" />
+        tools:context=".MainActivity">
+
+        <!--<android.support.v7.widget.Toolbar android:id="@+id/toolbar"-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--app:titleTextColor="@color/bottom_navi_textColor"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?android:attr/actionBarSize"-->
+        <!--android:background="@color/navi_color"-->
+        <!--android:elevation="5dp"-->
+        <!--xmlns:tools="http://schemas.android.com/tools" />-->
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            android:visibility="visible"/>
+
+        <include
+            layout="@layout/search_toolbar"
+            android:visibility="gone" />
 
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/navi_color"
-        android:elevation="8dp"
-        app:elevation="5dp"
-        app:itemIconTint="@drawable/bottom_navi_color"
-        app:itemTextColor="@drawable/bottom_navi_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_navi_menu"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:tag="tag" />
 
-    </android.support.design.widget.BottomNavigationView>
-    <!--<android.support.v4.widget.DrawerLayout-->
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/navi_color"
+            android:elevation="8dp"
+            app:elevation="5dp"
+            app:itemIconTint="@drawable/bottom_navi_color"
+            app:itemTextColor="@drawable/bottom_navi_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_navi_menu"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        </android.support.design.widget.BottomNavigationView>
+        <!--<android.support.v4.widget.DrawerLayout-->
         <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
         <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
         <!--android:id="@+id/drawer_layout"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
-    <!--<LinearLayout-->
+        <!--<LinearLayout-->
         <!--android:orientation="vertical"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
-    <!--</LinearLayout>-->
-    <!--<android.support.design.widget.NavigationView-->
+        <!--</LinearLayout>-->
+        <!--<android.support.design.widget.NavigationView-->
         <!--android:id="@+id/nav_view"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="match_parent"-->
@@ -71,9 +79,9 @@
         <!--android:fitsSystemWindows="true"-->
         <!--app:headerLayout="@layout/nav_header_main"-->
         <!--app:menu="@menu/activity_main_drawer" />-->
-    <!--</android.support.v4.widget.DrawerLayout>-->
+        <!--</android.support.v4.widget.DrawerLayout>-->
 
-    <!--<ImageView-->
+        <!--<ImageView-->
         <!--android:id="@+id/optionbutton"-->
         <!--android:layout_width="27dp"-->
         <!--android:layout_height="26dp"-->
@@ -86,4 +94,13 @@
         <!--app:layout_constraintTop_toTopOf="@+id/drawer_layout"-->
         <!--app:srcCompat="@drawable/ic_more_vert_black_24dp" />-->
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
+</android.support.v4.widget.DrawerLayout>
