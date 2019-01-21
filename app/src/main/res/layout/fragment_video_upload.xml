@@ -15,6 +15,7 @@
         android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent">
 
+
         <VideoView
             android:layout_marginBottom="30dp"
             android:layout_gravity="center"

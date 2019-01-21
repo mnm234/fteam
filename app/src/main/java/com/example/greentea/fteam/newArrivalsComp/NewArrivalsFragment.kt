@@ -12,6 +12,7 @@ import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_new.*
 
 
@@ -41,6 +42,7 @@ class NewArrivalsFragment : Fragment() {
 
     private fun setupRecyclerView(){
         mFirebaseFirestore.collection("competition")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     try {

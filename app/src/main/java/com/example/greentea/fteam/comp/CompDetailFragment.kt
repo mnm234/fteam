@@ -14,6 +14,7 @@ import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.contribution.record.VideoActivity
+import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_comp_detail.*
 
@@ -58,6 +59,8 @@ class CompDetailFragment : Fragment() {
         setupRecyclerView()
 
         /** この競技に投稿 仮設置 */
+        // ログインしていなければfalse
+        comp_detail_challenge_button.isEnabled = SignInStatus.isSignIn
         comp_detail_challenge_button.setOnClickListener {
             val intent = Intent(this.context, VideoActivity::class.java)
             intent.putExtra(COMP_ID_KEY, mCompID)
