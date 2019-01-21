@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNaviId = intent.getIntExtra(MAIN_BOTTOM_NAV_KEY, 0)
 //        navi = findViewById<View>(R.id.navi_menu)
 
+
+
         when (bottomNaviId) {
             MAIN_HOME_BOTTOM_NAV_ID -> {
                 if(SignInStatus.isSignIn){
@@ -70,11 +72,15 @@ class MainActivity : AppCompatActivity() {
                             .replace(R.id.container, UploadFragment())
                             .commit()
                 } else {
-                    requireSignIn()
                 }
 
             }
         }
+
+
+
+
+
 
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
