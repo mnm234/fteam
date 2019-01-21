@@ -96,7 +96,7 @@ class VideoUploadFragment : Fragment() {
         uploadVideoPreviewView.setOnPreparedListener { mp ->
             mDuration = mp.duration
             uploadButton.setOnClickListener {
-                if (uploadEditText.text.toString() == "") {
+                if (uploadUserName.text.toString() == "") {
                     Toast.makeText(context, "動画タイトルを入力してください", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
@@ -105,14 +105,14 @@ class VideoUploadFragment : Fragment() {
             }
             /** 動画をFirebaseから引っ張る処理 機能停止中 */
             catchButton.setOnClickListener {
-                if (uploadEditText.text.toString() == "") {
+                if (uploadUserName.text.toString() == "") {
                     Toast.makeText(context, "動画タイトルを入力してください", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 //                mFirebaseFirestore.collection("competition")
 //                        .document(mCompetitionID)
 //                        .collection("user")
-//                        .whereEqualTo("userID", uploadEditText.text.toString())
+//                        .whereEqualTo("userID", uploadUserName.text.toString())
 //                        .get()
 //                        .addOnCompleteListener { task ->
 //                            if (task.isSuccessful) {
@@ -143,7 +143,7 @@ class VideoUploadFragment : Fragment() {
      * @param mYouTubeVideoID 動画のID(https://youtu.be/xxxxxx)
      */
     private fun setFileData(mYouTubeVideoID: String) {
-        val tempData = CompetitionDetailObject("upload", "userID", uploadEditText.text.toString(), ms2second(mDuration), mYouTubeVideoID, Date())
+        val tempData = CompetitionDetailObject("upload", "userID", uploadUserName.text.toString(), ms2second(mDuration), mYouTubeVideoID, Date())
         mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
                 .collection("user")
@@ -386,7 +386,7 @@ class VideoUploadFragment : Fragment() {
      * アップロードが完了次第setFileDataへ
      */
 //    private fun uploadVideoFile(duration: Int) {
-//        if (uploadEditText.text.toString() == "") {
+//        if (uploadUserName.text.toString() == "") {
 //            Toast.makeText(context, "動画タイトルを入力してください", Toast.LENGTH_LONG).show()
 //            return
 //        }
@@ -408,7 +408,7 @@ class VideoUploadFragment : Fragment() {
      */
 //    private fun setFileData(mYouTubeVideoID: String) {
 //        mFirebaseStorage.getReferenceFromUrl(tar.toString()).downloadUrl.addOnCompleteListener {
-//            val tempData = CompetitionDetailObject("ID予定地", uploadEditText.text.toString(), ms2second(duration), it.result!!.toString())
+//            val tempData = CompetitionDetailObject("ID予定地", uploadUserName.text.toString(), ms2second(duration), it.result!!.toString())
 //            mFirebaseFirestore.collection("competition")
 //                    .document(mCompetitionID)
 //                    .collection("user")
