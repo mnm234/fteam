@@ -16,7 +16,6 @@ import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_time_line.*
 
 

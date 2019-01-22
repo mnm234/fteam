@@ -19,9 +19,9 @@ class SignInActivity : AppCompatActivity() {
         this@SignInActivity.finish()
     }
 
-    fun goSignUp(){
-        supportFragmentManager!!.beginTransaction()
-                .replace(R.id.sign_in_container, SignUpFragment())
-                .commit()
-    }
+//    fun goSignUp(){
+//        supportFragmentManager!!.beginTransaction()
+//                .replace(R.id.sign_in_container, SignUpFragment())
+//                .commit()
+//    }
 }

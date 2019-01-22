@@ -3,6 +3,10 @@ package com.example.greentea.fteam.home.timeLine
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +17,8 @@ import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.TimeLineObject
+import java.io.InputStream
+import java.net.URL
 
 class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLineObject> , val parent: MainActivity) : RecyclerView.Adapter<TimeLineRecyclerViewHolder>(), View.OnClickListener {
 
@@ -64,6 +70,8 @@ class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLi
                 }
             }
             it.timelineText.text = temp
+//            val bitmap = BitmapFactory.decodeStream(URL("https://img.youtube.com/vi/${listItems[position].videoURL}/sddefault.jpg").content as InputStream?)
+//            it.timelineThumbnail.foreground = BitmapDrawable(bitmap)
         }
     }
 
@@ -94,7 +102,7 @@ class TimeLineRecyclerViewHolder(view: View, timelineRecyclerAdapter: TimeLineRe
     val timelineUsername:TextView = view.findViewById(R.id.timeline_username)
     val timelineTime:TextView = view.findViewById(R.id.timeline_time)
     val timelineText:TextView = view.findViewById(R.id.timeline_text)
-//    val timelineThumbnail:CardView = view.findViewById(R.id.timeline_cardView)
+    val timelineThumbnail: CardView = view.findViewById(R.id.timeline_cardView)
 
 //    val compCardView: CardView = view.findViewById(R.id.compCardView)
 //    val homeCompTextView: TextView = view.findViewById(R.id.homeCompTextView)

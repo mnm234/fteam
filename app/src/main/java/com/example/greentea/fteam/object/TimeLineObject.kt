@@ -5,10 +5,11 @@ import java.util.*
 
 data class TimeLineObject(
         val type:String = "",
+        val compID:String = "",
         val compName:String = "",
         val userID:String = "",
         val username:String = "",
         val time:Int = 0,
-        val videoURL:String = "",
+        val videoID:String = "",
         @ServerTimestamp val timestamp: Date? = null
 )
