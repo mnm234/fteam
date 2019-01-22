@@ -92,4 +92,8 @@ class CompDetailFragment : Fragment() {
                     }
                 }
     }
+
+//    private fun goPlayer(vid:String){
+//
+//    }
 }

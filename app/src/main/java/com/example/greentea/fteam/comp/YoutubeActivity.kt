@@ -1,17 +1,23 @@
-package com.example.greentea.fteam.contribution.record
+package com.example.greentea.fteam.comp
 
+import android.annotation.SuppressLint
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.greentea.fteam.R
+import com.example.greentea.fteam.YOUTUBE_ID_KEY
 import kotlinx.android.synthetic.main.activity_youtube.*
 
 class YoutubeActivity : AppCompatActivity() {
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_youtube)
 
-        val data:String="<!DOCTYPE html>\n" +
+        val videoID = intent.getStringExtra(YOUTUBE_ID_KEY)
+
+        val data: String = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "  <head>\n" +
                 "    <style>\n" +
@@ -29,7 +35,7 @@ class YoutubeActivity : AppCompatActivity() {
                 " \n" +
                 "    </script>\n" +
                 "    <script>\n" +
-                "    var vId = \""+"KPyJdWyUoyk"+"\";\n" +
+                "    var vId = \"" + videoID + "\";\n" +
                 "    window.onload = function(){\n" +
                 "\tloadVideoData();\n" +
                 "      \n" +
@@ -41,10 +47,10 @@ class YoutubeActivity : AppCompatActivity() {
                 "    </script>\n" +
                 "  </body>\n" +
                 "</html>"
-        youtubeVideoView?.getSettings()?.setJavaScriptEnabled(true)
+        youtubeVideoView?.settings?.javaScriptEnabled = true
         val settings = youtubeVideoView!!.settings
         settings.domStorageEnabled = true
         youtubeVideoView.loadDataWithBaseURL("https://youtube.com", data
-                , "text/html", "UTF-8",null)
+                , "text/html", "UTF-8", null)
     }
 }

@@ -35,3 +35,6 @@ const val VIEW_PAGER_KEY = "VIEW_PAGER"
 /** OtherUserFragment */
 const val OTHER_USER_ID_KEY = "OTHER_USER_ID_KEY"
 const val OTHER_USER_NAME_KEY = "OTHER_USER_NAME_KEY"
+
+/** YoutubeActivity */
+const val YOUTUBE_ID_KEY = "YOUTUBE_ID_KEY"

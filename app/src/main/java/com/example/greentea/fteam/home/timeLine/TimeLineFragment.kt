@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.OrientationHelper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,7 @@ class TimeLineFragment : Fragment() {
 
     private lateinit var mFS:FirebaseFirestore
     private val timeLineList: MutableList<TimeLineObject> = mutableListOf()
-    private lateinit var adapter: TimeLineRecyclerAdapter
+    private lateinit var tlAdapter: TimeLineRecyclerAdapter
     private var registration:ListenerRegistration? = null
     private lateinit var parent:MainActivity
 
@@ -48,12 +47,13 @@ class TimeLineFragment : Fragment() {
             timeline_sign_out_button.text = "サインインしろ"
         }
 
-        adapter = TimeLineRecyclerAdapter(context, timeLineList, parent)
+        tlAdapter = TimeLineRecyclerAdapter(context, timeLineList, parent)
+        val tlLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         timeline_recyclerview.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
-            adapter = adapter
+            this.setHasFixedSize(true)
+            this.layoutManager = tlLayoutManager
+            this.adapter = tlAdapter
         }
 
         reloadTimeLine()
@@ -81,13 +81,17 @@ class TimeLineFragment : Fragment() {
                             DocumentChange.Type.ADDED -> {
                                 Log.d("unchi","ADDED")
                                 val tempData = dc.document.toObject(TimeLineObject::class.java)
-                                timeLineList.add(0, tempData)
+                                if(SignInStatus.followerList.contains(tempData.userID)){
+                                    timeLineList.add(0, tempData)
+                                }
                             }
                             DocumentChange.Type.MODIFIED -> {}
                             DocumentChange.Type.REMOVED -> {}
                         }
                     }
-                    adapter.notifyDataSetChanged()
+//                    adapter = TimeLineRecyclerAdapter(context, timeLineList, parent)
+//                    timeline_recyclerview.adapter = adapter
+                    tlAdapter.notifyDataSetChanged()
                 }
     }
 

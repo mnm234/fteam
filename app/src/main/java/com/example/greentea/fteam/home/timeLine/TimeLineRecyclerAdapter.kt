@@ -3,10 +3,6 @@ package com.example.greentea.fteam.home.timeLine
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +13,7 @@ import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.TimeLineObject
-import java.io.InputStream
-import java.net.URL
+import com.squareup.picasso.Picasso
 
 class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLineObject> , val parent: MainActivity) : RecyclerView.Adapter<TimeLineRecyclerViewHolder>(), View.OnClickListener {
 
@@ -37,7 +32,7 @@ class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLi
 //    var listID = mCompID
 
     override fun onClick(v: View) {
-        val position = mRecycler!!.getChildAdapterPosition(v)
+//        val position = mRecycler!!.getChildAdapterPosition(v)
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
@@ -70,15 +65,31 @@ class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLi
                 }
             }
             it.timelineText.text = temp
-//            val bitmap = BitmapFactory.decodeStream(URL("https://img.youtube.com/vi/${listItems[position].videoURL}/sddefault.jpg").content as InputStream?)
-//            it.timelineThumbnail.foreground = BitmapDrawable(bitmap)
+            /**
+             * Picasso 画像処理に特化したライブラリ
+             * load 指定されたURLの画像を取得
+             * placeholder 画像読み込み中に表示する画像
+             * into 表示するImageViewを指定
+             */
+            /**
+             * YoutubeのThumbnail取得URL一覧 画像サイズ昇順
+             * ( 120 *   90) http://img.youtube.com/vi/動画ID/default.jpg
+             * ( 320 *  180) http://img.youtube.com/vi/動画ID/mqdefault.jpg
+             * ( 480 *  360) http://img.youtube.com/vi/動画ID/hqdefault.jpg
+             * ( 640 *  480) http://img.youtube.com/vi/動画ID/sddefault.jpg
+             * (1920 * 1080) http://img.youtube.com/vi/動画ID/maxresdefault.jpg
+             */
+            Picasso.get()
+                    .load("https://img.youtube.com/vi/${listItems[position].videoID}/sddefault.jpg")
+                    .placeholder(R.drawable.gradientbackground)
+                    .into(it.timelineThumbnailImageView)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val mView = layoutInflater.inflate(R.layout.recycler_item_mypage, parent, false)
-        mView.setOnClickListener { view ->
+        mView.setOnClickListener {
             mRecycler?.let {
             }
         }
@@ -102,8 +113,8 @@ class TimeLineRecyclerViewHolder(view: View, timelineRecyclerAdapter: TimeLineRe
     val timelineUsername:TextView = view.findViewById(R.id.timeline_username)
     val timelineTime:TextView = view.findViewById(R.id.timeline_time)
     val timelineText:TextView = view.findViewById(R.id.timeline_text)
-    val timelineThumbnail: CardView = view.findViewById(R.id.timeline_cardView)
 
+    val timelineThumbnailImageView:ImageView = view.findViewById(R.id.timeline_thumbnail_image_view)
 //    val compCardView: CardView = view.findViewById(R.id.compCardView)
 //    val homeCompTextView: TextView = view.findViewById(R.id.homeCompTextView)
 //    val compTime1: TextView = view.findViewById(R.id.homeCompTime1)

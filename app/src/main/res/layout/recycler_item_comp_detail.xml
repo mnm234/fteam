@@ -13,8 +13,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <VideoView
-                android:id="@+id/compDetailVideoView"
+            <ImageView
+                android:id="@+id/compDetailImageView"
                 android:layout_width="0dp"
                 android:layout_height="200dp"
                 android:layout_weight="1" />

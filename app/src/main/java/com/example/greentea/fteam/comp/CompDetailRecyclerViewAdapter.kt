@@ -2,7 +2,7 @@ package com.example.greentea.fteam.comp
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.net.Uri
+import android.content.Intent
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,11 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import android.widget.VideoView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
+import com.example.greentea.fteam.YOUTUBE_ID_KEY
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
+import com.squareup.picasso.Picasso
 
 class CompDetailRecyclerViewAdapter(val context: Context?, objects: MutableList<CompetitionDetailObject>, val parent: MainActivity) : RecyclerView.Adapter<CompDetailRecyclerViewHolder>(), View.OnClickListener{
 
@@ -37,18 +38,13 @@ class CompDetailRecyclerViewAdapter(val context: Context?, objects: MutableList<
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CompDetailRecyclerViewHolder, position: Int) {
         holder.let {
-            it.compDetailVideoView.setOnClickListener { _ ->
-                if(it.compDetailVideoView.isPlaying){
-                    // 再生中であればPause
-                    it.compDetailVideoView.pause()
-                } else {
-                    it.compDetailVideoView.start()
-                    if(!it.compDetailVideoView.isPlaying){
-                        // 直前のstartで再生されていなければVideoを読み込んでいないと判断
-                        it.compDetailVideoView.setVideoURI(Uri.parse(listItems!![position].videoURL))
-                        it.compDetailVideoView.start()
-                    }
-                }
+            Picasso.get()
+                    .load("https://img.youtube.com/vi/${listItems!![position].videoURL}/sddefault.jpg")
+                    .into(it.compDetailImageView)
+            it.compDetailImageView.setOnClickListener {
+                val intent = Intent(context, YoutubeActivity::class.java)
+                intent.putExtra(YOUTUBE_ID_KEY, listItems!![position].videoURL)
+                context!!.startActivity(intent)
             }
             when(position){
                 0 -> it.compDetailRankImageView.setImageResource(R.mipmap.no1)
@@ -83,7 +79,7 @@ class CompDetailRecyclerViewHolder(view: View, CompDetailRecyclerViewAdapter: Co
     init {
     }
     val compDetailCardView:CardView = view.findViewById(R.id.comp_detail_card_view)
-    val compDetailVideoView:VideoView = view.findViewById(R.id.compDetailVideoView)
+    val compDetailImageView:ImageView = view.findViewById(R.id.compDetailImageView)
     val compDetailRankTextView:TextView = view.findViewById(R.id.compDetailRankTextView)
     val compDetailRankImageView: ImageView = view.findViewById(R.id.compDetailRankImageView)
     val compDetailTimeTextView:TextView = view.findViewById(R.id.compDetailTimeTextView)
