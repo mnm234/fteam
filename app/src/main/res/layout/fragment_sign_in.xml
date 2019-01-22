@@ -102,6 +102,25 @@
             android:textSize="20sp" />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColorHint="#cccccc">
+
+        <EditText
+            android:id="@+id/sign_up_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#ffff"
+            android:drawableStart="@drawable/ic_account_circle_black_24dp"
+            android:hint="   Username"
+            android:inputType="textPersonName"
+            android:textColor="#cccccc"
+            android:textSize="20sp"
+            android:visibility="gone"/>
+    </android.support.design.widget.TextInputLayout>
+
     <TextView
         android:id="@+id/forgotPass"
         android:layout_width="wrap_content"

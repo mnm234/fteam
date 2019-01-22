@@ -33,18 +33,13 @@ open class SignInStatus {
                         .document(mUserID)
                         .get()
                         .addOnCompleteListener { task ->
-
                             if (task.isSuccessful) {
                                 try {
                                     task.result?.let { doc ->
                                         followerList = doc.toObject(UserObject::class.java)!!.followerID
                                     }
-                                } catch (e: Exception){
-
-                                }
+                                } catch (e: Exception) {}
                             }
-
-
                         }
             } else {
                 isSignIn = false

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.RC_SIGN_IN
+import com.example.greentea.fteam.`object`.UserObject
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -19,6 +20,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : Fragment() {
@@ -79,13 +82,16 @@ class SignInFragment : Fragment() {
         submitButton.setOnClickListener {
             val email = login_email.text.toString()
             val password = login_password.text.toString()
-            if (email == "" && password == "") return@setOnClickListener
+            val username = sign_up_username.text.toString()
+            if (email == "" || password == "") return@setOnClickListener
             if (modeId == 0) {
                 //ログイン
                 signIn(email, password)
             } else {
                 //登録
-                signUp(email, password)
+                if(username != ""){
+                    signUp(email, password, username)
+                }
             }
         }
 
@@ -93,8 +99,7 @@ class SignInFragment : Fragment() {
             if (modeId == 0) {
                 forgotPass.visibility = View.GONE
                 modeTitle.setImageResource(R.mipmap.signup)
-                google_signin_button.visibility = View.GONE
-                orBorder.visibility = View.GONE
+                sign_up_username.visibility = View.VISIBLE
                 modeId = 1
                 submitButton.text = "SIGN UP"
                 typeChange.text = "SIGN IN YOUR ACCOUNT"
@@ -102,8 +107,7 @@ class SignInFragment : Fragment() {
             } else {
                 forgotPass.visibility = View.VISIBLE
                 modeTitle.setImageResource(R.mipmap.login)
-                google_signin_button.visibility = View.VISIBLE
-                orBorder.visibility = View.VISIBLE
+                sign_up_username.visibility = View.GONE
                 modeId = 0
                 submitButton.text = "SIGN IN"
                 typeChange.text = "CREATE AN ACCOUNT"
@@ -137,7 +141,7 @@ class SignInFragment : Fragment() {
     }
 
     /** SignUp */
-    private fun signUp(email: String, pass: String) {
+    private fun signUp(email: String, pass: String, name:String) {
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -145,11 +149,38 @@ class SignInFragment : Fragment() {
                         val user = mAuth.currentUser
                         SignInStatus.isSignIn(user)
                         Toast.makeText(context, "CreateUser Success!", Toast.LENGTH_SHORT).show()
-                        parent.goSignUp()
+                        setupUserInfo(name)
                     } else {
                         Log.w("unchi", "createUserWithEmail:failure", it.exception)
                         Toast.makeText(context, "createUserWithEmail Failed.", Toast.LENGTH_SHORT).show()
                     }
+                }
+    }
+
+    private fun setupUserInfo(name:String){
+        val profileUpdates = UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build()
+        SignInStatus.mUser!!.updateProfile(profileUpdates).addOnCompleteListener {
+            if (it.isSuccessful) {
+                SignInStatus.isSignIn(SignInStatus.mUser)
+                Toast.makeText(context, "ユーザー登録完了", Toast.LENGTH_SHORT).show()
+                registerUserInfo()
+                parent.onFinishActivity()
+            }
+        }
+    }
+
+    /** ユーザー情報を他ユーザーから見られるようにFireStoreに格納 */
+    private fun registerUserInfo(){
+        val mFireStore = FirebaseFirestore.getInstance()
+        val tempData = UserObject(SignInStatus.mUserName)
+        mFireStore.collection("user")
+                .document(SignInStatus.mUserID)
+                .set(tempData)
+                .addOnFailureListener {
+                    registerUserInfo()
+                    return@addOnFailureListener
                 }
     }
 
