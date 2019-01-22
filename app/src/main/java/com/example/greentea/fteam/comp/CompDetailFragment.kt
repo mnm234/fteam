@@ -72,6 +72,7 @@ class CompDetailFragment : Fragment() {
         comp_detail_challenge_button.setOnClickListener {
             val intent = Intent(this.context, VideoActivity::class.java)
             intent.putExtra(COMP_ID_KEY, mCompID)
+            intent.putExtra(COMP_NAME_KEY, mCompName)
             startActivity(intent)
         }
     }

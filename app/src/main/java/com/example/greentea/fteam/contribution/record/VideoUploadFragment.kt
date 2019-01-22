@@ -46,6 +46,7 @@ class VideoUploadFragment : Fragment() {
     private lateinit var filepath: String
     private lateinit var filename: String
     private lateinit var mCompetitionID: String
+    private lateinit var mCompetitionName: String
     private var mDuration: Int = 0
 
     private lateinit var parent: VideoActivity
@@ -56,12 +57,13 @@ class VideoUploadFragment : Fragment() {
 //    private var mUploadTask: UploadTask? = null
 
     companion object {
-        fun newInstance(path: String, name: String, mCompID: String): VideoUploadFragment {
+        fun newInstance(path: String, name: String, mCompID: String, mCompName: String): VideoUploadFragment {
             val videoUploadFragment = VideoUploadFragment()
             val bundle = Bundle()
             bundle.putString(FILE_PATH_KEY, path)
             bundle.putString(NAME_PATH_KEY, name)
             bundle.putString(COMP_ID_KEY, mCompID)
+            bundle.putString(COMP_NAME_KEY, mCompName)
             videoUploadFragment.arguments = bundle
             return videoUploadFragment
         }
@@ -69,10 +71,12 @@ class VideoUploadFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val args: Bundle? = arguments
-        filepath = args!!.getString(FILE_PATH_KEY, "")
-        filename = args.getString(NAME_PATH_KEY, "")
-        mCompetitionID = args.getString(COMP_ID_KEY, "")
+        arguments?.let {
+            filepath = it.getString(FILE_PATH_KEY, "")
+            filename = it.getString(NAME_PATH_KEY, "")
+            mCompetitionID = it.getString(COMP_ID_KEY, "")
+            mCompetitionName = it.getString(COMP_NAME_KEY, "")
+        }
         mFirebaseFirestore = FirebaseFirestore.getInstance()
 //        mFirebaseStorage = FirebaseStorage.getInstance()
 //        mFirebaseStorageRef = mFirebaseStorage.reference
@@ -97,7 +101,7 @@ class VideoUploadFragment : Fragment() {
         }
 
         /** ユーザー名を決めるところが現在存在しないので仮でEmailを表示 */
-        if(SignInStatus.isSignIn){
+        if (SignInStatus.isSignIn) {
             uploadUserName.text = SignInStatus.mUserName
         }
 
@@ -112,7 +116,7 @@ class VideoUploadFragment : Fragment() {
             }
             /** 動画をFirebaseから引っ張る処理 機能停止中 */
             catchButton.setOnClickListener {
-//                mFirebaseFirestore.collection("competition")
+                //                mFirebaseFirestore.collection("competition")
 //                        .document(mCompetitionID)
 //                        .collection("user")
 //                        .whereEqualTo("userID", uploadUserName.text.toString())
@@ -146,7 +150,7 @@ class VideoUploadFragment : Fragment() {
      * @param duration 変換対象の値(ms)
      * @return 00:00:00の表記でstring型で返す
      */
-    private fun convertTime(duration:Int): String{
+    private fun convertTime(duration: Int): String {
         val minute = (duration / (1000 * 60)) % 60
         val second = (duration / 1000) % 60
         val ms = duration % 1000
@@ -158,7 +162,7 @@ class VideoUploadFragment : Fragment() {
      * @param mYouTubeVideoID 動画のID(https://youtu.be/xxxxxx)
      */
     private fun setFileData(mYouTubeVideoID: String) {
-        val tempData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), ms2second(mDuration), mYouTubeVideoID, Date())
+        val tempData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), ms2second(mDuration), mYouTubeVideoID, mCompetitionName, Date())
         mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
                 .collection("user")
@@ -226,7 +230,7 @@ class VideoUploadFragment : Fragment() {
             val snippet = VideoSnippet()
             val cal = Calendar.getInstance()
             // 動画タイトル
-            snippet.title = "Engord $mCompetitionID " + cal.time
+            snippet.title = "Engord $mCompetitionName " + cal.time
             // 動画詳細
             snippet.description = "From Engord " + cal.time
             // タグ

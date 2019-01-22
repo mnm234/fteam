@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.greentea.fteam.COMP_ID_KEY
+import com.example.greentea.fteam.COMP_NAME_KEY
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.contribution.record.VideoActivity
@@ -80,6 +81,7 @@ class UploadFragment : Fragment() {
         camera_cardView.setOnClickListener {
             val intent = Intent(this.context, VideoActivity::class.java)
             intent.putExtra(COMP_ID_KEY, mCompID)
+            intent.putExtra(COMP_NAME_KEY, newCompName.text.toString())
             startActivity(intent)
         }
 

@@ -4,6 +4,7 @@ import com.example.greentea.fteam.`object`.UserObject
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import java.lang.Exception
 
 
 open class SignInStatus {
@@ -13,10 +14,10 @@ open class SignInStatus {
         /** どのユーザーでSignInしているか */
         var mUser: FirebaseUser? = null
         /** ユーザー情報 */
-        var mUserID:String = ""
-        var mUserName:String = ""
+        var mUserID: String = ""
+        var mUserName: String = ""
         /** フォロワーリスト */
-        var followerList:ArrayList<String> = ArrayList()
+        var followerList: ArrayList<String> = ArrayList()
 
         /** SignIn Status Check */
         fun isSignIn(user: FirebaseUser?) {
@@ -24,14 +25,26 @@ open class SignInStatus {
                 isSignIn = true
                 mUser = user
                 mUserID = mUser!!.uid
-                mUserName = mUser!!.displayName!!
+                mUser!!.displayName?.let {
+                    mUserName = it
+
+                }
                 FirebaseFirestore.getInstance().collection("user")
                         .document(mUserID)
                         .get()
-                        .addOnCompleteListener {
-                            if(it.isSuccessful){
-                                followerList = it.result!!.toObject(UserObject::class.java)!!.followerID
+                        .addOnCompleteListener { task ->
+
+                            if (task.isSuccessful) {
+                                try {
+                                    task.result?.let { doc ->
+                                        followerList = doc.toObject(UserObject::class.java)!!.followerID
+                                    }
+                                } catch (e: Exception){
+
+                                }
                             }
+
+
                         }
             } else {
                 isSignIn = false
@@ -43,7 +56,7 @@ open class SignInStatus {
         }
 
         /** Sign Out */
-        fun signOut(){
+        fun signOut() {
             FirebaseAuth.getInstance().signOut()
             isSignIn = false
             mUser = null

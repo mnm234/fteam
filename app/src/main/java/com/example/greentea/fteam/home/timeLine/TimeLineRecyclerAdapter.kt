@@ -1,8 +1,10 @@
 package com.example.greentea.fteam.home.timeLine
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,20 +12,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.greentea.fteam.`object`.TimeLineObject
 
-class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) : RecyclerView.Adapter<TimeLineRecyclerViewHolder>(), View.OnClickListener {
+class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLineObject> , val parent: MainActivity) : RecyclerView.Adapter<TimeLineRecyclerViewHolder>(), View.OnClickListener {
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
-    private var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {
             inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         }
-        mFirebaseFirestore = FirebaseFirestore.getInstance()
     }
+
+    private val listItems = objects
 
 //    var listItems: MutableList<TimeLineObject> = objects
 //    var listID = mCompID
@@ -37,23 +39,31 @@ class TimeLineRecyclerAdapter(val context: Context?, val parent: MainActivity) :
         mRecycler = null
     }
 
-
-
     override fun getItemCount(): Int {
-//        return listItems.size
-        return 5
+        return listItems.size
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         mRecycler = recyclerView
     }
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TimeLineRecyclerViewHolder, position: Int) {
         holder.let{
+            Log.d("unchi", "onBind")
             it.timelineIcon.setImageResource(R.drawable.ic_account_circle_black_24dp)
-            it.timelineText.text = "○○さんが競技を作成しました。"
-            it.timelineTime.text = "1 hour ago"
-            it.timelineUsername.text = "Username"
+            it.timelineTime.text = listItems[position].timestamp.toString()
+            it.timelineUsername.text = listItems[position].username
+            /** ここでtypeによって表示する文章分岐 */
+            val temp = when(listItems[position].type){
+                "upload" -> {
+                    "${listItems[position].username}さんが${listItems[position].compName}にチャレンジしました。"
+                }
+                else -> {
+                    "error"
+                }
+            }
+            it.timelineText.text = temp
         }
     }
 

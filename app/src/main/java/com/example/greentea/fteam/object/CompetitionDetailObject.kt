@@ -9,5 +9,6 @@ data class CompetitionDetailObject(
         val username:String = "",
         val time:Int = 0,
         val videoURL:String = "",
+        val compName:String = "",
         @ServerTimestamp val timestamp: Date? = null
 )

@@ -1,11 +1,14 @@
 package com.example.greentea.fteam.`object`
 
-import java.sql.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
 import java.util.*
 
 data class TimeLineObject(
-        val name:String = "",
-        val rule:String = "",
-        val timestamp: Date? = null,
-        val tag:ArrayList<String> = ArrayList()
+        val type:String = "",
+        val compName:String = "",
+        val userID:String = "",
+        val username:String = "",
+        val time:Int = 0,
+        val videoURL:String = "",
+        @ServerTimestamp val timestamp: Date? = null
 )
