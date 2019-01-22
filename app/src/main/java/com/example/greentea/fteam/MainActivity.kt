@@ -128,12 +128,14 @@ class MainActivity : AppCompatActivity() {
     fun goCompDetail(mCompID: String, compName:String) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, CompDetailFragment.newInstance(mCompID, compName))
+                .addToBackStack(null)
                 .commit()
     }
 
     fun goOtherUser(mUid:String, mOName:String){
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, OtherUserFragment.newInstance(mUid, mOName))
+                .addToBackStack(null)
                 .commit()
     }
 

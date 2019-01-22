@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,8 +55,20 @@ class CompDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        return inflater.inflate(R.layout.fragment_comp_detail, container, false)
+        
+        val view = inflater.inflate(R.layout.fragment_comp_detail, container, false)
+        view.setOnKeyListener { v, keyCode, event ->
+            if(event.keyCode == KeyEvent.KEYCODE_BACK){
+                if(event.action == KeyEvent.ACTION_UP){
+                    fragmentManager!!.popBackStack()
+                    return@setOnKeyListener true
+                }else{
+                    return@setOnKeyListener false
+                }
+            }
+            return@setOnKeyListener false
+        }
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,6 +105,8 @@ class CompDetailFragment : Fragment() {
                     }
                 }
     }
+
+    
 
 //    private fun goPlayer(vid:String){
 //

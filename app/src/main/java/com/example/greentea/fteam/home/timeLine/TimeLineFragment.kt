@@ -25,6 +25,7 @@ class TimeLineFragment : Fragment() {
     private lateinit var tlAdapter: TimeLineRecyclerAdapter
     private var registration:ListenerRegistration? = null
     private lateinit var parent:MainActivity
+    private var isInited = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,15 +49,19 @@ class TimeLineFragment : Fragment() {
         }
 
         tlAdapter = TimeLineRecyclerAdapter(context, timeLineList, parent)
-        val tlLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         timeline_recyclerview.apply {
-            this.setHasFixedSize(true)
-            this.layoutManager = tlLayoutManager
-            this.adapter = tlAdapter
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = tlAdapter
         }
 
-        reloadTimeLine()
+        if(!isInited){
+            reloadTimeLine()
+        } else {
+
+        }
+
     }
 
     override fun onDestroy() {
@@ -92,6 +97,7 @@ class TimeLineFragment : Fragment() {
 //                    adapter = TimeLineRecyclerAdapter(context, timeLineList, parent)
 //                    timeline_recyclerview.adapter = adapter
                     tlAdapter.notifyDataSetChanged()
+                    isInited = true
                 }
     }
 

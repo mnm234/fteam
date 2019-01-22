@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
@@ -51,20 +52,32 @@ class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLi
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TimeLineRecyclerViewHolder, position: Int) {
         holder.let{
-            Log.d("unchi", "onBind")
+            it.timelineLayout.setOnClickListener {
+                parent.goCompDetail(listItems[position].compID, listItems[position].compName)
+            }
             it.timelineIcon.setImageResource(R.drawable.ic_account_circle_black_24dp)
             it.timelineTime.text = listItems[position].timestamp.toString()
             it.timelineUsername.text = listItems[position].username
-            /** ここでtypeによって表示する文章分岐 */
-            val temp = when(listItems[position].type){
+            /** ここでtypeによって表示する文章と画像を分岐 */
+            when(listItems[position].type){
                 "upload" -> {
-                    "${listItems[position].username}さんが${listItems[position].compName}にチャレンジしました。"
+                    it.timelineText.text = "${listItems[position].username}さんが【${listItems[position].compName}】にチャレンジしました。"
+                    Picasso.get()
+                            .load("https://img.youtube.com/vi/${listItems[position].videoID}/sddefault.jpg")
+                            .placeholder(R.drawable.gradientbackground)
+                            .into(it.timelineThumbnailImageView)
+                }
+                "create_comp" -> {
+                    it.timelineText.text = "${listItems[position].username}さんが新しい競技【${listItems[position].compName}】を作成しました。"
+                    Picasso.get()
+                            .load(R.drawable.ghost)
+                            .placeholder(R.drawable.gradientbackground)
+                            .into(it.timelineThumbnailImageView)
                 }
                 else -> {
-                    "error"
+                    it.timelineText.text = "error"
                 }
             }
-            it.timelineText.text = temp
             /**
              * Picasso 画像処理に特化したライブラリ
              * load 指定されたURLの画像を取得
@@ -79,10 +92,10 @@ class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLi
              * ( 640 *  480) http://img.youtube.com/vi/動画ID/sddefault.jpg
              * (1920 * 1080) http://img.youtube.com/vi/動画ID/maxresdefault.jpg
              */
-            Picasso.get()
-                    .load("https://img.youtube.com/vi/${listItems[position].videoID}/sddefault.jpg")
-                    .placeholder(R.drawable.gradientbackground)
-                    .into(it.timelineThumbnailImageView)
+//            Picasso.get()
+//                    .load(imgUri)
+//                    .placeholder(R.drawable.gradientbackground)
+//                    .into(it.timelineThumbnailImageView)
         }
     }
 
@@ -109,6 +122,7 @@ class TimeLineRecyclerViewHolder(view: View, timelineRecyclerAdapter: TimeLineRe
 //        }
 //    }
 
+    val timelineLayout:LinearLayout = view.findViewById(R.id.timeline_layout)
     val timelineIcon:ImageView = view.findViewById(R.id.timeline_icon)
     val timelineUsername:TextView = view.findViewById(R.id.timeline_username)
     val timelineTime:TextView = view.findViewById(R.id.timeline_time)

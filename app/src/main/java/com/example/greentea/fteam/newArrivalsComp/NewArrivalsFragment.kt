@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,8 @@ class NewArrivalsFragment : Fragment() {
     private lateinit var mFirebaseFirestore: FirebaseFirestore
     private val compList: MutableList<CompetitionObject> = mutableListOf()
     private val compIDList: MutableList<String> = mutableListOf()
+    private lateinit var newArrivalAdapter: NewArrivalsRecyclerAdapter
+    private var isInited = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -31,8 +34,21 @@ class NewArrivalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mFirebaseFirestore = FirebaseFirestore.getInstance()
-        newCompRecyclerView.layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
-        setupRecyclerView()
+
+
+        newArrivalAdapter = NewArrivalsRecyclerAdapter(context, compList, compIDList, parent)
+        newCompRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context, OrientationHelper.VERTICAL, false)
+            adapter = newArrivalAdapter
+        }
+        if (!isInited) {
+            setupRecyclerView()
+        } else {
+            Log.d("unchi", compList.toString())
+            newArrivalAdapter.notifyDataSetChanged()
+        }
+
     }
 
     override fun onAttach(context: Context?) {
@@ -40,7 +56,7 @@ class NewArrivalsFragment : Fragment() {
         parent = activity as MainActivity
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         mFirebaseFirestore.collection("competition")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .get()
@@ -52,7 +68,8 @@ class NewArrivalsFragment : Fragment() {
                                 compIDList.add(doc.id)
                                 compList.add(doc.toObject(CompetitionObject::class.java))
                             }
-                            newCompRecyclerView.adapter = NewArrivalsRecyclerAdapter(context, compList, compIDList, parent)
+                            newArrivalAdapter.notifyDataSetChanged()
+                            isInited = true
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

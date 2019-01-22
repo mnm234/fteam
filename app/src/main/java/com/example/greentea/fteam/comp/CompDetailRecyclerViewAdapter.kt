@@ -11,9 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.VideoView
-import com.example.greentea.fteam.MainActivity
-import com.example.greentea.fteam.R
-import com.example.greentea.fteam.YOUTUBE_ID_KEY
+import com.example.greentea.fteam.*
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
 import com.squareup.picasso.Picasso
 
@@ -44,6 +42,8 @@ class CompDetailRecyclerViewAdapter(val context: Context?, objects: MutableList<
             it.compDetailImageView.setOnClickListener {
                 val intent = Intent(context, YoutubeActivity::class.java)
                 intent.putExtra(YOUTUBE_ID_KEY, listItems!![position].videoURL)
+                intent.putExtra(COMP_NAME_KEY, listItems!![position].compName)
+                intent.putExtra(USER_NAME_KEY, listItems!![position].username)
                 context!!.startActivity(intent)
             }
             when(position){

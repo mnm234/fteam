@@ -91,7 +91,7 @@ class UploadFragment : Fragment() {
     private fun createComp(){
         mFirebaseFirestore = FirebaseFirestore.getInstance()
 
-        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString(), SignInStatus.mUserID, Date())
+        val tempData = CompetitionObject(newCompName.text.toString(), newCompRule.text.toString(), SignInStatus.mUserID, SignInStatus.mUserName, Date())
         this.mFirebaseFirestore.collection("competition")
                 .add(tempData)
                 .addOnSuccessListener {

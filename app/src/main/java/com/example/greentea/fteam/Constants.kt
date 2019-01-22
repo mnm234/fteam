@@ -15,6 +15,7 @@ const val PREF_ACCOUNT_NAME = "ACCOUNT_NAME"
 /** CompDetail */
 const val COMP_ID_KEY = "COMP_ID_KEY"
 const val COMP_NAME_KEY = "COMP_NAME_KEY"
+const val USER_NAME_KEY = "USER_NAME_KEY"
 
 /** SignIn */
 const val LOGIN_MODE = "LOGIN_MODE"
