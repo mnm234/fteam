@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        var page = 0
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         val bottomNaviId = intent.getIntExtra(MAIN_BOTTOM_NAV_KEY, 0)
@@ -69,32 +70,62 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     if (SignInStatus.isSignIn) {
-                        supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, HomeFragment.newInstance(0))
-                                .commit()
+                            supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_in_right, R.anim.anim_out_left)
+                                    .replace(R.id.container, HomeFragment.newInstance(0))
+                                    .commit()
+                        page = 1
                         return@OnNavigationItemSelectedListener true
                     } else {
                         requireSignIn()
+                        page = 0
                         return@OnNavigationItemSelectedListener false
                     }
                 }
                 R.id.navigation_new -> {
-                    supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, NewArrivalsFragment())
-                            .commit()
+                    if (page < 1){
+                        supportFragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.anim_in_left, R.anim.anim_out_right)
+                                .replace(R.id.container, NewArrivalsFragment())
+                                .commit()
+                    }else{
+                        supportFragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.anim_in_right, R.anim.anim_out_left)
+                                .replace(R.id.container, NewArrivalsFragment())
+                                .commit()
+                    }
+                    page = 1
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_hot -> {
-                    supportFragmentManager.beginTransaction()
-                            .replace(R.id.container, HotFragment())
-                            .commit()
+                    if(page < 2) {
+                        supportFragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.anim_in_left, R.anim.anim_out_right)
+                                .replace(R.id.container, HotFragment())
+                                .commit()
+                    }else{
+                        supportFragmentManager.beginTransaction()
+                                .setCustomAnimations(R.anim.anim_in_right, R.anim.anim_out_left)
+                                .replace(R.id.container, HotFragment())
+                                .commit()
+                    }
+                    page = 2
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_upload -> {
                     if (SignInStatus.isSignIn) {
-                        supportFragmentManager.beginTransaction()
-                                .replace(R.id.container, UploadFragment())
-                                .commit()
+                        if (page == 0){
+                            supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_fadein, R.anim.anim_fadeout)
+                                    .replace(R.id.container, UploadFragment())
+                                    .commit()
+                        }else {
+                            supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_in_left, R.anim.anim_out_right)
+                                    .replace(R.id.container, UploadFragment())
+                                    .commit()
+                        }
+                        page = 3
                         return@OnNavigationItemSelectedListener true
                     } else {
                         requireSignIn()

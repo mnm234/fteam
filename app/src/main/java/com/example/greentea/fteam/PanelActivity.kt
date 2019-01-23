@@ -1,5 +1,6 @@
 package com.example.greentea.fteam
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -46,6 +47,7 @@ class PanelActivity : AppCompatActivity(), View.OnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             when (it.id) {
                 R.id.newcomp_sort_cardView -> {
+                    overridePendingTransition(R.anim.anim_fadein, R.anim.anim_fadeout)
                     intent.putExtra(MAIN_BOTTOM_NAV_KEY, MAIN_NEW_BOTTOM_NAV_ID)
                 }
                 R.id.hotcomp_sort_cardView -> {
@@ -82,7 +84,9 @@ class PanelActivity : AppCompatActivity(), View.OnClickListener {
                     return@let
                 }
             }
-            startActivity(intent)
+//            startActivity(intent)
+
+            startActivity(intent,ActivityOptions.makeCustomAnimation(this, R.anim.anim_fadein, R.anim.anim_fadeout).toBundle())
         }
     }
 }
