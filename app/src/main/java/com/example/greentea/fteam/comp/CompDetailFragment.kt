@@ -24,6 +24,8 @@ class CompDetailFragment : Fragment() {
     private lateinit var mCompName: String
     private val challengerList: MutableList<CompetitionDetailObject> = mutableListOf()
     private lateinit var parent: MainActivity
+    private lateinit var mAdapter: CompDetailRecyclerViewAdapter
+    private var isInit = false
 
     companion object {
         fun newInstance(mCompID: String, compName: String): CompDetailFragment {
@@ -75,15 +77,25 @@ class CompDetailFragment : Fragment() {
         mFirebaseFirestore.collection("competition")
                 .document(mCompID)
                 .get()
-                .addOnCompleteListener {task ->
-                    if(!task.isSuccessful) return@addOnCompleteListener
+                .addOnCompleteListener { task ->
+                    if (!task.isSuccessful) return@addOnCompleteListener
                     val data = task.result!!.toObject(CompetitionObject::class.java)
                     compDetailTimestampTextView.text = data?.timestamp.toString()
                     compDetailRuleTextView.text = data?.rule
                 }
 
-        compDetailRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        setupRecyclerView()
+        mAdapter = CompDetailRecyclerViewAdapter(context, challengerList, parent)
+        compDetailRecyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = mAdapter
+        }
+        if (!isInit) {
+            setupRecyclerView()
+        } else {
+            mAdapter.notifyDataSetChanged()
+        }
+
 
         /** この競技に投稿 仮設置 */
         // ログインしていなければfalse
@@ -107,13 +119,10 @@ class CompDetailFragment : Fragment() {
                         for (doc in task.result!!) {
                             challengerList.add(doc.toObject(CompetitionDetailObject::class.java))
                         }
-                        compDetailRecyclerView.adapter = CompDetailRecyclerViewAdapter(context, challengerList, parent)
+//                        compDetailRecyclerView.adapter = CompDetailRecyclerViewAdapter(context, challengerList, parent)
+                        mAdapter.notifyDataSetChanged()
+                        isInit = true
                     }
                 }
     }
-
-
-//    private fun goPlayer(vid:String){
-//
-//    }
 }
