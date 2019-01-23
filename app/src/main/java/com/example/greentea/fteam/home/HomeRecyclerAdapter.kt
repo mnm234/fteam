@@ -42,41 +42,41 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
 
     override fun onBindViewHolder(holder: HomeRecyclerViewHolder, position: Int) {
         holder.let {
-            it.homeCompTextView.text = listItems[position].name
-            mFirebaseFirestore.collection("competition")
-                    .document(listID[position])
-                    .collection("user")
-                    .orderBy("time")
-                    .limit(3)
-                    .get()
-                    .addOnCompleteListener {task
-                        ->
-                        if(task.isSuccessful){
-                            val tempObj = task.result!!.toObjects(CompetitionDetailObject::class.java)
-                            var count = tempObj.size
-                            if(count > 0){
-                                it.compTime1.text = tempObj[0].time.toString()
-                                it.compUserName1.text = tempObj[0].username
-                                if(--count > 0) {
-                                    it.compTime2.text = tempObj[1].time.toString()
-                                    it.compUserName2.text = tempObj[1].username
-                                    if(--count > 0){
-                                        it.compTime3.text = tempObj[2].time.toString()
-                                        it.compUserName3.text = tempObj[2].username
-                                    }
-                                }
-                            }
-                            it.compCardView.setOnClickListener { _ ->
-                                Toast.makeText(this@HomeRecyclerAdapter.context, "クリック", Toast.LENGTH_SHORT)
-                                        .show()
-                                it.top3Expand.isExpanded = !it.top3Expand.isExpanded
-                            }
-
-                            it.top3Expand.setOnClickListener {
-                                parent.goCompDetail(listID[position], "HomeRecycler")
-                            }
-                        }
-                    }
+//            it.homeCompTextView.text = listItems[position].name
+//            mFirebaseFirestore.collection("competition")
+//                    .document(listID[position])
+//                    .collection("user")
+//                    .orderBy("time")
+//                    .limit(3)
+//                    .get()
+//                    .addOnCompleteListener {task
+//                        ->
+//                        if(task.isSuccessful){
+//                            val tempObj = task.result!!.toObjects(CompetitionDetailObject::class.java)
+//                            var count = tempObj.size
+//                            if(count > 0){
+//                                it.compTime1.text = tempObj[0].time.toString()
+//                                it.compUserName1.text = tempObj[0].username
+//                                if(--count > 0) {
+//                                    it.compTime2.text = tempObj[1].time.toString()
+//                                    it.compUserName2.text = tempObj[1].username
+//                                    if(--count > 0){
+//                                        it.compTime3.text = tempObj[2].time.toString()
+//                                        it.compUserName3.text = tempObj[2].username
+//                                    }
+//                                }
+//                            }
+//                            it.compCardView.setOnClickListener { _ ->
+//                                Toast.makeText(this@HomeRecyclerAdapter.context, "クリック", Toast.LENGTH_SHORT)
+//                                        .show()
+//                                it.top3Expand.isExpanded = !it.top3Expand.isExpanded
+//                            }
+//
+//                            it.top3Expand.setOnClickListener {
+//                                parent.goCompDetail(listID[position], "HomeRecycler")
+//                            }
+//                        }
+//                    }
         }
     }
 

@@ -9,10 +9,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.greentea.fteam.COMP_ID_KEY
-import com.example.greentea.fteam.COMP_NAME_KEY
-import com.example.greentea.fteam.MainActivity
-import com.example.greentea.fteam.R
+import com.example.greentea.fteam.*
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
 import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.contribution.record.VideoActivity
@@ -29,7 +26,7 @@ class CompDetailFragment : Fragment() {
     private lateinit var parent: MainActivity
 
     companion object {
-        fun newInstance(mCompID: String, compName:String): CompDetailFragment {
+        fun newInstance(mCompID: String, compName: String): CompDetailFragment {
             val compDetailFragment = CompDetailFragment()
             val bundle = Bundle()
             bundle.putString(COMP_ID_KEY, mCompID)
@@ -55,14 +52,13 @@ class CompDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        
         val view = inflater.inflate(R.layout.fragment_comp_detail, container, false)
         view.setOnKeyListener { _, _, event ->
-            if(event.keyCode == KeyEvent.KEYCODE_BACK){
-                if(event.action == KeyEvent.ACTION_UP){
+            if (event.keyCode == KeyEvent.KEYCODE_BACK) {
+                if (event.action == KeyEvent.ACTION_UP) {
                     fragmentManager!!.popBackStack()
                     return@setOnKeyListener true
-                }else{
+                } else {
                     return@setOnKeyListener false
                 }
             }
@@ -75,6 +71,16 @@ class CompDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         compDetailTitleTextView.text = mCompName
+
+        mFirebaseFirestore.collection("competition")
+                .document(mCompID)
+                .get()
+                .addOnCompleteListener {task ->
+                    if(!task.isSuccessful) return@addOnCompleteListener
+                    val data = task.result!!.toObject(CompetitionObject::class.java)
+                    compDetailTimestampTextView.text = data?.timestamp.toString()
+                    compDetailRuleTextView.text = data?.rule
+                }
 
         compDetailRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         setupRecyclerView()
@@ -106,7 +112,6 @@ class CompDetailFragment : Fragment() {
                 }
     }
 
-    
 
 //    private fun goPlayer(vid:String){
 //

@@ -48,7 +48,7 @@
                     android:text="@string/blank_comp_time"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:textSize="30dp" />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:layout_weight="1"
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/blank_user_name"
                     android:textAlignment="textEnd"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:textStyle="italic"
                     tools:ignore="RtlCompat" />

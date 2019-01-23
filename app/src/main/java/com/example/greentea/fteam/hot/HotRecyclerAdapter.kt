@@ -39,17 +39,20 @@ class HotRecyclerAdapter(val context: Context?, objects: MutableList<Competition
 
     override fun onBindViewHolder(holder: HotRecyclerViewHolder, position: Int) {
         holder.let {
-            it.compListTitleTextView.text = listItems[position].name
+            val name = listItems[position].name
+            val timestamp = listItems[position].timestamp.toString()
+            val rule = listItems[position].rule
+            it.compListTitleTextView.text = name
             // timestamp
 //            val sdf = SimpleDateFormat("MM/dd HH:mm:ss")
 //            sdf.timeZone = TimeZone.getTimeZone("GMT")
 //            val date = sdf.parse(listItems[position].timestamp.toString())
-            it.compListTimestampTextView.text = listItems[position].timestamp.toString()
+            it.compListTimestampTextView.text = timestamp
             // ルール
-            it.compListRuleTextView.text = listItems[position].rule
+            it.compListRuleTextView.text = rule
             // cardViewクリックで詳細画面へ
             it.compListCardView.setOnClickListener {
-                parent.goCompDetail(listID[position], listItems[position].name)
+                parent.goCompDetail(listID[position], name)
             }
         }
     }
