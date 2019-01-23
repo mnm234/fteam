@@ -51,8 +51,7 @@ class PanelActivity : AppCompatActivity(), View.OnClickListener {
                     intent.putExtra(MAIN_BOTTOM_NAV_KEY, MAIN_NEW_BOTTOM_NAV_ID)
                 }
                 R.id.hotcomp_sort_cardView -> {
-                    // HOTに変える
-                    intent.putExtra(MAIN_BOTTOM_NAV_KEY, MAIN_NEW_BOTTOM_NAV_ID)
+                    intent.putExtra(MAIN_BOTTOM_NAV_KEY, MAIN_HOT_BOTTOM_NAV_ID)
                 }
                 R.id.timeline_cardView -> {
                     if(SignInStatus.isSignIn){
@@ -77,15 +76,12 @@ class PanelActivity : AppCompatActivity(), View.OnClickListener {
                         requireSignIn()
                         return@let
                     }
-//                    intent.putExtra("Page", 1)
                 }
                 R.id.setting_cardView -> {
                     requireSignIn()
                     return@let
                 }
             }
-//            startActivity(intent)
-
             startActivity(intent,ActivityOptions.makeCustomAnimation(this, R.anim.anim_fadein, R.anim.anim_fadeout).toBundle())
         }
     }

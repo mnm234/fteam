@@ -1,182 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
+
     <android.support.v7.widget.CardView
-        android:layout_marginTop="20dp"
-        android:id="@+id/compCardView"
-        android:layout_width="300dp"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="#fff">
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/compTitleLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/comp_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@mipmap/comp_icon"/>
-            <TextView
-                android:id="@+id/homeCompTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingTop="8dp"
-                android:layout_marginHorizontal="8dp"
-                android:text="@string/blank_comp_name"
-                android:textColor="#222"
-                android:textSize="24dp"
-                android:textStyle="bold" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/thumbnail_image"
-                app:layout_constraintTop_toBottomOf="@id/compTitleLine"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:background="#444"/>
-
-            <TextView
-                app:layout_constraintBottom_toTopOf="@id/homeCompBestTime"
-                android:id="@+id/homeCompHighScoreText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="8dp"
-                android:text="HIGH SCORE"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold|italic" />
-
-            <TextView
-                app:layout_constraintBottom_toBottomOf="@id/thumbnail_image"
-                android:id="@+id/homeCompBestTime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="00:00:00"
-                android:textAlignment="center"
-                android:textColor="@color/colorWhite"
-                android:textSize="30dp"
-                android:textStyle="bold|italic" />
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-
-    <net.cachapa.expandablelayout.ExpandableLayout
-        android:id="@+id/top3Expand"
-        app:layout_constraintTop_toBottomOf="@id/compCardView"
+        android:id="@+id/comp_list_cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        app:cardCornerRadius="8dp">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/homeRank1TextView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="18dp"
-                android:text="@string/rank1"
-                android:textAlignment="center"
-                android:textSize="@dimen/homeCompRank"
-                android:textStyle="bold"
-                tools:targetApi="o" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/comp_list_title_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="競技名"
+                    android:textColor="#202020"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/comp_list_timestamp_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="4dp"
+                    android:text="6s ago"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/homeCompTime1"
-                android:layout_width="match_parent"
+                android:id="@+id/comp_list_rule_textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/blank_comp_time"
-                android:textAlignment="center"
-                android:textSize="@dimen/homeCompTime"
-                android:textStyle="italic"
-                app:layout_constraintTop_toBottomOf="@id/homeRank1TextView" />
+                android:layout_marginBottom="8dp"
+                android:text="競技のルールをここに表示します"
+                android:textColor="#737373"
+                android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/homeCompUserName1"
-                android:layout_width="match_parent"
+                android:id="@+id/comp_tag_textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/blank_user_name"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/homeCompUserName"
-                android:textStyle="italic"
-                app:layout_constraintTop_toBottomOf="@id/homeCompTime1" />
-
-            <TextView
-                android:id="@+id/homeRank2TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="18dp"
-                android:text="@string/rank2"
-                android:textAlignment="center"
-                android:textSize="@dimen/homeCompRank"
-                android:textStyle="bold"
-                tools:targetApi="o" />
-
-            <TextView
-                android:id="@+id/homeCompTime2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/blank_comp_time"
-                android:textAlignment="center"
-                android:textSize="@dimen/homeCompTime"
-                android:textStyle="italic"
-                app:layout_constraintTop_toBottomOf="@id/homeRank2TextView" />
-
-            <TextView
-                android:id="@+id/homeCompUserName2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/blank_user_name"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/homeCompUserName"
-                android:textStyle="italic"
-                app:layout_constraintTop_toBottomOf="@id/homeCompTime2" />
-
-            <TextView
-                android:id="@+id/homeRank3TextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="18dp"
-                android:text="@string/rank3"
-                android:textAlignment="center"
-                android:textSize="@dimen/homeCompRank"
-                android:textStyle="bold"
-                tools:targetApi="o" />
-
-            <TextView
-                android:id="@+id/homeCompTime3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/blank_comp_time"
-                android:textAlignment="center"
-                android:textSize="@dimen/homeCompTime"
-                android:textStyle="italic"
-                app:layout_constraintTop_toBottomOf="@id/homeRank3TextView" />
-
-            <TextView
-                android:id="@+id/homeCompUserName3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/blank_user_name"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/homeCompUserName"
-                android:textStyle="italic"
-                app:layout_constraintTop_toBottomOf="@id/homeCompTime3" />
+                android:layout_marginBottom="8dp"
+                android:text="競技のタグをここに表示します。(例) #おもしろ #大食い　など"
+                android:textColor="#737373"
+                android:textSize="12sp" />
         </LinearLayout>
-    </net.cachapa.expandablelayout.ExpandableLayout>
 
+    </android.support.v7.widget.CardView>
 </LinearLayout>

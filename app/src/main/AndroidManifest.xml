@@ -55,8 +55,6 @@
         <activity android:name=".PanelActivity" />
 
         <activity android:name=".comp.YoutubeActivity" />
-
-        <activity android:name=".signIn.PleaseSignInActivity" />
     </application>
 
 </manifest>

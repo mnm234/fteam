@@ -29,4 +29,7 @@
     <string name="blank_comp_time">--:--:--</string>
     <string name="blank_comp_name">競技名</string>
 
+    <string name="drawer_open">1</string>
+    <string name="drawer_close">0</string>
+
 </resources>

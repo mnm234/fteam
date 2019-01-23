@@ -39,8 +39,16 @@ class HotRecyclerAdapter(val context: Context?, objects: MutableList<Competition
 
     override fun onBindViewHolder(holder: HotRecyclerViewHolder, position: Int) {
         holder.let {
-            it.compCardTextView.text = listItems[position].name
-            it.compCardView.setOnClickListener {
+            it.compListTitleTextView.text = listItems[position].name
+            // timestamp
+//            val sdf = SimpleDateFormat("MM/dd HH:mm:ss")
+//            sdf.timeZone = TimeZone.getTimeZone("GMT")
+//            val date = sdf.parse(listItems[position].timestamp.toString())
+            it.compListTimestampTextView.text = listItems[position].timestamp.toString()
+            // ルール
+            it.compListRuleTextView.text = listItems[position].rule
+            // cardViewクリックで詳細画面へ
+            it.compListCardView.setOnClickListener {
                 parent.goCompDetail(listID[position], listItems[position].name)
             }
         }
@@ -57,7 +65,7 @@ class HotRecyclerAdapter(val context: Context?, objects: MutableList<Competition
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HotRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
-        val mView = layoutInflater.inflate(R.layout.recycler_item_new, parent, false)
+        val mView = layoutInflater.inflate(R.layout.recycler_item_comp, parent, false)
         mView.setOnClickListener {
             mRecycler?.let {
             }
@@ -77,7 +85,8 @@ class HotRecyclerViewHolder(view: View, NewArrivalsRecyclerAdapter: HotRecyclerA
 //        fun onItemClick(view: View, position: Int) {
 //        }
 //    }
-
-    val compCardView: CardView = view.findViewById(R.id.new_comp_cardView)
-    val compCardTextView: TextView = view.findViewById(R.id.new_comp_cardTextView)
+    val compListCardView: CardView = view.findViewById(R.id.comp_list_cardView)
+    val compListTitleTextView: TextView = view.findViewById(R.id.comp_list_title_textView)
+    val compListTimestampTextView: TextView = view.findViewById(R.id.comp_list_timestamp_textView)
+    val compListRuleTextView: TextView = view.findViewById(R.id.comp_list_rule_textView)
 }

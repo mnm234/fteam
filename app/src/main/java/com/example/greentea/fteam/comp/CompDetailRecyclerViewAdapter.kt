@@ -56,12 +56,24 @@ class CompDetailRecyclerViewAdapter(val context: Context?, objects: MutableList<
                 }
 
             }
-            it.compDetailTimeTextView.text = listItems!![position].time.toString()
+            it.compDetailTimeTextView.text = convertTime(listItems!![position].time)
             it.compDetailUserTextView.text = listItems!![position].username
             it.compDetailCardView.setOnClickListener {
                 parent.goOtherUser(listItems!![position].userID, listItems!![position].username)
             }
         }
+    }
+
+    /**
+     * 時間(ms)を表示用に変換する関数
+     * @param duration 変換対象の値(ms)
+     * @return 00:00:00の表記でstring型で返す
+     */
+    private fun convertTime(duration: Int): String {
+        val minute = (duration / (1000 * 60)) % 60
+        val second = (duration / 1000) % 60
+        val ms = duration % 1000
+        return String.format("%02d:%02d:%03d", minute, second, ms)
     }
 
     override fun getItemCount(): Int {

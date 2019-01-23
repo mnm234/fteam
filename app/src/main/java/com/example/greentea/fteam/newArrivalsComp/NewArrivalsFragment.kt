@@ -45,7 +45,6 @@ class NewArrivalsFragment : Fragment() {
         if (!isInited) {
             setupRecyclerView()
         } else {
-            Log.d("unchi", compList.toString())
             newArrivalAdapter.notifyDataSetChanged()
         }
 

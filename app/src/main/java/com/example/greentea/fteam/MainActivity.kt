@@ -3,12 +3,15 @@ package com.example.greentea.fteam
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.View
 import android.widget.ImageView
 import com.example.greentea.fteam.comp.CompDetailFragment
 import com.example.greentea.fteam.contribution.UploadFragment
@@ -18,6 +21,7 @@ import com.example.greentea.fteam.newArrivalsComp.NewArrivalsFragment
 import com.example.greentea.fteam.signIn.SignInActivity
 import com.example.greentea.fteam.signIn.SignInStatus
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,12 +34,12 @@ class MainActivity : AppCompatActivity() {
 //    internal var item_search: MenuItem? = null
 
 //    private var navi:View? = null
+    private var page = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        var page = 0
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         val bottomNaviId = intent.getIntExtra(MAIN_BOTTOM_NAV_KEY, 0)
@@ -61,19 +65,82 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 page = 1
             }
+            MAIN_HOT_BOTTOM_NAV_ID -> {
+                navigation_bottom.selectedItemId = R.id.navigation_hot
+                supportFragmentManager!!.beginTransaction()
+                        .replace(R.id.container, HotFragment())
+                        .commit()
+                page = 2
+            }
             MAIN_UPLOAD_BOTTOM_NAV_ID -> {
                 navigation_bottom.selectedItemId = R.id.navigation_upload
                 supportFragmentManager!!.beginTransaction()
                         .replace(R.id.container, UploadFragment())
                         .commit()
-                page = 2
+                page = 3
             }
         }
 
         menubar.setOnClickListener {
             openMenu()
         }
+        setupBottomNav()
+    }
 
+    /** 未サインインでサインイン必要なページに行こうとした時 */
+    private fun requireSignIn() {
+        AlertDialog.Builder(this).apply {
+            setTitle("サインインしてね")
+            setMessage("この機能はサインインしないと利用できません。")
+            setPositiveButton("SignIn") { _, _ ->
+                val intent = Intent(this@MainActivity, SignInActivity::class.java)
+                startActivity(intent)
+            }
+            setNegativeButton("Cancel", null)
+            show()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    private fun openMenu() {
+        val header = nav_view.getHeaderView(0)
+        val menu = nav_view.menu
+        if(SignInStatus.isSignIn){
+            header.nav_header_name.text = SignInStatus.mUserName
+            menu.findItem(R.id.nav_sign_in).isVisible = false
+            menu.findItem(R.id.nav_sign_out).isVisible = true
+        } else {
+            menu.findItem(R.id.nav_sign_in).isVisible = true
+            menu.findItem(R.id.nav_sign_out).isVisible = false
+        }
+        setupDrawerNav()
+        drawer_layout.openDrawer(GravityCompat.START)
+    }
+
+    private fun setupDrawerNav(){
+        nav_view.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener {item ->
+            when(item.itemId){
+                R.id.nav_sign_in -> {
+                    val intent = Intent(this@MainActivity, SignInActivity::class.java)
+                    startActivity(intent)
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.nav_sign_out -> {
+                    SignInStatus.signOut()
+                    this@MainActivity.finish()
+                    return@OnNavigationItemSelectedListener true
+                }
+            }
+            return@OnNavigationItemSelectedListener false
+        })
+    }
+
+    private fun setupBottomNav(){
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
@@ -171,25 +238,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    /** 未サインインでサインイン必要なページに行こうとした時 */
-    private fun requireSignIn() {
-        AlertDialog.Builder(this).apply {
-            setTitle("サインインしてね")
-            setMessage("この機能はサインインしないと利用できません。")
-            setPositiveButton("SignIn") { _, _ ->
-                val intent = Intent(this@MainActivity, SignInActivity::class.java)
-                startActivity(intent)
-            }
-            setNegativeButton("Cancel", null)
-            show()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_home, menu)
-        return true
-    }
-
     fun goCompDetail(mCompID: String, compName: String) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, CompDetailFragment.newInstance(mCompID, compName))
@@ -202,11 +250,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, OtherUserFragment.newInstance(mUid, mOName))
                 .addToBackStack(null)
                 .commit()
-    }
-
-    private fun openMenu() {
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
-        drawer.openDrawer(GravityCompat.START)
     }
 
 //    fun goVideo(mCompID: String) {

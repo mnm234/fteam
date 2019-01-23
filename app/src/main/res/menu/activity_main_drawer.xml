@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-        <group android:checkableBehavior="single">
-            <item
-                android:id="@+id/nav_sign_in"
-                android:icon="@mipmap/ic_launcher"
-                android:title="Sign in" />
-            <item
-                android:id="@+id/nav_sign_out"
-                android:icon="@mipmap/ic_launcher"
-                android:title="Sign out" />
-            <item
-                android:id="@+id/nav_edit"
-                android:icon="@mipmap/ic_launcher"
-                android:title="Edit" />
-        </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sign_in"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Sign in" />
+        <item
+            android:id="@+id/nav_sign_out"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Sign out" />
+        <item
+            android:id="@+id/nav_edit"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Edit" />
+    </group>
 
-        <item android:title="Communicate">
-            <menu>
-                <item
-                    android:id="@+id/nav_share"
-                    android:icon="@mipmap/ic_launcher"
-                    android:title="Setting" />
-                <item
-                    android:id="@+id/nav_send"
-                    android:icon="@mipmap/ic_launcher"
-                    android:title="Help" />
-            </menu>
-        </item>
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Setting" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Help" />
+        </menu>
+    </item>
 
 </menu>
