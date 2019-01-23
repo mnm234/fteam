@@ -82,6 +82,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
         append(Surface.ROTATION_180, 90)
         append(Surface.ROTATION_270, 0)
     }
+    private var inOutCameraID = 0
 
 
     /**
@@ -221,6 +222,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
         videoButton = view.findViewById(R.id.video)
         videoButton.setOnClickListener(this)
+        change_camera_imageView.setOnClickListener(this)
     }
 
     override fun onAttach(context: Context?) {
@@ -245,7 +247,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
 
     override fun onPause() {
         // カウントダウン中止処理
-        if(countDownTimer != null){
+        if (countDownTimer != null) {
             countDownTimer!!.cancel()
             countDownTimer = null
             countDownTextView.text = "カウントダウン中止しました"
@@ -273,6 +275,9 @@ class VideoFragment : Fragment(), View.OnClickListener,
                             .setPositiveButton(android.R.string.ok, null)
                             .show()
                 }
+            }
+            R.id.change_camera_imageView -> {
+                cameraDirectionChange()
             }
         }
     }
@@ -368,7 +373,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
             if (!cameraOpenCloseLock.tryAcquire(2500, TimeUnit.MILLISECONDS)) {
                 throw RuntimeException("Time out waiting to lock camera opening.")
             }
-            val cameraId = manager.cameraIdList[0]
+            val cameraId = manager.cameraIdList[inOutCameraID]
 
             // Choose the sizes for camera preview and video recording
             val characteristics = manager.getCameraCharacteristics(cameraId)
@@ -397,6 +402,22 @@ class VideoFragment : Fragment(), View.OnClickListener,
                     .show(childFragmentManager, FRAGMENT_DIALOG)
         } catch (e: InterruptedException) {
             throw RuntimeException("Interrupted while trying to lock camera opening.")
+        }
+    }
+
+    /**
+     * インカメアウトカメラ切り替え
+     */
+    private fun cameraDirectionChange() {
+        inOutCameraID = if (inOutCameraID == 0) {
+            1
+        } else {
+            0
+        }
+        if (textureView.isAvailable) {
+            openCamera(textureView.width, textureView.height)
+        } else {
+            textureView.surfaceTextureListener = surfaceTextureListener
         }
     }
 
@@ -579,7 +600,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
                             captureSession = cameraCaptureSession
                             updatePreview()
                             activity?.runOnUiThread {
-//                                videoButton.setText(R.string.stop)
+                                //                                videoButton.setText(R.string.stop)
                                 isRecordingVideo = true
                                 mediaRecorder?.start()
                             }
@@ -679,7 +700,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
                 showToast("カウントダウン終了")
                 countDownTextView.text = "残り0秒"
                 countDownTextView.text = ""
-                if(func === "startRecordingVideo"){
+                if (func === "startRecordingVideo") {
                     startRecordingVideo()
                 }
             }
@@ -698,7 +719,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
         fun newInstance(): VideoFragment = VideoFragment()
     }
 
-    private fun counT(){
+    private fun counT() {
         val chronometer: Chronometer = view!!.findViewById(R.id.chrono)
         chronometer.base = SystemClock.elapsedRealtime()
         // カウントを開始

@@ -52,8 +52,6 @@ class TimeLineFragment : Fragment() {
 
         if(!isInited){
             reloadTimeLine()
-        } else {
-
         }
 
     }
