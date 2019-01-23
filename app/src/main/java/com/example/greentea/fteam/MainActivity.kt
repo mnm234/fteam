@@ -3,11 +3,13 @@ package com.example.greentea.fteam
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import android.view.MenuItem
+import android.widget.ImageView
 import com.example.greentea.fteam.comp.CompDetailFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.HomeFragment
@@ -15,17 +17,6 @@ import com.example.greentea.fteam.newArrivalsComp.NewArrivalsFragment
 import com.example.greentea.fteam.signIn.SignInActivity
 import com.example.greentea.fteam.signIn.SignInStatus
 import kotlinx.android.synthetic.main.activity_main.*
-import android.support.v4.view.GravityCompat
-import android.R
-import android.media.Image
-import android.support.v4.widget.DrawerLayout
-import android.util.Log
-import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import com.google.android.youtube.player.internal.e
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,40 +32,40 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.example.greentea.fteam.R.layout.activity_main)
-        val toolbar = findViewById<Toolbar>(com.example.greentea.fteam.R.id.toolbar)
+        setContentView(R.layout.activity_main)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        var page = 0
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         val bottomNaviId = intent.getIntExtra(MAIN_BOTTOM_NAV_KEY, 0)
-//        navi = findViewById<View>(R.id.navi_menu)
-        val menubar = findViewById<ImageView>(com.example.greentea.fteam.R.id.menu)
+        val menubar = findViewById<ImageView>(R.id.menu)
 
         when (bottomNaviId) {
             MAIN_HOME_BOTTOM_NAV_ID -> {
-                navigation_bottom.selectedItemId = com.example.greentea.fteam.R.id.navigation_home
+                navigation_bottom.selectedItemId = R.id.navigation_home
                 supportFragmentManager!!.beginTransaction()
-                        .replace(com.example.greentea.fteam.R.id.container, HomeFragment.newInstance(0))
+                        .replace(R.id.container, HomeFragment.newInstance(0))
                         .commit()
-
             }
             MAIN_MY_PAGE_BOTTOM_NAV_ID -> {
-                navigation_bottom.selectedItemId = com.example.greentea.fteam.R.id.navigation_home
+                navigation_bottom.selectedItemId = R.id.navigation_home
                 supportFragmentManager!!.beginTransaction()
-                        .replace(com.example.greentea.fteam.R.id.container, HomeFragment.newInstance(1))
+                        .replace(R.id.container, HomeFragment.newInstance(1))
                         .commit()
             }
             MAIN_NEW_BOTTOM_NAV_ID -> {
-                navigation_bottom.selectedItemId = com.example.greentea.fteam.R.id.navigation_new
+                navigation_bottom.selectedItemId = R.id.navigation_new
                 supportFragmentManager!!.beginTransaction()
-                        .replace(com.example.greentea.fteam.R.id.container, NewArrivalsFragment())
+                        .replace(R.id.container, NewArrivalsFragment())
                         .commit()
+                page = 1
             }
             MAIN_UPLOAD_BOTTOM_NAV_ID -> {
-                navigation_bottom.selectedItemId = com.example.greentea.fteam.R.id.navigation_upload
+                navigation_bottom.selectedItemId = R.id.navigation_upload
                 supportFragmentManager!!.beginTransaction()
-                        .replace(com.example.greentea.fteam.R.id.container, UploadFragment())
+                        .replace(R.id.container, UploadFragment())
                         .commit()
-
+                page = 2
             }
         }
 
@@ -86,34 +77,90 @@ class MainActivity : AppCompatActivity() {
 
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                com.example.greentea.fteam.R.id.navigation_home -> {
+                R.id.navigation_home -> {
                     if (SignInStatus.isSignIn) {
-                        supportFragmentManager.beginTransaction()
-                                .replace(com.example.greentea.fteam.R.id.container, HomeFragment.newInstance(0))
-                                .commit()
+                        when {
+                            page > 0 -> {
+                                supportFragmentManager.beginTransaction()
+                                        .setCustomAnimations(R.anim.anim_in_right, R.anim.anim_out_left)
+                                        .replace(R.id.container, HomeFragment.newInstance(0))
+                                        .commit()
+                            }
+                            else -> {
+                                supportFragmentManager.beginTransaction()
+                                        .replace(R.id.container, HomeFragment.newInstance(0))
+                                        .commit()
+                            }
+                        }
+                        page = 0
                         return@OnNavigationItemSelectedListener true
                     } else {
                         requireSignIn()
                         return@OnNavigationItemSelectedListener false
                     }
                 }
-                com.example.greentea.fteam.R.id.navigation_new -> {
-                    supportFragmentManager.beginTransaction()
-                            .replace(com.example.greentea.fteam.R.id.container, NewArrivalsFragment())
-                            .commit()
+                R.id.navigation_new -> {
+                    when {
+                        page < 1 -> {
+                            supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_in_left, R.anim.anim_out_right)
+                                    .replace(R.id.container, NewArrivalsFragment())
+                                    .commit()
+                        }
+                        page > 1 -> {
+                            supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_in_right, R.anim.anim_out_left)
+                                    .replace(R.id.container, NewArrivalsFragment())
+                                    .commit()
+                        }
+                        else -> {
+                            supportFragmentManager.beginTransaction()
+                                    .replace(R.id.container, NewArrivalsFragment())
+                                    .commit()
+                        }
+                    }
+                    page = 1
                     return@OnNavigationItemSelectedListener true
                 }
-                com.example.greentea.fteam.R.id.navigation_hot -> {
-                    supportFragmentManager.beginTransaction()
-                            .replace(com.example.greentea.fteam.R.id.container, HotFragment())
-                            .commit()
+                R.id.navigation_hot -> {
+                    when {
+                        page < 2 -> {
+                            supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_in_left, R.anim.anim_out_right)
+                                    .replace(R.id.container, HotFragment())
+                                    .commit()
+                        }
+                        page > 2 -> {
+                            supportFragmentManager.beginTransaction()
+                                    .setCustomAnimations(R.anim.anim_in_right, R.anim.anim_out_left)
+                                    .replace(R.id.container, HotFragment())
+                                    .commit()
+                        }
+                        else -> {
+                            supportFragmentManager.beginTransaction()
+                                    .replace(R.id.container, HotFragment())
+                                    .commit()
+                        }
+                    }
+                    page = 2
                     return@OnNavigationItemSelectedListener true
                 }
-                com.example.greentea.fteam.R.id.navigation_upload -> {
+                R.id.navigation_upload -> {
                     if (SignInStatus.isSignIn) {
-                        supportFragmentManager.beginTransaction()
-                                .replace(com.example.greentea.fteam.R.id.container, UploadFragment())
-                                .commit()
+                        when {
+                            page < 3 -> {
+                                supportFragmentManager.beginTransaction()
+                                        .setCustomAnimations(R.anim.anim_in_left, R.anim.anim_out_right)
+                                        .replace(R.id.container, UploadFragment())
+                                        .commit()
+                            }
+                            else -> {
+                                supportFragmentManager.beginTransaction()
+                                        .replace(R.id.container, UploadFragment())
+                                        .commit()
+                            }
+                        }
+                        page = 3
                         return@OnNavigationItemSelectedListener true
                     } else {
                         requireSignIn()
@@ -140,26 +187,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(com.example.greentea.fteam.R.menu.menu_home, menu)
+        menuInflater.inflate(R.menu.menu_home, menu)
         return true
     }
 
-    fun goCompDetail(mCompID: String, compName:String) {
+    fun goCompDetail(mCompID: String, compName: String) {
         supportFragmentManager.beginTransaction()
-                .replace(com.example.greentea.fteam.R.id.container, CompDetailFragment.newInstance(mCompID, compName))
+                .replace(R.id.container, CompDetailFragment.newInstance(mCompID, compName))
                 .addToBackStack(null)
                 .commit()
     }
 
-    fun goOtherUser(mUid:String, mOName:String){
+    fun goOtherUser(mUid: String, mOName: String) {
         supportFragmentManager.beginTransaction()
-                .replace(com.example.greentea.fteam.R.id.container, OtherUserFragment.newInstance(mUid, mOName))
+                .replace(R.id.container, OtherUserFragment.newInstance(mUid, mOName))
                 .addToBackStack(null)
                 .commit()
     }
 
-    private fun openMenu(){
-        val drawer = findViewById<DrawerLayout>(com.example.greentea.fteam.R.id.drawer_layout)
+    private fun openMenu() {
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.openDrawer(GravityCompat.START)
     }
 
