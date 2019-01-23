@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,67 +8,72 @@
     android:orientation="vertical"
     tools:context=".contribution.record.VideoActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="2"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-
-        <VideoView
-            android:layout_marginBottom="30dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:id="@+id/uploadVideoPreviewView"
-            android:layout_width="wrap_content"
-            android:layout_height="480dp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="2"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <TextView
-                android:id="@+id/uploadUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="8dp"
-                android:text="ユーザー名"
-                android:textColor="#fff"
-                android:textSize="24sp" />
-            <!--<EditText-->
-            <!--android:id="@+id/uploadEditText"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:ems="10"-->
-            <!--android:inputType="textPersonName"-->
-            <!--android:hint="ユーザー名(暫定)を入力してください" />-->
 
-            <TextView
-                android:id="@+id/uploadVideoDuration"
+            <VideoView
+                android:id="@+id/uploadVideoPreviewView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="480dp"
                 android:layout_gravity="center"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="8dp"
-                android:text="00:00:00"
-                android:textColor="#fff"
-                android:textSize="40sp"
-                android:textStyle="italic" />
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/uploadButton"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/gradientbackground1"
-                android:text="Upload"
-                android:layout_marginBottom="60dp"
-                android:textColor="#fff" />
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/uploadUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="ユーザー名"
+                    android:textColor="#fff"
+                    android:textSize="24sp" />
+                <!--<EditText-->
+                <!--android:id="@+id/uploadEditText"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ems="10"-->
+                <!--android:inputType="textPersonName"-->
+                <!--android:hint="ユーザー名(暫定)を入力してください" />-->
+
+                <TextView
+                    android:id="@+id/uploadVideoDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="00:00:00"
+                    android:textColor="#fff"
+                    android:textSize="40sp"
+                    android:textStyle="italic" />
+
+                <Button
+                    android:id="@+id/uploadButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="60dp"
+                    android:background="@drawable/gradientbackground1"
+                    android:text="Upload"
+                    android:textColor="#fff" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

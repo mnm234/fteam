@@ -115,7 +115,7 @@ class SignInFragment : Fragment() {
                 sign_up_username.visibility = View.VISIBLE
                 modeId = 1
                 submitButton.text = "SIGN UP"
-                typeChange.text = "SIGN IN YOUR ACCOUNT"
+                typeChange.text = "   SIGN IN YOUR ACCOUNT   "
 
             } else {
                 forgotPass.visibility = View.VISIBLE
@@ -123,7 +123,7 @@ class SignInFragment : Fragment() {
                 sign_up_username.visibility = View.GONE
                 modeId = 0
                 submitButton.text = "SIGN IN"
-                typeChange.text = "CREATE AN ACCOUNT"
+                typeChange.text = "   CREATE AN ACCOUNT   "
             }
         }
     }
