@@ -48,7 +48,7 @@ class OtherUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        other_username_textView.text = mOtherName
+        other_username_textView.setText(mOtherName)
 
         /** フォロー済みかどうか判定 */
         if(SignInStatus.followerList.contains(mOtherID)){
@@ -57,6 +57,7 @@ class OtherUserFragment : Fragment() {
         }
 
         other_user_follow_button.setOnClickListener {
+            other_user_follow_button.isEnabled = false
             followUser()
         }
     }
@@ -70,10 +71,11 @@ class OtherUserFragment : Fragment() {
                 .update("followerID", SignInStatus.followerList)
                 .addOnCompleteListener {
                     Toast.makeText(context, "フォローしました", Toast.LENGTH_SHORT).show()
-                    other_user_follow_button.isEnabled = false
+
                 }
                 .addOnFailureListener {
                     Toast.makeText(context, "フォロー失敗", Toast.LENGTH_SHORT).show()
+                    other_user_follow_button.isEnabled = true
                 }
     }
 }

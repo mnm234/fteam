@@ -10,25 +10,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
-import com.example.greentea.fteam.`object`.CompetitionDetailObject
-import com.example.greentea.fteam.`object`.CompetitionObject
-import com.example.greentea.fteam.`object`.TimeLineObject
+import com.example.greentea.fteam.`object`.UserObject
 import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import kotlinx.android.synthetic.main.fragment_my_page_video.*
+import kotlinx.android.synthetic.main.fragment_my_page_follower.*
 
-class MyPageVideosFragment : Fragment() {
+class MyPageFollowerFragment : Fragment() {
 
     private lateinit var parent: MainActivity
     private lateinit var mFirebaseFirestore: FirebaseFirestore
-    private val myVideosList: MutableList<TimeLineObject> = mutableListOf()
-    private lateinit var myPageAdapter:myPageVideosRecyclerAdapter
+    private var followerList: ArrayList<String> = ArrayList()
+    private lateinit var myPageAdapter:MyPageFollowerRecyclerAdapter
     private var isInited = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_my_page_video, container, false)
+        return inflater.inflate(R.layout.fragment_my_page_follower, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,9 +33,9 @@ class MyPageVideosFragment : Fragment() {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance()
 
-        myPageAdapter = myPageVideosRecyclerAdapter(context, myVideosList, parent)
+        myPageAdapter = MyPageFollowerRecyclerAdapter(context, followerList, parent)
 
-        myPage_video_recyclerView.apply {
+        myPage_follower_recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = myPageAdapter
@@ -56,20 +53,15 @@ class MyPageVideosFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        mFirebaseFirestore.collection("activity")
-                .orderBy("timestamp", Query.Direction.DESCENDING)
+        mFirebaseFirestore.collection("user")
+                .document(SignInStatus.mUserID)
                 .get()
                 .addOnCompleteListener { task ->
                     try {
                         if (task.isSuccessful) {
-                            for (doc in task.result!!) {
-                                // 取得した分をforEachで回す
-                                val temp = doc.toObject(TimeLineObject::class.java)
-                                if(temp.type == "upload" && temp.userID == SignInStatus.mUserID){
-                                    myVideosList.add(temp)
-                                }
-                            }
-                            myPageAdapter.notifyDataSetChanged()
+                            Log.d("unchi", "setupTe")
+                            followerList = task.result!!.toObject(UserObject::class.java)!!.followerID
+                            myPage_follower_recyclerView.adapter = MyPageFollowerRecyclerAdapter(context, followerList, parent)
                             isInited = true
                         }
                     } catch (e: Exception) {

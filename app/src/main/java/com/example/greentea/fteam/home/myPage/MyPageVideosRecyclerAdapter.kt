@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.greentea.fteam.*
-import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.`object`.TimeLineObject
 import com.example.greentea.fteam.comp.YoutubeActivity
-import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
 class myPageVideosRecyclerAdapter(val context: Context?, objects: MutableList<TimeLineObject>, val parent: MainActivity) : RecyclerView.Adapter<myPageVideosRecyclerViewHolder>(), View.OnClickListener {

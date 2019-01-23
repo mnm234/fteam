@@ -51,13 +51,10 @@ class MyPageFragment : Fragment() {
         myPage_video.setOnClickListener {
             parent.goMyVideos()
         }
-
         myPage_follow.setOnClickListener {
-
+            parent.goMyFollowers()
         }
-
         setupRecyclerView()
-
     }
 
     override fun onAttach(context: Context) {

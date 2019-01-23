@@ -16,6 +16,7 @@ import android.widget.ImageView
 import com.example.greentea.fteam.comp.CompDetailFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.HomeFragment
+import com.example.greentea.fteam.home.myPage.MyPageFollowerFragment
 import com.example.greentea.fteam.home.myPage.MyPageFragment
 import com.example.greentea.fteam.home.myPage.MyPageVideosFragment
 import com.example.greentea.fteam.hot.HotFragment
@@ -261,16 +262,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-//    fun goVideo(mCompID: String) {
-//        val intent = Intent(this, VideoActivity::class.java)
-//        intent.putExtra(COMP_ID_KEY, mCompID)
-//        startActivity(intent)
-//    }
-//
-//    fun CameraIconPressed() {
-//        navigation_bottom.selectedItemId = R.id.navigation_upload
-//        supportFragmentManager.beginTransaction()
-//                .replace(R.id.container, UploadFragment())
-//                .commit()
-//    }
+    fun goMyFollowers(){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MyPageFollowerFragment())
+                .addToBackStack(null)
+                .commit()
+    }
 }
