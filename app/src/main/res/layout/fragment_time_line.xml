@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradientbackground"
     tools:context=".home.timeLine.TimeLineFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/timeline_recyclerview"
+        android:background="@color/bottom_navi_state_checked"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
