@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 通常時 -->
+    <item android:state_pressed="false" android:state_focused="false">
+        <shape>
+            <solid android:color="#5500f2ff" />
+            <stroke android:color="#fff"
+                android:width="2dp"/>
+        </shape>
+    </item>
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<gradient-->
-    <!--android:startColor="#00ffffff"-->
-    <!--android:endColor="#00000000"-->
-    <!--/>-->
-    <solid android:color="#5500f2ff" />
-    <stroke android:color="#fff"
-        android:width="2dp"/>
+    <!-- disable -->
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="#55D9EDEE" />
+            <stroke android:color="#fff"
+                android:width="2dp"/>
+        </shape>
+    </item>
 
-</shape>
+    <!-- 押下時 -->
+    <item android:state_pressed="true" android:state_focused="false">
+    <shape>
+        <solid android:color="#CC01575C" />
+        <stroke android:color="#fff"
+            android:width="2dp"/>
+
+        </shape>
+    </item>
+</selector>
 

@@ -13,8 +13,8 @@
     <color name="bottom_navi_state_checked">#565656</color>
     <color name="bottom_navi_state_pressed">#e1e1e1</color>
 
-    <color name="startColor">#00ca72</color>
-    <color name="endColor">#009dff</color>
+    <color name="startColor_normal">#00ca72</color>
+    <color name="endColor_normal">#009dff</color>
 
     <color name="activity_background">#1e1e1e</color>
     <color name="fragment_background">#66FF0000</color>
