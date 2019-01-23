@@ -13,6 +13,7 @@ import android.widget.ImageView
 import com.example.greentea.fteam.comp.CompDetailFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.HomeFragment
+import com.example.greentea.fteam.hot.HotFragment
 import com.example.greentea.fteam.newArrivalsComp.NewArrivalsFragment
 import com.example.greentea.fteam.signIn.SignInActivity
 import com.example.greentea.fteam.signIn.SignInStatus
@@ -72,8 +73,6 @@ class MainActivity : AppCompatActivity() {
         menubar.setOnClickListener {
             openMenu()
         }
-
-
 
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {

@@ -78,8 +78,6 @@ class VideoUploadFragment : Fragment() {
             mCompetitionName = it.getString(COMP_NAME_KEY, "")
         }
         mFirebaseFirestore = FirebaseFirestore.getInstance()
-//        mFirebaseStorage = FirebaseStorage.getInstance()
-//        mFirebaseStorageRef = mFirebaseStorage.reference
 
     }
 
@@ -114,36 +112,18 @@ class VideoUploadFragment : Fragment() {
                 uploadYoutube()
                 uploadButton.isEnabled = false
             }
-            /** 動画をFirebaseから引っ張る処理 機能停止中 */
-            catchButton.setOnClickListener {
-                //                mFirebaseFirestore.collection("competition")
-//                        .document(mCompetitionID)
-//                        .collection("user")
-//                        .whereEqualTo("userID", uploadUserName.text.toString())
-//                        .get()
-//                        .addOnCompleteListener { task ->
-//                            if (task.isSuccessful) {
-//                                for (doc in task.result!!) {
-//                                    // 取得した分をforEachで回す
-//                                    Toast.makeText(context, "動画URL取得完了 読込開始", Toast.LENGTH_LONG).show()
-//                                    uploadVideoPreviewView.setVideoURI(Uri.parse(doc.toObject(CompetitionDetailObject::class.java).videoURL))
-//                                    uploadVideoPreviewView.start()
-//                                }
-//                            }
-//                        }
-            }
         }
         uploadVideoPreviewView.start()
     }
 
-    /**
-     * ms -> second
-     * @param duration 変換対象の値(ms)
-     * @return secondに変換して返す
-     */
-    private fun ms2second(duration: Int): Int {
-        return duration / 1000
-    }
+//    /**
+//     * ms -> second
+//     * @param duration 変換対象の値(ms)
+//     * @return secondに変換して返す
+//     */
+//    private fun ms2second(duration: Int): Int {
+//        return duration / 1000
+//    }
 
     /**
      * 時間(ms)を表示用に変換する関数
@@ -162,7 +142,7 @@ class VideoUploadFragment : Fragment() {
      * @param mYouTubeVideoID 動画のID(https://youtu.be/xxxxxx)
      */
     private fun setFileData(mYouTubeVideoID: String) {
-        val tempData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), ms2second(mDuration), mYouTubeVideoID, mCompetitionName, Date())
+        val tempData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), mDuration, mYouTubeVideoID, mCompetitionName, Date())
         mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
                 .collection("user")
