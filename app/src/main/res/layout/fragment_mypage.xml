@@ -63,7 +63,7 @@
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/startColor"/>
+                        android:textColor="@color/startColor_normal"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -85,7 +85,7 @@
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/startColor"/>
+                        android:textColor="@color/startColor_normal"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -107,7 +107,7 @@
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/startColor"/>
+                        android:textColor="@color/startColor_normal"/>
 
                 </LinearLayout>
             </LinearLayout>
