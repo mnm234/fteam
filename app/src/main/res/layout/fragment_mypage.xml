@@ -1,129 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f9f9f9"
     android:orientation="vertical">
+
     <RelativeLayout
-        android:clickable="true"
         android:id="@+id/myPage_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent"
+        android:background="@drawable/gradientbackground"
+        android:clickable="true">
+
         <Button
             android:id="@+id/myPageProfileEditButton"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/gradientbackground1"
             android:text="変更"
-            android:textColor="#fff"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textColor="#fff" />
+
         <LinearLayout
-            android:background="@drawable/gradientbackground"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/myPageUserIcon"
-                android:clickable="false"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:tint="@color/colorWhite"
-                android:src="@drawable/ic_account_circle_black_150dp"/>
-            <EditText
-                android:inputType="text"
-                android:focusable="false"
-                android:id="@+id/myPage_username_textView"
-                android:layout_marginTop="8dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:clickable="false"
+                android:src="@drawable/ic_account_circle_black_150dp"
+                android:tint="@color/colorWhite" />
+
+            <EditText
+                android:id="@+id/myPage_username_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:focusable="false"
+                android:inputType="text"
                 android:text="User Name"
                 android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="21sp"/>
+                android:textSize="21sp"
+                android:textStyle="bold" />
         </LinearLayout>
+
         <android.support.v7.widget.CardView
-            app:cardCornerRadius="10dp"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="225dp">
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="225dp"
+            android:layout_marginEnd="50dp"
+            app:cardCornerRadius="10dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="2">
+
                 <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
+                    android:id="@+id/myPage_video"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_height="match_parent">
+                    android:gravity="center"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Videos"
-                        android:textSize="20sp"
-                        />
+                        android:textSize="20sp" />
+
                     <TextView
+                        android:id="@+id/myPage_video_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/startColor_normal"/>
+                        android:text="0"
+                        android:textColor="@color/startColor_normal"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Followers"
-                        android:textSize="20sp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1205"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:paddingTop="10dp"
-                        android:textColor="@color/startColor_normal"/>
+                <!--<LinearLayout-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_height="match_parent">-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Followers"-->
+                <!--android:textSize="20sp"-->
+                <!--/>-->
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="1205"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="20sp"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:textColor="@color/startColor_normal"/>-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
                 <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
+                    android:id="@+id/myPage_follow"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_height="match_parent">
+                    android:gravity="center"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Following"
-                        android:textSize="20sp"
-                        />
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="360"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/startColor_normal"/>
+                        android:text="0"
+                        android:textColor="@color/startColor_normal"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -131,13 +144,13 @@
         </android.support.v7.widget.CardView>
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mypageRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/mypageRecyclerView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
+    <!--</LinearLayout>-->
 
 </LinearLayout>

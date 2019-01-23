@@ -3,7 +3,7 @@ package com.example.greentea.fteam.home
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.example.greentea.fteam.home.myPage.mypageFragment
+import com.example.greentea.fteam.home.myPage.MyPageFragment
 import com.example.greentea.fteam.home.timeLine.TimeLineFragment
 
 class HomeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -17,7 +17,7 @@ class HomeViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment? {
         return when (position) {
             0 -> TimeLineFragment()
-            1 -> mypageFragment()
+            1 -> MyPageFragment()
             else -> null
         }
     }

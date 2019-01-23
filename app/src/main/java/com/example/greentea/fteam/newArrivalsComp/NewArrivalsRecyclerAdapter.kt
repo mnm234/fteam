@@ -16,13 +16,11 @@ class NewArrivalsRecyclerAdapter(val context: Context?, objects: MutableList<Com
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
-    private var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {
             inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         }
-        mFirebaseFirestore = FirebaseFirestore.getInstance()
     }
 
     private var listItems = objects

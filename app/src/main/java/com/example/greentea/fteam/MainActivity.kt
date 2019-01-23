@@ -16,6 +16,8 @@ import android.widget.ImageView
 import com.example.greentea.fteam.comp.CompDetailFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.HomeFragment
+import com.example.greentea.fteam.home.myPage.MyPageFragment
+import com.example.greentea.fteam.home.myPage.MyPageVideosFragment
 import com.example.greentea.fteam.hot.HotFragment
 import com.example.greentea.fteam.newArrivalsComp.NewArrivalsFragment
 import com.example.greentea.fteam.signIn.SignInActivity
@@ -248,6 +250,13 @@ class MainActivity : AppCompatActivity() {
     fun goOtherUser(mUid: String, mOName: String) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, OtherUserFragment.newInstance(mUid, mOName))
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun goMyVideos(){
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MyPageVideosFragment())
                 .addToBackStack(null)
                 .commit()
     }

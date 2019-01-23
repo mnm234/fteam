@@ -71,7 +71,7 @@ class HomeNewCompListFragment : Fragment() {
     private fun initRecyclerView() {
         // Setting recycler view+
         val recyclerView = view!!.findViewById<RecyclerView>(R.id.homeRecyclerView)
-        recyclerView.setLayoutManager(LinearLayoutManager(this.context))
+        recyclerView.layoutManager = LinearLayoutManager(this.context)
         // Generate demo data
         val demoList:ArrayList<Objects?> = ArrayList()
         demoList.add(null)
