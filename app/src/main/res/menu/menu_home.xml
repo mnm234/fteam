@@ -3,11 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/navi_menu"
-        android:title="ナビメニュー"
-        android:iconTint="@color/colorWhite"
-        android:icon="@drawable/ic_dehaze_black_24dp"
-        app:showAsAction="always"/>
+    <!--<item-->
+        <!--android:id="@+id/navi_menu"-->
+        <!--android:checkable="false"-->
+        <!--android:icon="@drawable/ic_dehaze_black_24dp"-->
+        <!--android:iconTint="@color/colorWhite"-->
+
+        <!--android:title="ナビメニュー"-->
+        <!--app:showAsAction="always" />-->
 
     <item android:id="@+id/action_search"
         android:orderInCategory="0"
