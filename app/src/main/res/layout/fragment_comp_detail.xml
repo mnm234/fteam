@@ -4,31 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradientbackground"
     android:orientation="vertical"
     tools:context=".comp.CompDetailFragment">
 
     <Button
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/gradientbackground1"
         android:id="@+id/comp_detail_challenge_button"
         android:layout_width="wrap_content"
+        android:layout_gravity="right"
         android:layout_height="wrap_content"
-        android:text="チャレンジする"/>
+        android:text="  チャレンジする  "/>
 
     <android.support.v7.widget.CardView
+        android:layout_marginHorizontal="8dp"
         android:id="@+id/compDetailCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
 
-        <TextView
-            android:id="@+id/compDetailTitleTextView"
+        <!--<TextView-->
+            <!--android:id="@+id/compDetailTitleTextView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/blank_comp_name"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textSize="@dimen/compTitle" />-->
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/blank_comp_name"
-            android:textAlignment="center"
-            android:textSize="@dimen/compTitle" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginVertical="8dp"
+                    android:id="@+id/compDetailTitleTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="競技名"
+                    android:textColor="#202020"
+                    android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/compDetailTimestampTextView"
+                    android:layout_width="match_parent"
+                    android:layout_marginVertical="4dp"
+                    android:textAlignment="textEnd"
+                    android:text="6s ago"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:id="@+id/compDetailRuleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="競技のルールをここに表示します"
+                android:textColor="#737373"
+                android:textSize="12dp" />
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:id="@+id/compDetailTagTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="競技のタグをここに表示します。(例) #おもしろ #大食い　など"
+                android:textColor="#737373"
+                android:textSize="12dp" />
+        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
+
+
+
     <android.support.v7.widget.RecyclerView
+        android:layout_marginHorizontal="8dp"
         android:id="@+id/compDetailRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
