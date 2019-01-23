@@ -5,12 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".home.timeLine.TimeLineFragment">
 
-    <Button
-        android:id="@+id/timeline_sign_out_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SignOut"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/timeline_recyclerview"
         android:layout_width="match_parent"

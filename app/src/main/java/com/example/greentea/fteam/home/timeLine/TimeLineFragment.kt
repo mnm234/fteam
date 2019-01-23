@@ -42,12 +42,6 @@ class TimeLineFragment : Fragment() {
 
         mFS = FirebaseFirestore.getInstance()
 
-        timeline_sign_out_button.setOnClickListener {
-            SignInStatus.signOut()
-            timeline_sign_out_button.isEnabled = false
-            timeline_sign_out_button.text = "サインインしろ"
-        }
-
         tlAdapter = TimeLineRecyclerAdapter(context, timeLineList, parent)
 
         timeline_recyclerview.apply {
