@@ -678,6 +678,7 @@ class VideoFragment : Fragment(), View.OnClickListener,
                 // 終了時の処理
                 showToast("カウントダウン終了")
                 countDownTextView.text = "残り0秒"
+                countDownTextView.text = ""
                 if(func === "startRecordingVideo"){
                     startRecordingVideo()
                 }
