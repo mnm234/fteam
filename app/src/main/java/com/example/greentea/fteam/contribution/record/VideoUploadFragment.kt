@@ -5,17 +5,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Looper
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.MediaController
 import android.widget.Toast
 import com.example.greentea.fteam.*
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
+import com.example.greentea.fteam.`object`.TimeLineObject
 import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
@@ -37,7 +36,6 @@ import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -142,21 +140,29 @@ class VideoUploadFragment : Fragment() {
      * @param mYouTubeVideoID 動画のID(https://youtu.be/xxxxxx)
      */
     private fun setFileData(mYouTubeVideoID: String) {
-        val tempData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), mDuration, mYouTubeVideoID, mCompetitionName, Date())
-        mFirebaseFirestore.collection("competition")
+        val tempVideoData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), mDuration, mYouTubeVideoID, mCompetitionName, Date())
+        val videoRef = mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
                 .collection("user")
-                .add(tempData)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        File(filepath).delete()
-                        Toast.makeText(context, "ファイルの詳細情報をDBに登録しました ID: ${task.result!!.id}", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Log.d("unchi", e.toString())
-                    Toast.makeText(context, "ファイルの詳細情報登録に失敗しました", Toast.LENGTH_SHORT).show()
-                }
+                .document()
+        val compRef = mFirebaseFirestore.collection("competition")
+                .document(mCompetitionID)
+        mFirebaseFirestore.runTransaction {transaction ->
+            val compSnap = transaction.get(compRef)
+            val incrementCount = compSnap.getDouble("challengerCount")!!.toInt() + 1
+
+            transaction.update(compRef, "challengerCount", incrementCount)
+            transaction.set(videoRef, tempVideoData)
+            return@runTransaction 0
+        }.addOnCompleteListener {
+            if (it.isSuccessful) {
+                File(filepath).delete()
+                Toast.makeText(context, "ファイルの詳細情報をDBに登録しました", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener { e ->
+            Log.d("unchi", e.toString())
+            Toast.makeText(context, "ファイルの詳細情報登録に失敗しました", Toast.LENGTH_SHORT).show()
+        }
     }
 
     /** VideoUploadFragmentから出るときに端末にビデオが残っていれば削除 */

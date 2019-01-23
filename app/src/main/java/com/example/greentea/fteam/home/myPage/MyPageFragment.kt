@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.TimeLineObject
+import com.example.greentea.fteam.`object`.UserObject
 import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -54,7 +55,8 @@ class MyPageFragment : Fragment() {
         myPage_follow.setOnClickListener {
             parent.goMyFollowers()
         }
-        setupRecyclerView()
+        setupVideoCount()
+        setupFollowerCount()
     }
 
     override fun onAttach(context: Context) {
@@ -62,7 +64,7 @@ class MyPageFragment : Fragment() {
         parent = activity as MainActivity
     }
 
-    private fun setupRecyclerView() {
+    private fun setupVideoCount() {
         var count = 0
         mFirebaseFirestore.collection("activity")
                 .orderBy("timestamp", Query.Direction.DESCENDING)
@@ -72,13 +74,26 @@ class MyPageFragment : Fragment() {
                         if (task.isSuccessful) {
                             for (doc in task.result!!) {
                                 // 取得した分をforEachで回す
-                                Log.d("unchi", "とおったよ")
                                 val temp = doc.toObject(TimeLineObject::class.java)
                                 if(temp.type == "upload" && temp.userID == SignInStatus.mUserID){
                                     count++
                                 }
                             }
                             myPage_video_count.text = count.toString()
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+    }
+    private fun setupFollowerCount() {
+        mFirebaseFirestore.collection("user")
+                .document(SignInStatus.mUserID)
+                .get()
+                .addOnCompleteListener { task ->
+                    try {
+                        if (task.isSuccessful) {
+                            myPage_follower_count.text = task.result?.toObject(UserObject::class.java)?.followerID?.size.toString()
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

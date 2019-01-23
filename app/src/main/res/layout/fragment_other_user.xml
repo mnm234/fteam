@@ -38,15 +38,15 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp">
 
-                <EditText
+                <TextView
                     android:id="@+id/other_username_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="0.5"
                     android:focusable="false"
-                    android:inputType="text"
-                    android:text="User Name"
+                    android:gravity="center_horizontal"
+                    android:text="aaaaaaaa"
                     android:textColor="#fff"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -56,6 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.5"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/gradientbackground1"

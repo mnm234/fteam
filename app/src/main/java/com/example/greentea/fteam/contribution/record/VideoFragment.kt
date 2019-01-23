@@ -415,6 +415,9 @@ class VideoFragment : Fragment(), View.OnClickListener,
             0
         }
         if (textureView.isAvailable) {
+            closeCamera()
+            stopBackgroundThread()
+            startBackgroundThread()
             openCamera(textureView.width, textureView.height)
         } else {
             textureView.surfaceTextureListener = surfaceTextureListener

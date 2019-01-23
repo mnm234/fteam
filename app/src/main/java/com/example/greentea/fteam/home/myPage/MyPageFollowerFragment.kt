@@ -59,7 +59,6 @@ class MyPageFollowerFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     try {
                         if (task.isSuccessful) {
-                            Log.d("unchi", "setupTe")
                             followerList = task.result!!.toObject(UserObject::class.java)!!.followerID
                             myPage_follower_recyclerView.adapter = MyPageFollowerRecyclerAdapter(context, followerList, parent)
                             isInited = true
