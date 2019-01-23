@@ -1,6 +1,7 @@
 package com.example.greentea.fteam.signIn
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -30,6 +31,7 @@ class SignInFragment : Fragment() {
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private lateinit var mAuth: FirebaseAuth
     private lateinit var parent:SignInActivity
+    var progressDialog:ProgressDialog? = null
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -87,10 +89,21 @@ class SignInFragment : Fragment() {
             if (modeId == 0) {
                 //ログイン
                 signIn(email, password)
+                progressDialog = ProgressDialog(this.context)
+                progressDialog!!.setTitle("ログイン処理中")
+                progressDialog!!.setMessage("しばらくお待ち下さい")
+                progressDialog!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                progressDialog!!.show()
+
             } else {
                 //登録
                 if(username != ""){
                     signUp(email, password, username)
+                    progressDialog = ProgressDialog(this.context)
+                    progressDialog!!.setTitle("サインアップ処理中")
+                    progressDialog!!.setMessage("しばらくお待ち下さい")
+                    progressDialog!!.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+                    progressDialog!!.show()
                 }
             }
         }
@@ -127,12 +140,14 @@ class SignInFragment : Fragment() {
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
+                        progressDialog!!.dismiss()
                         Log.d("unchi", "signInWithEmail:success")
                         val user = mAuth.currentUser
                         SignInStatus.isSignIn(user)
                         Toast.makeText(context, "Authentication Success!", Toast.LENGTH_SHORT).show()
                         parent.onFinishActivity()
                     } else {
+                        progressDialog!!.dismiss()
                         Log.w("unchi", "signInWithEmail:failure", it.exception)
                         Toast.makeText(context, "Authentication Failed.", Toast.LENGTH_SHORT).show()
 //                        updateUI(null)
@@ -145,12 +160,14 @@ class SignInFragment : Fragment() {
         mAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
+                        progressDialog!!.dismiss()
                         Log.d("unchi", "createUserWithEmail:success")
                         val user = mAuth.currentUser
                         SignInStatus.isSignIn(user)
                         Toast.makeText(context, "CreateUser Success!", Toast.LENGTH_SHORT).show()
                         setupUserInfo(name)
                     } else {
+                        progressDialog!!.dismiss()
                         Log.w("unchi", "createUserWithEmail:failure", it.exception)
                         Toast.makeText(context, "createUserWithEmail Failed.", Toast.LENGTH_SHORT).show()
                     }

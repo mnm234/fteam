@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
 import com.example.greentea.fteam.comp.CompDetailFragment
 import com.example.greentea.fteam.contribution.UploadFragment
 import com.example.greentea.fteam.home.HomeFragment
@@ -63,6 +64,15 @@ class MainActivity : AppCompatActivity() {
                         .commit()
 
             }
+        }
+
+        toolbar.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.navi_menu -> {
+                    return@setOnMenuItemClickListener true
+                }
+            }
+            return@setOnMenuItemClickListener false
         }
 
         navigation_bottom.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
