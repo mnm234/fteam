@@ -19,7 +19,7 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
-    private lateinit var mFirebaseFirestore: FirebaseFirestore
+    private var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {
@@ -32,7 +32,7 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
     var listID = mCompID
 
     override fun onClick(v: View) {
-        val position = mRecycler!!.getChildAdapterPosition(v)
+//        val position = mRecycler!!.getChildAdapterPosition(v)
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
@@ -92,7 +92,7 @@ class HomeRecyclerAdapter(val context: Context?, objects: MutableList<Competitio
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val mView = layoutInflater.inflate(R.layout.recycler_item_comp, parent, false)
-        mView.setOnClickListener { view ->
+        mView.setOnClickListener {
             mRecycler?.let {
             }
         }

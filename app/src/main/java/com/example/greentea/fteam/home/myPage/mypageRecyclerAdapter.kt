@@ -16,7 +16,7 @@ class mypageRecyclerAdapter(val context: Context?, val parent: MainActivity) : R
 
     private var mRecycler: RecyclerView? = null
     private var inflater: LayoutInflater? = null
-    private lateinit var mFirebaseFirestore: FirebaseFirestore
+    private var mFirebaseFirestore: FirebaseFirestore
 
     init {
         context?.run {
@@ -29,7 +29,7 @@ class mypageRecyclerAdapter(val context: Context?, val parent: MainActivity) : R
 //    var listID = mCompID
 
     override fun onClick(v: View) {
-        val position = mRecycler!!.getChildAdapterPosition(v)
+//        val position = mRecycler!!.getChildAdapterPosition(v)
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
@@ -60,7 +60,7 @@ class mypageRecyclerAdapter(val context: Context?, val parent: MainActivity) : R
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mypageRecyclerViewHolder {
         val layoutInflater = LayoutInflater.from(context)
         val mView = layoutInflater.inflate(R.layout.recycler_item_mypage, parent, false)
-        mView.setOnClickListener { view ->
+        mView.setOnClickListener {
             mRecycler?.let {
             }
         }

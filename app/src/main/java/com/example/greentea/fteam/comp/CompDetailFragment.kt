@@ -57,7 +57,7 @@ class CompDetailFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         
         val view = inflater.inflate(R.layout.fragment_comp_detail, container, false)
-        view.setOnKeyListener { v, keyCode, event ->
+        view.setOnKeyListener { _, _, event ->
             if(event.keyCode == KeyEvent.KEYCODE_BACK){
                 if(event.action == KeyEvent.ACTION_UP){
                     fragmentManager!!.popBackStack()

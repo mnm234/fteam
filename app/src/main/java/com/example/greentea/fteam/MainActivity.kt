@@ -20,6 +20,7 @@ import android.R
 import android.media.Image
 import android.support.v4.widget.DrawerLayout
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -157,10 +158,11 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun openMenu(){
+    private fun openMenu(){
         val drawer = findViewById<DrawerLayout>(com.example.greentea.fteam.R.id.drawer_layout)
         drawer.openDrawer(GravityCompat.START)
     }
+
 //    fun goVideo(mCompID: String) {
 //        val intent = Intent(this, VideoActivity::class.java)
 //        intent.putExtra(COMP_ID_KEY, mCompID)
