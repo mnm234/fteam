@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
 import com.example.greentea.fteam.`object`.CompetitionObject
-import com.google.firebase.firestore.FirebaseFirestore
 
 class HotRecyclerAdapter(val context: Context?, objects: MutableList<CompetitionObject>, mCompID: MutableList<String>, val parent: MainActivity) : RecyclerView.Adapter<HotRecyclerViewHolder>(), View.OnClickListener {
 
@@ -77,7 +76,7 @@ class HotRecyclerAdapter(val context: Context?, objects: MutableList<Competition
 
 }
 
-class HotRecyclerViewHolder(view: View, NewArrivalsRecyclerAdapter: HotRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class HotRecyclerViewHolder(view: View, HotRecyclerAdapter: HotRecyclerAdapter) : RecyclerView.ViewHolder(view), View.OnClickListener {
     override fun onClick(v: View?) {
     }
 

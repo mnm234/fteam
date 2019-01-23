@@ -23,6 +23,7 @@ class CompDetailFragment : Fragment() {
     private lateinit var mCompID: String
     private lateinit var mCompName: String
     private val challengerList: MutableList<CompetitionDetailObject> = mutableListOf()
+    private val idList: MutableList<String> = mutableListOf()
     private lateinit var parent: MainActivity
     private lateinit var mAdapter: CompDetailRecyclerViewAdapter
     private var isInit = false
@@ -84,7 +85,7 @@ class CompDetailFragment : Fragment() {
                     compDetailRuleTextView.text = data?.rule
                 }
 
-        mAdapter = CompDetailRecyclerViewAdapter(context, challengerList, parent)
+        mAdapter = CompDetailRecyclerViewAdapter(context, challengerList, idList, parent)
         compDetailRecyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -117,6 +118,7 @@ class CompDetailFragment : Fragment() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         for (doc in task.result!!) {
+                            idList.add(doc.id)
                             challengerList.add(doc.toObject(CompetitionDetailObject::class.java))
                         }
 //                        compDetailRecyclerView.adapter = CompDetailRecyclerViewAdapter(context, challengerList, parent)

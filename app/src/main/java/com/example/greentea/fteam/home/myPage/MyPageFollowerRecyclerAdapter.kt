@@ -3,14 +3,12 @@ package com.example.greentea.fteam.home.myPage
 import android.content.Context
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
-import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.`object`.UserObject
 import com.google.firebase.firestore.FirebaseFirestore
 

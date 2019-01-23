@@ -28,16 +28,11 @@ import android.content.res.Configuration
 import android.graphics.Matrix
 import android.graphics.RectF
 import android.graphics.SurfaceTexture
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraCaptureSession
+import android.hardware.camera2.*
 import android.hardware.camera2.CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP
 import android.hardware.camera2.CameraCharacteristics.SENSOR_ORIENTATION
-import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraDevice.TEMPLATE_PREVIEW
 import android.hardware.camera2.CameraDevice.TEMPLATE_RECORD
-import android.hardware.camera2.CameraManager
-import android.hardware.camera2.CameraMetadata
-import android.hardware.camera2.CaptureRequest
 import android.media.MediaRecorder
 import android.os.*
 import android.support.v4.app.ActivityCompat
@@ -47,21 +42,20 @@ import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
-import android.view.LayoutInflater
-import android.view.Surface
-import android.view.TextureView
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.view.*
+import android.widget.Chronometer
+import android.widget.ImageButton
+import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import com.example.greentea.fteam.*
+import com.example.greentea.fteam.R
+import com.example.greentea.fteam.REQUEST_VIDEO_PERMISSIONS
+import com.example.greentea.fteam.VIDEO_PERMISSIONS
 import kotlinx.android.synthetic.main.fragment_video.*
 import java.io.IOException
+import java.util.*
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
-import java.text.SimpleDateFormat
-import java.util.*
 
 class VideoFragment : Fragment(), View.OnClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
@@ -263,10 +257,11 @@ class VideoFragment : Fragment(), View.OnClickListener,
     override fun onClick(view: View) {
         when (view.id) {
             R.id.video -> if (isRecordingVideo) stopRecordingVideo() else {
+                // 撮影開始
+                // その前に切り替えられなくするために消す
+                change_camera_imageView.visibility = View.GONE
                 // カウントダウン 単位はms 非同期で云々が少々面倒だったのでcountDownの関数内で呼ぶ仕様にした
-                // 可読性のためにstartRecordingVideo()はコメントで残しておく
                 countDown(3000, 1000, "startRecordingVideo")
-//                startRecordingVideo()
             }
             R.id.info -> {
                 if (activity != null) {

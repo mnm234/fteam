@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.greentea.fteam.*
 import com.example.greentea.fteam.`object`.CompetitionDetailObject
-import com.example.greentea.fteam.`object`.TimeLineObject
 import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException
@@ -140,14 +139,14 @@ class VideoUploadFragment : Fragment() {
      * @param mYouTubeVideoID 動画のID(https://youtu.be/xxxxxx)
      */
     private fun setFileData(mYouTubeVideoID: String) {
-        val tempVideoData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), mDuration, mYouTubeVideoID, mCompetitionName, Date())
+        val tempVideoData = CompetitionDetailObject("upload", SignInStatus.mUserID, uploadUserName.text.toString(), mDuration, mYouTubeVideoID, mCompetitionName, mCompetitionID, Date())
         val videoRef = mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
                 .collection("user")
                 .document()
         val compRef = mFirebaseFirestore.collection("competition")
                 .document(mCompetitionID)
-        mFirebaseFirestore.runTransaction {transaction ->
+        mFirebaseFirestore.runTransaction { transaction ->
             val compSnap = transaction.get(compRef)
             val incrementCount = compSnap.getDouble("challengerCount")!!.toInt() + 1
 

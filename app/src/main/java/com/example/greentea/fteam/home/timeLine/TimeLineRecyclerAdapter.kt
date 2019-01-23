@@ -70,7 +70,7 @@ class TimeLineRecyclerAdapter(val context: Context?, objects: MutableList<TimeLi
                 "create_comp" -> {
                     it.timelineText.text = "${listItems[position].username}さんが新しい競技【${listItems[position].compName}】を作成しました。"
                     Picasso.get()
-                            .load(R.drawable.ghost)
+                            .load(R.drawable.document_rule_book)
                             .placeholder(R.drawable.gradientbackground)
                             .into(it.timelineThumbnailImageView)
                 }

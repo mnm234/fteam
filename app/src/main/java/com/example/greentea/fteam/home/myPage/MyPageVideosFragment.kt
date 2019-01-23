@@ -4,14 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.greentea.fteam.MainActivity
 import com.example.greentea.fteam.R
-import com.example.greentea.fteam.`object`.CompetitionDetailObject
-import com.example.greentea.fteam.`object`.CompetitionObject
 import com.example.greentea.fteam.`object`.TimeLineObject
 import com.example.greentea.fteam.signIn.SignInStatus
 import com.google.firebase.firestore.FirebaseFirestore

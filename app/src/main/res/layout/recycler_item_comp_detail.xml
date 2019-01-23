@@ -17,6 +17,13 @@
             android:background="@color/bottom_navi_state_checked"
             android:radius="10dp"
             android:orientation="vertical">
+            <!--<Button-->
+                <!--android:id="@+id/comp_detail_delete_button"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="end"-->
+                <!--android:layout_marginEnd="5dp"-->
+                <!--android:text="消す"/>-->
 
             <ImageView
                 android:id="@+id/compDetailImageView"
