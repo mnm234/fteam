@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/gradientbackground"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
@@ -8,6 +9,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="centerInside"
-        android:src="@mipmap/no1"
+        android:src="@mipmap/engord_splash"
         />
 </LinearLayout>
