@@ -3,29 +3,29 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_sign_in"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/sign_in"
             android:title="Sign in" />
         <item
             android:id="@+id/nav_sign_out"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@mipmap/sign_out"
             android:title="Sign out" />
-        <item
-            android:id="@+id/nav_edit"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Edit" />
+        <!--<item-->
+            <!--android:id="@+id/nav_edit"-->
+            <!--android:icon="@drawable/ic_mode_edit_black_24dp"-->
+            <!--android:title="Edit" />-->
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@mipmap/ic_launcher"
-                android:title="Setting" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@mipmap/ic_launcher"
-                android:title="Help" />
-        </menu>
-    </item>
+    <!--<item android:title="Communicate">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_share"-->
+                <!--android:icon="@drawable/ic_settings_black_24dp"-->
+                <!--android:title="Setting" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_help_outline_black_24dp"-->
+                <!--android:title="Help" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>
