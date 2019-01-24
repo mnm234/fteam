@@ -215,9 +215,9 @@ class VideoUploadFragment : Fragment() {
             val snippet = VideoSnippet()
             val cal = Calendar.getInstance()
             // 動画タイトル
-            snippet.title = "Engord $mCompetitionName " + cal.time
+            snippet.title = "Engord $mCompetitionName "
             // 動画詳細
-            snippet.description = "From Engord " + cal.time
+            snippet.description = "From Engord"
             // タグ
             val tags = Arrays.asList("Engord", mCompetitionID)
             snippet.tags = tags
