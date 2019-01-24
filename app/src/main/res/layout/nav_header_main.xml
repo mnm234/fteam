@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
-        android:background="#777"
+        android:background="@drawable/gradientbackground"
         android:elevation="40dp"
         android:gravity="bottom"
         android:orientation="vertical"
@@ -22,15 +22,20 @@
             android:id="@+id/nav_header_imageView"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/sym_def_app_icon" />
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/engord_icon" />
 
         <TextView
             android:id="@+id/nav_header_name"
             android:layout_marginStart="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
             android:text="guest"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
