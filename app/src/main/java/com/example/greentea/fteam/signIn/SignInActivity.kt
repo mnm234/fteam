@@ -10,10 +10,13 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
         supportFragmentManager!!.beginTransaction()
                 .replace(R.id.sign_in_container, SignInFragment())
                 .commit()
     }
+
+
 
     fun onFinishActivity(){
         this@SignInActivity.finish()

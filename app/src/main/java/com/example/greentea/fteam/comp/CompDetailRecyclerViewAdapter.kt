@@ -146,5 +146,5 @@ class CompDetailRecyclerViewHolder(view: View, CompDetailRecyclerViewAdapter: Co
     val compDetailTimeTextView: TextView = view.findViewById(R.id.compDetailTimeTextView)
     val compDetailUserTextView: TextView = view.findViewById(R.id.compDetailUserTextView)
 
-    val compDetailDeleteButton: Button = view.findViewById(R.id.comp_detail_delete_button)
+//    val compDetailDeleteButton: Button = view.findViewById(R.id.comp_detail_delete_button)
 }
