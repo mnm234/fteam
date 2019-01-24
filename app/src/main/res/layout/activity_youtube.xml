@@ -34,6 +34,7 @@
         android:layout_height="match_parent"/>
 
     <ImageView
+        android:id="@+id/youtube_back_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:background="@drawable/ic_arrow_back_24dp"

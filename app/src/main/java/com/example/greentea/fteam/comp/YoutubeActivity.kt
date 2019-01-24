@@ -61,6 +61,9 @@ class YoutubeActivity : AppCompatActivity() {
         /** UI */
         player_comp.text = mCompName
         player_username.text = mUserName
+        youtube_back_button.setOnClickListener {
+            finish()
+        }
 
         /** タッチリスナーを無効化して操作できなくする */
         youtubeVideoView.setOnTouchListener { _, _ ->

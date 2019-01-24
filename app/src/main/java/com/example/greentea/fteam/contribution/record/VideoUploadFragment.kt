@@ -61,6 +61,7 @@ class VideoUploadFragment : Fragment() {
             bundle.putString(NAME_PATH_KEY, name)
             bundle.putString(COMP_ID_KEY, mCompID)
             bundle.putString(COMP_NAME_KEY, mCompName)
+
             videoUploadFragment.arguments = bundle
             return videoUploadFragment
         }
